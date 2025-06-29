@@ -37,4 +37,6 @@ include <pegstr.scad>
 
 // pin_extra_len = 3;
 
+// hook_size = 5;
+
 rotate([180, 0, 0]) pegstr();

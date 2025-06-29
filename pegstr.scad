@@ -64,6 +64,9 @@ board_thickness = 0;
 // AMC: longer pins, keeping board_thickness small
 pin_extra_len = 3;
 
+// AMC: smaller hook as they are fragile and only used for insertion, not strength
+hook_size = 5;
+
 holder_total_x = wall_thickness + holder_x_count * (wall_thickness + holder_x_size);
 holder_total_y = wall_thickness + holder_y_count * (wall_thickness + holder_y_size);
 holder_total_z = round(holder_height / hole_spacing) * hole_spacing;
@@ -142,7 +145,7 @@ module pin(clip) {
           rotate([0, 90, 0])
             rotate_extrude(convexity=5, $fn=20)
               translate([5, 0, 0])
-                circle(r=(hole_size * 0.95) / 2);
+                circle(r=(hook_size) / 2);
 
         translate([0, hole_size / 2 + 2 - 1.6, board_thickness / 2])
           rotate([45, 0, 0])
