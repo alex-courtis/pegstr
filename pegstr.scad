@@ -57,9 +57,12 @@ holder_angle = 0.0;
 holder_sides = max(50, min(20, holder_x_size * 2));
 
 // dimensions the same outside US?
-hole_spacing = 25.4;
-hole_size = 6; //6.0035;
-board_thickness = 5;
+hole_spacing = 25.0;
+hole_size = 5.8; //6.0035;
+board_thickness = 0;
+
+// AMC: longer pins, keeping board_thickness small
+pin_extra_len = 3;
 
 holder_total_x = wall_thickness + holder_x_count * (wall_thickness + holder_x_size);
 holder_total_y = wall_thickness + holder_y_count * (wall_thickness + holder_y_size);
@@ -127,9 +130,6 @@ module old_pin(clip) {
 }
 
 module pin(clip) {
-  rotate([0, 0, 15])
-    #cylinder(r=hole_size / 2, h=board_thickness * 1.5 + epsilon, center=true, $fn=12);
-
   if (clip) {
     //
     rotate([0, 0, 90])
@@ -149,6 +149,10 @@ module pin(clip) {
             translate([0, -0, hole_size * 0.6])
               cube([hole_size + 2 * epsilon, 3 * hole_size, hole_size], center=true);
       }
+  } else {
+    translate([0, 0, pin_extra_len / 2])
+      rotate([0, 0, 15])
+        #cylinder(r=hole_size / 2, h=board_thickness * 1.5 + epsilon + pin_extra_len, center=true, $fn=12);
   }
 }
 
