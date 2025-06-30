@@ -11,16 +11,16 @@
 // preview[view:north, tilt:bottom diagonal]
 
 // width of the orifice
-holder_x_size = 10;
+holder_x_size = 10; // 0.01
 
 // depth of the orifice
-holder_y_size = 10;
+holder_y_size = 10; // 0.01
 
 // hight of the holder
-holder_height = 15;
+holder_height = 15; // 0.01
 
 // how thick are the walls. Hint: 6*extrusion width produces the best results.
-wall_thickness = 1.85;
+wall_thickness = 1.85; // 0.01
 
 // how many times to repeat the holder on X axis
 holder_x_count = 1;
@@ -29,43 +29,45 @@ holder_x_count = 1;
 holder_y_count = 2;
 
 // orifice corner radius (roundness). Needs to be less than min(x,y)/2.
-corner_radius = 30;
+corner_radius = 30; // 0.01
 
 // Use values less than 1.0 to make the bottom of the holder narrow
-taper_ratio = 1.0;
+taper_ratio = 1.0; // 0.01
 
 /* [Advanced] */
 
 // offset from the peg board, typically 0 unless you have an object that needs clearance
-holder_offset = 0.0;
+holder_offset = 0.0; // 0.01
 
 // what ratio of the holders bottom is reinforced to the plate [0.0-1.0]
-strength_factor = 0.66;
+strength_factor = 0.66; // 0.01
 
 // for bins: what ratio of wall thickness to use for closing the bottom
-closed_bottom = 0.0;
+closed_bottom = 0.0; // 0.01
 
 // what percentage cu cut in the front (example to slip in a cable or make the tool snap from the side)
-holder_cutout_side = 0.0;
+holder_cutout_side = 0.0; // [0:0.01:100]
 
 // set an angle for the holder to prevent object from sliding or to view it better from the top
-holder_angle = 0.0;
+holder_angle = 0.0; // 0.01
 
 /* [Hidden] */
 
 // what is the $fn parameter
 holder_sides = max(50, min(20, holder_x_size * 2));
 
+/* [Pins] */
+
 // dimensions the same outside US?
-hole_spacing = 25.0;
-hole_size = 5.8; //6.0035;
-board_thickness = 0;
+hole_spacing = 25.0; // 0.01
+hole_size = 5.8; // 0.01
+board_thickness = 0; // 0.01
 
 // AMC: longer pins, keeping board_thickness small
-pin_extra_len = 3;
+pin_extra_len = 3; // 0.01
 
 // AMC: smaller hook as they are fragile and only used for insertion, not strength
-hook_size = 5;
+hook_size = 5; // 0.01
 
 holder_total_x = wall_thickness + holder_x_count * (wall_thickness + holder_x_size);
 holder_total_y = wall_thickness + holder_y_count * (wall_thickness + holder_y_size);
@@ -380,3 +382,6 @@ module pegstr() {
     holder(1);
   }
 }
+
+rotate([180, 0, 0])
+  pegstr();
