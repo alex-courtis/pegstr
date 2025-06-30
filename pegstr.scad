@@ -67,7 +67,7 @@ board_thickness = 0; // 0.01
 pin_extra_len = 3; // 0.01
 
 // AMC: smaller hook as they are fragile and only used for insertion, not strength
-hook_size = 5; // 0.01
+hook_size = 5.25; // 0.01
 
 holder_total_x = wall_thickness + holder_x_count * (wall_thickness + holder_x_size);
 holder_total_y = wall_thickness + holder_y_count * (wall_thickness + holder_y_size);
@@ -156,8 +156,8 @@ module pin(clip) {
       }
   } else {
     translate([0, 0, pin_extra_len / 2])
-      rotate([0, 0, 15])
-        #cylinder(r=hole_size / 2, h=board_thickness * 1.5 + epsilon + pin_extra_len, center=true, $fn=12);
+      rotate([0, 0, 30])
+        #cylinder(r=hole_size / 2, h=board_thickness * 1.5 + epsilon + pin_extra_len, center=true, $fn=6);
   }
 }
 
@@ -375,7 +375,7 @@ module pegstr() {
         holder(2);
       }
 
-      color([0, 0, 0])
+      color(c = "orange")
         pinboard_clips();
     }
 
