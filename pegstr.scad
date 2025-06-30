@@ -8,6 +8,8 @@
 // November 28th 2014
 //		- bug fixes
 
+comments = "";
+
 // preview[view:north, tilt:bottom diagonal]
 
 // width of the orifice

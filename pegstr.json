@@ -3,6 +3,7 @@
         "nut driver 13mm": {
             "board_thickness": "0",
             "closed_bottom": "0",
+            "comments": "filament: P1S eSUN PLA+\nprocess: P1S eSUN PLA+\nstrength: wall loops: 6\nsupport: tree, auto, ensure multiple trunks\nsupport: no remove small overhangs\n",
             "corner_radius": "30",
             "epsilon": "0.1",
             "fn": "32",
