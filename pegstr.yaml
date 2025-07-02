@@ -3,14 +3,12 @@ parameterSets:
     board_thickness: "0"
     closed_bottom: "0"
     comments: |-
+      caliper.scad
       filament: P1S eSUN PLA-HS
       process: P1S eSUN PLA-HS
-      
       strength: wall loops: 6
       support: normal grid
       support: no remove small overhangs
-      
-      add tongue for wheel: caliper.scad
     corner_radius: "1"
     epsilon: "0.1"
     fn: "32"
@@ -33,14 +31,12 @@ parameterSets:
     board_thickness: "0"
     closed_bottom: "0"
     comments: |-
+      nut-drivers.scad
       filament: P1S eSUN PLA+
       process: P1S eSUN PLA+
-
       strength: wall loops: 5
       support: normal grid
       support: no remove small overhangs
-
-      manually create holes: nut-drivers.scad
     corner_radius: "30"
     epsilon: "0.1"
     fn: "32"

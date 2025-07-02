@@ -3,7 +3,7 @@
         "caliper": {
             "board_thickness": "0",
             "closed_bottom": "0",
-            "comments": "filament: P1S eSUN PLA-HS\nprocess: P1S eSUN PLA-HS\n\nstrength: wall loops: 6\nsupport: normal grid\nsupport: no remove small overhangs\n\nadd tongue for wheel: caliper.scad",
+            "comments": "caliper.scad\nfilament: P1S eSUN PLA-HS\nprocess: P1S eSUN PLA-HS\nstrength: wall loops: 6\nsupport: normal grid\nsupport: no remove small overhangs",
             "corner_radius": "1",
             "epsilon": "0.1",
             "fn": "32",
@@ -26,7 +26,7 @@
         "nut drivers": {
             "board_thickness": "0",
             "closed_bottom": "0",
-            "comments": "filament: P1S eSUN PLA+\nprocess: P1S eSUN PLA+\nstrength: wall loops: 5\nsupport: normal grid\nsupport: no remove small overhangs\n\nmanually create holes: nut-drivers.scad",
+            "comments": "nut-drivers.scad\nfilament: P1S eSUN PLA+\nprocess: P1S eSUN PLA+\nstrength: wall loops: 5\nsupport: normal grid\nsupport: no remove small overhangs",
             "corner_radius": "30",
             "epsilon": "0.1",
             "fn": "32",
