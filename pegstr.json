@@ -1,32 +1,9 @@
 {
     "parameterSets": {
-        "nut driver 13mm": {
-            "board_thickness": "0",
-            "closed_bottom": "0",
-            "comments": "filament: P1S eSUN PLA+\nprocess: P1S eSUN PLA+\nstrength: wall loops: 6\nsupport: tree, auto, ensure multiple trunks\nsupport: no remove small overhangs\n",
-            "corner_radius": "30",
-            "epsilon": "0.1",
-            "fn": "32",
-            "holder_angle": "0",
-            "holder_cutout_side": "0",
-            "holder_height": "62.49",
-            "holder_offset": "7",
-            "holder_x_count": "1",
-            "holder_x_size": "20",
-            "holder_y_count": "1",
-            "holder_y_size": "20",
-            "hole_size": "5.8",
-            "hole_spacing": "25",
-            "hook_size": "5.25",
-            "pin_extra_len": "3",
-            "strength_factor": "0.66",
-            "taper_ratio": "0.925",
-            "wall_thickness": "1"
-        },
         "caliper": {
             "board_thickness": "0",
             "closed_bottom": "0",
-            "comments": "\/\/ filament: P1S eSUN PLA-HS\n\/\/ process: P1S eSUN PLA-HS\n\/\/\n\/\/ strength: wall loops: 6\n\/\/ support: normal grid\n\/\/ support: no remove small overhangs\n\/\/\n\/\/ add tongue for wheel: translate(v=[-16 + 2.0 \/ 2, 0, -13.7]) cube([2.0 * 3, 12, 24], center=true);",
+            "comments": "filament: P1S eSUN PLA-HS\nprocess: P1S eSUN PLA-HS\n\nstrength: wall loops: 6\nsupport: normal grid\nsupport: no remove small overhangs\n\nadd tongue for wheel: caliper.scad",
             "corner_radius": "1",
             "epsilon": "0.1",
             "fn": "32",
@@ -49,7 +26,7 @@
         "nut drivers": {
             "board_thickness": "0",
             "closed_bottom": "0",
-            "comments": "",
+            "comments": "filament: P1S eSUN PLA+\nprocess: P1S eSUN PLA+\nstrength: wall loops: 5\nsupport: normal grid\nsupport: no remove small overhangs\n\nmanually create holes: nut-drivers.scad",
             "corner_radius": "30",
             "epsilon": "0.1",
             "fn": "32",

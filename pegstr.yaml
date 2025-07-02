@@ -1,0 +1,62 @@
+parameterSets:
+  caliper:
+    board_thickness: "0"
+    closed_bottom: "0"
+    comments: |-
+      filament: P1S eSUN PLA-HS
+      process: P1S eSUN PLA-HS
+      
+      strength: wall loops: 6
+      support: normal grid
+      support: no remove small overhangs
+      
+      add tongue for wheel: caliper.scad
+    corner_radius: "1"
+    epsilon: "0.1"
+    fn: "32"
+    holder_angle: "0"
+    holder_cutout_side: "0"
+    holder_height: "40"
+    holder_offset: "16"
+    holder_x_count: "1"
+    holder_x_size: "17"
+    holder_y_count: "1"
+    holder_y_size: "7"
+    hole_size: "5.8"
+    hole_spacing: "25"
+    hook_size: "5.25"
+    pin_extra_len: "4"
+    strength_factor: "0"
+    taper_ratio: "1"
+    wall_thickness: "2"
+  nut drivers:
+    board_thickness: "0"
+    closed_bottom: "0"
+    comments: |-
+      filament: P1S eSUN PLA+
+      process: P1S eSUN PLA+
+
+      strength: wall loops: 5
+      support: normal grid
+      support: no remove small overhangs
+
+      manually create holes: nut-drivers.scad
+    corner_radius: "30"
+    epsilon: "0.1"
+    fn: "32"
+    holder_angle: "0"
+    holder_cutout_side: "0"
+    holder_height: "62.49"
+    holder_offset: "0"
+    holder_x_count: "7"
+    holder_x_size: "29"
+    holder_y_count: "1"
+    holder_y_size: "29"
+    hole_size: "5.8"
+    hole_spacing: "25"
+    hook_size: "5.25"
+    pin_extra_len: "3"
+    strength_factor: "0.45"
+    taper_ratio: "0.925"
+    wall_thickness: "1.05"
+fileFormatVersion: "1"

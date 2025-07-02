@@ -12,6 +12,7 @@ difference() {
       }
     }
 
+    // exact sized holes for 30mm handles
     color(c="blue") {
       translate(v=[-holder_x_size / 2 - wall_thickness, -90, holder_height / 2 - hole_size - 1]) cylinder(h=holder_height, d1=10.75, d2=10.00, center=true);
 
@@ -26,12 +27,13 @@ difference() {
       translate(v=[-holder_x_size / 2 - wall_thickness, +60, holder_height / 2 - hole_size - 1]) cylinder(h=holder_height, d1=17.00, d2=15.80, center=true);
     }
 
+    // 33mm handle offset
     color(c="green") {
       translate(v=[-holder_x_size / 2 - wall_thickness, +93, holder_height / 2 - hole_size - 1]) cylinder(h=holder_height, d1=20, d2=18.6, center=true);
     }
   }
 
-  // slice the top off
+  // slice the top off for a proper base
   color(c="black") {
     translate(v=[-holder_y_size / 2, 0, -7.1])
       cube(size=[holder_y_size * 2, (holder_x_count + 1) * holder_x_size, 1], center=true);
