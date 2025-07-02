@@ -49,7 +49,7 @@ closed_bottom = 0.0; // [0:0.01:1]
 holder_cutout_side = 0.0; // [0:0.1:5]
 
 // set an angle for the holder to prevent object from sliding or to view it better from the top
-holder_angle = 0.0; // [0:0.01:90]
+holder_angle = 0.0; // [-15:0.01:0]
 
 // pin diameter
 hole_size = 5.8; // [0:0.01:10]
@@ -377,7 +377,7 @@ module pegstr() {
         holder(2);
       }
 
-      color(c = "orange")
+      color(c="orange")
         pinboard_clips();
     }
 
