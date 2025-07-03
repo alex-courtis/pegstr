@@ -385,5 +385,20 @@ module pegstr() {
   }
 }
 
-rotate([180, 0, 0])
-  pegstr();
+difference() {
+  rotate([180, 0, 0])
+    pegstr();
+
+  // slice the top off for a proper base
+  // TODO proper y and figure out what the magic 7.39 is
+  color(c="black") {
+    translate(v=[-holder_y_size, 0, -7.39])
+      cube(
+        size=[
+          2 * (holder_y_size + wall_thickness * 2 + holder_offset),
+          (holder_x_size + wall_thickness) * holder_x_count + wall_thickness,
+          1,
+        ], center=true
+      );
+  }
+}
