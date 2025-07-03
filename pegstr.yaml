@@ -1,3 +1,4 @@
+fileFormatVersion: "1"
 parameterSets:
   caliper:
     board_thickness: "0"
@@ -10,8 +11,6 @@ parameterSets:
       support: normal grid
       support: no remove small overhangs
     corner_radius: "1"
-    epsilon: "0.1"
-    fn: "32"
     holder_angle: "0"
     holder_cutout_side: "0"
     holder_height: "40"
@@ -38,8 +37,6 @@ parameterSets:
       support: normal grid
       support: no remove small overhangs
     corner_radius: "30"
-    epsilon: "0.1"
-    fn: "32"
     holder_angle: "0"
     holder_cutout_side: "0"
     holder_height: "62.49"
@@ -55,4 +52,3 @@ parameterSets:
     strength_factor: "0.45"
     taper_ratio: "0.925"
     wall_thickness: "1.05"
-fileFormatVersion: "1"

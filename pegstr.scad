@@ -34,7 +34,7 @@ holder_y_count = 2; // [1:10]
 corner_radius = 30; // [0:0.01:60]
 
 // Use values less than 1.0 to make the bottom of the holder narrow
-taper_ratio = 1.0; // [0:0.01:1]
+taper_ratio = 1.0; // [0:0.005:1]
 
 // offset from the peg board, typically 0 unless you have an object that needs clearance
 holder_offset = 0.0; // [0:0.01:50]

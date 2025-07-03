@@ -1,12 +1,11 @@
 {
+    "fileFormatVersion": "1",
     "parameterSets": {
         "caliper": {
             "board_thickness": "0",
             "closed_bottom": "0",
             "comments": "caliper.scad\nfilament: P1S eSUN PLA-HS\nprocess: P1S eSUN PLA-HS\nstrength: wall loops: 6\nsupport: normal grid\nsupport: no remove small overhangs",
             "corner_radius": "1",
-            "epsilon": "0.1",
-            "fn": "32",
             "holder_angle": "0",
             "holder_cutout_side": "0",
             "holder_height": "40",
@@ -28,8 +27,6 @@
             "closed_bottom": "0",
             "comments": "nut-drivers.scad\nfilament: P1S eSUN PLA+\nprocess: P1S eSUN PLA+\nstrength: wall loops: 5\nsupport: normal grid\nsupport: no remove small overhangs",
             "corner_radius": "30",
-            "epsilon": "0.1",
-            "fn": "32",
             "holder_angle": "0",
             "holder_cutout_side": "0",
             "holder_height": "62.49",
@@ -46,6 +43,5 @@
             "taper_ratio": "0.925",
             "wall_thickness": "1.05"
         }
-    },
-    "fileFormatVersion": "1"
+    }
 }
