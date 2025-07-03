@@ -42,6 +42,27 @@
             "strength_factor": "0.45",
             "taper_ratio": "0.925",
             "wall_thickness": "1.05"
+        },
+        "nut drivers small": {
+            "board_thickness": "0",
+            "closed_bottom": "0",
+            "comments": "filament: P1S eSUN PLA+\nprocess: P1S eSUN PLA+\nstrength: wall loops: 4\nsupport: normal grid\nsupport: no remove small overhangs",
+            "corner_radius": "30",
+            "holder_angle": "0",
+            "holder_cutout_side": "0",
+            "holder_height": "56",
+            "holder_offset": "0",
+            "holder_x_count": "4",
+            "holder_x_size": "10",
+            "holder_y_count": "1",
+            "holder_y_size": "10",
+            "hole_size": "5.9",
+            "hole_spacing": "25",
+            "hook_size": "5.35",
+            "pin_extra_len": "3",
+            "strength_factor": "0",
+            "taper_ratio": "0.95",
+            "wall_thickness": "8"
         }
     }
 }
