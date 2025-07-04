@@ -11,10 +11,10 @@
 // preview[view:north, tilt:bottom diagonal]
 
 // width of the orifice
-holder_x_size = 10; // [1:0.01:40]
+holder_x_size = 100; // [1:0.01:40]
 
 // depth of the orifice
-holder_y_size = 10; // [1:0.01:40]
+holder_y_size = 100; // [1:0.01:40]
 
 // hight of the holder
 holder_height = 15; // [1:0.01:120]
