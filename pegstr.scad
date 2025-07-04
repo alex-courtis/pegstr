@@ -389,16 +389,30 @@ difference() {
   rotate([180, 0, 0])
     pegstr();
 
-  // slice the top off for a proper base
-  // TODO proper y and figure out what the magic 7.39 is
-  color(c="black") {
-    translate(v=[-holder_y_size, 0, -7.39])
-      cube(
-        size=[
-          2 * (holder_y_size + wall_thickness * 2 + holder_offset),
-          (holder_x_size + wall_thickness) * holder_x_count + wall_thickness,
-          1,
-        ], center=true
-      );
+  // Slice the top off for a flat printing base.
+  {
+    // hook has an extra 2 hardcoded
+    hook_radius = clip_height + 2;
+
+    echo(clip_height=clip_height);
+    echo(hook_radius=hook_radius);
+
+    // "y" params and hooks
+    x = holder_offset + (holder_y_size + wall_thickness) * holder_y_count + wall_thickness + hook_radius / 2;
+
+    // "x" params
+    y = (holder_x_size + wall_thickness) * holder_x_count + wall_thickness;
+
+    echo(x=x);
+    echo(y=y);
+
+    // TODO find out what this magic is.
+    // Setting epsilon to 0 seems to make everything line up.
+    magic = -hook_radius / 2 + 0.5 + epsilon / 2;
+    echo(magic=magic);
+
+    color(c="black")
+      translate(v=[-x / 2 + hook_radius / 2, 0, magic])
+        cube(size=[x, y, 1], center=true);
   }
 }
