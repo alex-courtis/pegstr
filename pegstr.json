@@ -63,6 +63,27 @@
             "strength_factor": "0",
             "taper_ratio": "0.95",
             "wall_thickness": "8"
+        },
+        "pen holders small": {
+            "board_thickness": "0",
+            "closed_bottom": "1",
+            "comments": "filament: P1S eSUN PLA-HS\nprocess: Generic PLA-HS\nstrength: wall loops: 5\nsupport: normal manual\nsupport: no remove small overhangs\n  print on base\n  paint pegs and hooks",
+            "corner_radius": "30",
+            "holder_angle": "0",
+            "holder_cutout_side": "0.35",
+            "holder_height": "62.45",
+            "holder_offset": "1",
+            "holder_x_count": "10",
+            "holder_x_size": "12.5",
+            "holder_y_count": "1",
+            "holder_y_size": "12.5",
+            "hole_size": "5.95",
+            "hole_spacing": "25",
+            "hook_size": "5.40",
+            "pin_extra_len": "4",
+            "strength_factor": "0.65",
+            "taper_ratio": "1",
+            "wall_thickness": "1"
         }
     }
 }
