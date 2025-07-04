@@ -401,7 +401,7 @@ difference() {
     x = holder_offset + (holder_y_size + wall_thickness) * holder_y_count + wall_thickness + hook_radius / 2;
 
     // "x" params
-    y = (holder_x_size + wall_thickness) * holder_x_count + wall_thickness;
+    y = (holder_x_size + wall_thickness) * holder_x_count + wall_thickness + hole_spacing;
 
     echo(x=x);
     echo(y=y);
