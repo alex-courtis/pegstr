@@ -1,15 +1,17 @@
 difference() {
-  rotate([180, 0, 0])
-    pegstr();
+  union() {
+    rotate([180, 0, 0])
+      pegstr();
 
-  // taper the sides to make insertion a bit easier
-  color(c="green")
-    translate(v=[-holder_offset - wall_thickness, 0, -hole_size])
-      rotate(a=35, v=[0, -1, 0])
-        cube([wall_thickness, holder_x_size, holder_y_size], center=true);
+    // 14mm standoff in front to avoid wheel
+    color(c="red")
+      translate(v=[-holder_offset - holder_y_size - wall_thickness * 1.5, 0, -14.7])
+        cube([wall_thickness * 1, 14, 22], center=true);
+  }
+
+  // drill a hole with snug fit for the bottom half
+  // 16.3 x 6.05
+  color(c="green", alpha=0.5)
+    translate(v=[-holder_offset - wall_thickness - holder_y_size / 2, 0, 0])
+      cube([6.05, 16.3, holder_height * 2], center=true);
 }
-
-// 14mm standoff in front to avoid wheel
-color(c="red")
-  translate(v=[-holder_offset - holder_y_size - wall_thickness * 1.5, 0, -13.7])
-    cube([wall_thickness * 1, 14, 24], center=true);
