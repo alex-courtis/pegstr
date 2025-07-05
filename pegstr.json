@@ -105,6 +105,27 @@
             "strength_factor": "0.65",
             "taper_ratio": "1",
             "wall_thickness": "1"
+        },
+        "driver bits": {
+            "board_thickness": "0",
+            "closed_bottom": "1",
+            "comments": "manually set holder_sides = 6\n1/4 inch across = 6.34\n37/128 inch diam = 7.3421875\n25.4 / 4 * 2 / sqrt(3) = 7.33234841870824720926\n25.4 / 4 * 2 / sqrt(3) * 1.025 = 7.51565712917595338949\nfilament: P1S eSUN PLA-HS\nprocess: P1S eSUN PLA-HS\nstrength: wall loops: 5\nsupport: normal manual\nsupport: paint just pegs/clips",
+            "corner_radius": "30",
+            "holder_angle": "0",
+            "holder_cutout_side": "0",
+            "holder_height": "12",
+            "holder_offset": "0",
+            "holder_x_count": "3",
+            "holder_x_size": "7.5",
+            "holder_y_count": "3",
+            "holder_y_size": "7.5",
+            "hole_size": "5.95",
+            "hole_spacing": "25",
+            "hook_size": "5.40",
+            "pin_extra_len": "4",
+            "strength_factor": "1",
+            "taper_ratio": "1",
+            "wall_thickness": "3.74"
         }
     }
 }

@@ -47,7 +47,7 @@ closed_bottom = 0.0; // [0:0.01:1]
 holder_cutout_side = 0.0; // [0:0.01:5]
 
 // set an angle for the holder to prevent object from sliding or to view it better from the top
-holder_angle = 0.0; // [-15:0.01:0]
+holder_angle = 0.0; // [-30:0.01:30]
 
 // pin diameter
 hole_size = 5.95; // [0:0.01:10]
