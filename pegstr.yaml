@@ -159,3 +159,30 @@ parameterSets:
     strength_factor: "1"
     taper_ratio: "1"
     wall_thickness: "3.74"
+  pen holders tiny:
+    board_thickness: "0"
+    closed_bottom: "1"
+    comments: |-
+      filament: P1S eSUN PLA+
+      process: P1S eSUN PLA+
+      strength: wall loops: 5
+      support: normal manual
+      support: no remove small overhangs
+        print on base
+        paint pegs and hooks
+    corner_radius: "30"
+    holder_angle: "0"
+    holder_cutout_side: "0.35"
+    holder_height: "62.45"
+    holder_offset: "1"
+    holder_x_count: "5"
+    holder_x_size: "9"
+    holder_y_count: "1"
+    holder_y_size: "9"
+    hole_size: "5.95"
+    hole_spacing: "25"
+    hook_size: "5.40"
+    pin_extra_len: "4"
+    strength_factor: "0.65"
+    taper_ratio: "1"
+    wall_thickness: "1"
