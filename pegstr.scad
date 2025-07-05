@@ -20,7 +20,7 @@ holder_y_size = 10; // [1:0.01:100]
 holder_height = 15; // [1:0.01:120]
 
 // how thick are the walls. Hint: 6*extrusion width produces the best results.
-wall_thickness = 1.85; // [1:0.01:20]
+wall_thickness = 1.85; // [0:0.01:20]
 
 // how many times to repeat the holder on X axis
 holder_x_count = 1; // [1:20]
