@@ -56,9 +56,10 @@ support: no remove small overhangs
 
 manually set holder_sides = 6
 
-filament: P1S eSUN PLA-HS
-process: P1S eSUN PLA-HS
-strength: wall loops: 5
+filament: P1S eSUN ABS+
+process: P1S eSUN ABS+
+strength: wall loops: 6
+strength: bottom shell layers: 6
 support: normal manual
 support: paint just pegs/clips
 
