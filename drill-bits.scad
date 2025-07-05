@@ -1,6 +1,9 @@
 // multiply by bit size for the hole diameter
 hole_wiggle = 1.01;
 
+// constant depth and extra diameter
+countersink = 0.25;
+
 // back to front, left to right
 bits = [
   [
@@ -30,6 +33,9 @@ union() {
   for (row = [0:1:len(bits) - 1]) {
     for (col = [0:1:holder_x_count - 1]) {
 
+      d = bits[row][col][0];
+      l = bits[row][col][1];
+
       translate(
         v=[
           -holder_offset - holder_y_size / 2 - wall_thickness - row * (holder_y_size + wall_thickness),
@@ -40,12 +46,17 @@ union() {
         difference() {
 
           // fill in the holes
+          color(c="blue")
           cylinder(h=holder_height, d=holder_x_size + wall_thickness, center=true, $fn=holder_sides);
 
           // specific size hole
           color(c="red")
             translate(v=[0, 0, -holder_height / 2])
-              cylinder(h=bits[row][col][1], d=bits[row][col][0] * 1.01, center=true, $fn=holder_sides * 2);
+              cylinder(h=l, d=d * hole_wiggle, center=true, $fn=holder_sides * 2);
+          // countersink
+          color(c="green")
+            translate(v=[0, 0, -(holder_height - countersink) / 2])
+              cylinder(h=countersink, d1=d + countersink, d2=d * hole_wiggle, center=true, $fn=holder_sides * 2);
         }
       }
     }
