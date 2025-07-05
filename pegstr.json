@@ -4,7 +4,6 @@
         "caliper": {
             "board_thickness": "0",
             "closed_bottom": "0",
-            "comments": "caliper.scad\nfilament: P1S eSUN PLA+\nprocess: P1S eSUN PLA+\nstrength: wall loops: 6\nsupport: snug grid\nsupport: no remove small overhangs",
             "corner_radius": "0",
             "holder_angle": "0",
             "holder_cutout_side": "0",
@@ -25,7 +24,6 @@
         "nut drivers": {
             "board_thickness": "0",
             "closed_bottom": "0",
-            "comments": "nut-drivers.scad\nfilament: P1S eSUN PLA+\nprocess: P1S eSUN PLA+\nstrength: wall loops: 5\nsupport: normal grid\nsupport: no remove small overhangs",
             "corner_radius": "30",
             "holder_angle": "0",
             "holder_cutout_side": "0",
@@ -46,7 +44,6 @@
         "nut drivers small": {
             "board_thickness": "0",
             "closed_bottom": "0",
-            "comments": "filament: P1S eSUN PLA+\nprocess: P1S eSUN PLA+\nstrength: wall loops: 4\nsupport: normal grid auto\nsupport: no remove small overhangs",
             "corner_radius": "30",
             "holder_angle": "0",
             "holder_cutout_side": "0",
@@ -67,7 +64,6 @@
         "pen holders small": {
             "board_thickness": "0",
             "closed_bottom": "1",
-            "comments": "filament: P1S eSUN PLA-HS\nprocess: Generic PLA-HS\nstrength: wall loops: 5\nsupport: normal manual\nsupport: no remove small overhangs\n  print on base\n  paint pegs and hooks",
             "corner_radius": "30",
             "holder_angle": "0",
             "holder_cutout_side": "0.35",
@@ -88,7 +84,6 @@
         "pen holders large": {
             "board_thickness": "0",
             "closed_bottom": "1",
-            "comments": "filament: P1S eSUN PLA-HS\nprocess: P1S eSUN PLA-HS\nstrength: wall loops: 5\nsupport: normal manual\nsupport: no remove small overhangs",
             "corner_radius": "30",
             "holder_angle": "0",
             "holder_cutout_side": "0.35",
@@ -109,7 +104,6 @@
         "driver bits": {
             "board_thickness": "0",
             "closed_bottom": "1",
-            "comments": "manually set holder_sides = 6\n1\/4 inch across = 6.34\n37\/128 inch diam = 7.3421875\n25.4 \/ 4 * 2 \/ sqrt(3) = 7.33234841870824720926\n25.4 \/ 4 * 2 \/ sqrt(3) * 1.025 = 7.51565712917595338949\nfilament: P1S eSUN PLA-HS\nprocess: P1S eSUN PLA-HS\nstrength: wall loops: 5\nsupport: normal manual\nsupport: paint just pegs\/clips",
             "corner_radius": "30",
             "holder_angle": "0",
             "holder_cutout_side": "0",
@@ -130,7 +124,6 @@
         "pen holders tiny": {
             "board_thickness": "0",
             "closed_bottom": "1",
-            "comments": "filament: P1S eSUN PLA+\nprocess: P1S eSUN PLA+\nstrength: wall loops: 5\nsupport: normal manual\nsupport: no remove small overhangs\n  print on base\n  paint pegs and hooks",
             "corner_radius": "30",
             "holder_angle": "0",
             "holder_cutout_side": "0.35",
@@ -151,7 +144,6 @@
         "drill bits": {
             "board_thickness": "0",
             "closed_bottom": "0",
-            "comments": "drill-bits.scad\nfilament: P1S eSUN ABS+\nprocess: P1S eSUN ABS+\nstrength: wall loops: 4\nsupport: normal manual\nsupport: no remove small overhangs\n  paint pegs and hooks",
             "corner_radius": "30",
             "holder_angle": "0",
             "holder_cutout_side": "0",

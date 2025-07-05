@@ -64,8 +64,6 @@ board_thickness = 0; // [0:0.01:10]
 // longer pins for board_thickness 0
 pin_extra_len = 4; // [0:0.01:5]
 
-comments = "";
-
 /* [Hidden] */
 
 // what is the $fn parameter
