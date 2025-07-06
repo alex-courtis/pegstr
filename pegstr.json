@@ -150,16 +150,16 @@
             "holder_height": "52",
             "holder_offset": "3",
             "holder_x_count": "7",
-            "holder_x_size": "7",
+            "holder_x_size": "19",
             "holder_y_count": "2",
-            "holder_y_size": "7",
+            "holder_y_size": "19",
             "hole_size": "5.78",
             "hole_spacing": "25",
             "hook_size": "5.25",
             "pin_extra_len": "3",
             "strength_factor": "0",
             "taper_ratio": "1",
-            "wall_thickness": "0.5"
+            "wall_thickness": "0.56000000000000005"
         }
     }
 }
