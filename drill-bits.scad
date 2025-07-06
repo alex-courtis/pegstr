@@ -27,8 +27,7 @@ bits = [
 ];
 
 union() {
-  rotate([180, 0, 0])
-    pegstr();
+  pegstr();
 
   for (row = [0:1:len(bits) - 1]) {
     for (col = [0:1:holder_x_count - 1]) {
@@ -47,7 +46,7 @@ union() {
 
           // fill in the holes
           color(c="blue")
-          cylinder(h=holder_height, d=holder_x_size + wall_thickness, center=true, $fn=holder_sides);
+            cylinder(h=holder_height, d=holder_x_size + wall_thickness, center=true, $fn=holder_sides);
 
           // specific size hole
           color(c="red")

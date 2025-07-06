@@ -1,8 +1,7 @@
 difference() {
   difference() {
     union() {
-      rotate([180, 0, 0])
-        pegstr();
+      pegstr();
 
       // fill in the holes
       color(c="red") {
@@ -31,11 +30,5 @@ difference() {
     color(c="green") {
       translate(v=[-holder_x_size / 2 - wall_thickness, +93, holder_height / 2 - hole_size - 1]) cylinder(h=holder_height, d1=20, d2=18.6, center=true);
     }
-  }
-
-  // slice the top off for a proper base
-  color(c="black") {
-    translate(v=[-holder_y_size / 2, 0, -7.1])
-      cube(size=[holder_y_size * 2, (holder_x_count + 1) * holder_x_size, 1], center=true);
   }
 }

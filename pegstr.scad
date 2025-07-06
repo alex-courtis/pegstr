@@ -64,6 +64,12 @@ board_thickness = 0; // [0:0.01:10]
 // longer pins for board_thickness 0
 pin_extra_len = 4; // [0:0.01:5]
 
+// flatten the top between pins and front, always equal z
+shave_top = "difference"; // [difference,intersection,none]
+
+// flatten more if needed
+shave_extra = 0; // [0:0.001:2]
+
 /* [Hidden] */
 
 // what is the $fn parameter
@@ -340,7 +346,7 @@ module holder(negative) {
   // for X
 }
 
-module pegstr() {
+module build() {
   difference() {
     union() {
 
@@ -383,34 +389,43 @@ module pegstr() {
   }
 }
 
-difference() {
-  rotate([180, 0, 0])
-    pegstr();
+module shave() {
+  // confirmed by measuring
 
-  // Slice the top off for a flat printing base.
-  {
-    // hook has an extra 2 hardcoded
-    hook_radius = clip_height + 2;
+  // extra epsilon to depth
+  x = holder_total_y + epsilon + clip_height;
+  dx = -x / 2 + epsilon + clip_height;
 
-    echo(clip_height=clip_height);
-    echo(hook_radius=hook_radius);
+  y = holder_total_x * (holder_x_count + 1) / holder_x_count;
+  dy = 0;
 
-    // "y" params and hooks
-    x = holder_offset + (holder_y_size + wall_thickness) * holder_y_count + wall_thickness + hook_radius / 2;
+  // clip top and front top are equal; shave off the middle
+  z = 1 + shave_extra;
+  dz = -z / 2 - clip_height / 2 + shave_extra;
 
-    // "x" params
-    y = (holder_x_size + wall_thickness) * holder_x_count + wall_thickness + hole_spacing;
+  color(c="black")
+    translate(v=[dx, dy, dz])
+      cube(size=[x, y, z], center=true);
+}
 
-    echo(x=x);
-    echo(y=y);
-
-    // TODO find out what this magic is.
-    // Setting epsilon to 0 seems to make everything line up.
-    magic = -hook_radius / 2 + 0.5 + epsilon / 2;
-    echo(magic=magic);
-
-    color(c="black")
-      translate(v=[-x / 2 + hook_radius / 2, 0, magic])
-        cube(size=[x, y, 1], center=true);
+module pegstr() {
+  if (shave_top == "difference") {
+    difference() {
+      rotate([180, 0, 0]) build();
+      shave();
+    }
+  } else if (shave_top == "intersection") {
+    intersection() {
+      rotate([180, 0, 0]) build();
+      shave();
+    }
+  } else {
+    rotate([180, 0, 0]) build();
   }
 }
+
+pegstr();
+
+// include <caliper.scad>
+// include <drill-bits.scad>
+// include <nut-drivers.scad>

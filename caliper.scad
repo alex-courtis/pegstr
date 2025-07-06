@@ -1,7 +1,6 @@
 difference() {
   union() {
-    rotate([180, 0, 0])
-      pegstr();
+    pegstr();
 
     // 14mm standoff in front to avoid wheel
     color(c="red")
