@@ -1,9 +1,8 @@
-// by row
 // add to hole diameter
-hole_wiggle = 0.3;
+hole_wiggle = 0.5;
 
-// add to diameter with depth
-countersink = 1;
+// add to diameter and twice depth
+countersink = 1.25;
 
 // flip to generate just text
 render_text = true;
