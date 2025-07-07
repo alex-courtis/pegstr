@@ -393,7 +393,7 @@ module shave() {
   // confirmed by measuring
 
   // extra epsilon to depth
-  x = holder_total_y + epsilon + clip_height;
+  x = holder_total_y + epsilon + clip_height + wall_thickness;
   dx = -x / 2 + epsilon + clip_height;
 
   y = holder_total_x * (holder_x_count + 1) / holder_x_count;
