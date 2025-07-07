@@ -5,10 +5,10 @@ module bin_interior(x, y) {
     v=[
       -holder_offset - holder_y_size / 2 - wall_thickness - (holder_y_size + wall_thickness) * y,
       -(holder_x_size + wall_thickness) * holder_x_count / 2 + (x + 0.5) * (holder_x_size + wall_thickness),
-      (holder_height - clip_height - wall_thickness) / 2,
+      (holder_height - clip_height - closed_bottom * wall_thickness + epsilon) / 2,
     ]
   )
-    cube([holder_y_size, holder_x_size, holder_height - wall_thickness], center=true);
+    cube([holder_y_size, holder_x_size, holder_height - closed_bottom * wall_thickness+ epsilon], center=true);
 }
 
 difference() {

@@ -41,7 +41,7 @@ holder_offset = 0.0; // [0:0.01:50]
 strength_factor = 0.66; // [0:0.01:1]
 
 // for bins: what ratio of wall thickness to use for closing the bottom
-closed_bottom = 0.0; // [0:0.01:1]
+closed_bottom = 0.0; // [0:0.01:5]
 
 // what percentage cut in the front (example to slip in a cable or make the tool snap from the side)
 holder_cutout_side = 0.0; // [0:0.01:5]
@@ -87,6 +87,15 @@ epsilon = 0.1;
 
 clip_height = 2 * hole_size + 2;
 $fn = fn;
+
+echo(clip_height=clip_height);
+echo(holder_total_x=holder_total_x);
+echo(holder_total_y=holder_total_y);
+echo(holder_total_z=holder_total_z);
+echo(holder_roundness=holder_roundness);
+
+holder_complete_z = holder_total_z + clip_height;
+echo(holder_complete_z=holder_complete_z);
 
 module round_rect_ex(x1, y1, x2, y2, z, r1, r2) {
   $fn = holder_sides;
