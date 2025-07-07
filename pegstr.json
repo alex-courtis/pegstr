@@ -160,6 +160,28 @@
             "strength_factor": "0",
             "taper_ratio": "1",
             "wall_thickness": "0.56000000000000005"
+        },
+        "bins small": {
+            "board_thickness": "0",
+            "closed_bottom": "1",
+            "corner_radius": "0",
+            "holder_angle": "0",
+            "holder_cutout_side": "0",
+            "holder_height": "87.489999999999995",
+            "holder_offset": "1",
+            "holder_x_count": "4",
+            "holder_x_size": "33.119999999999997",
+            "holder_y_count": "4",
+            "holder_y_size": "11",
+            "hole_size": "5.9500000000000002",
+            "hole_spacing": "25",
+            "hook_size": "5.4000000000000004",
+            "pin_extra_len": "4",
+            "shave_extra": "0",
+            "shave_top": "difference",
+            "strength_factor": "1",
+            "taper_ratio": "1",
+            "wall_thickness": "1"
         }
     }
 }
