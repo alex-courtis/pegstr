@@ -11,10 +11,10 @@
 // preview[view:north, tilt:bottom diagonal]
 
 // width of the orifice
-holder_x_size = 10; // [1:0.01:100]
+holder_x_size = 10; // [1:0.01:200]
 
 // depth of the orifice
-holder_y_size = 10; // [1:0.01:100]
+holder_y_size = 10; // [1:0.01:200]
 
 // hight of the holder
 holder_height = 15; // [1:0.01:120]
@@ -393,8 +393,8 @@ module shave() {
   // confirmed by measuring
 
   // extra epsilon to depth
-  x = holder_total_y + epsilon + clip_height + wall_thickness;
-  dx = -x / 2 + epsilon + clip_height;
+  x = holder_total_y + epsilon + clip_height / 2 + wall_thickness + holder_offset;
+  dx = -x / 2 + epsilon + clip_height / 2 + wall_thickness;
 
   y = holder_total_x * (holder_x_count + 1) / holder_x_count;
   dy = 0;
