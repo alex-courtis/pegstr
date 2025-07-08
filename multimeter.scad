@@ -1,10 +1,13 @@
 difference() {
   pegstr();
 
-  cutout_taper = 0.75;
+  cutout_taper = 0.80;
 
-  cutout_x = 25 / cutout_taper;
-  cutout_y = 10 / cutout_taper;
+  cutout_bottom_x = 30;
+  cutout_bottom_y = 25;
+
+  cutout_x = cutout_bottom_x / cutout_taper;
+  cutout_y = cutout_bottom_y / cutout_taper;
 
   cutout_depth = 15;
 
