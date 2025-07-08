@@ -97,6 +97,9 @@ echo(holder_roundness=holder_roundness);
 holder_complete_z = holder_total_z + clip_height;
 echo(holder_complete_z=holder_complete_z);
 
+echo(bottom_x_size=holder_x_size * taper_ratio);
+echo(bottom_y_size=holder_y_size * taper_ratio);
+
 module round_rect_ex(x1, y1, x2, y2, z, r1, r2) {
   $fn = holder_sides;
   brim = z / 10;
@@ -438,3 +441,6 @@ pegstr();
 // include <caliper.scad>
 // include <drill-bits.scad>
 // include <nut-drivers.scad>
+// include <bins.scad>
+// include <multimeter.scad>
+// include <voltmeter.scad>

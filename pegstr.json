@@ -204,6 +204,28 @@
             "strength_factor": "0.84999999999999998",
             "taper_ratio": "0.80000000000000004",
             "wall_thickness": "1.75"
+        },
+        "voltmeter": {
+            "board_thickness": "0",
+            "closed_bottom": "1",
+            "corner_radius": "10",
+            "holder_angle": "0",
+            "holder_cutout_side": "0",
+            "holder_height": "62.490000000000002",
+            "holder_offset": "1",
+            "holder_x_count": "1",
+            "holder_x_size": "59.270000000000003",
+            "holder_y_count": "1",
+            "holder_y_size": "34",
+            "hole_size": "5.9500000000000002",
+            "hole_spacing": "25",
+            "hook_size": "5.4000000000000004",
+            "pin_extra_len": "4",
+            "shave_extra": "0",
+            "shave_top": "difference",
+            "strength_factor": "1",
+            "taper_ratio": "0.96999999999999997",
+            "wall_thickness": "1.5"
         }
     }
 }
