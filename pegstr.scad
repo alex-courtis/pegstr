@@ -91,11 +91,7 @@ $fn = fn;
 echo(clip_height=clip_height);
 echo(holder_total_x=holder_total_x);
 echo(holder_total_y=holder_total_y);
-echo(holder_total_z=holder_total_z);
 echo(holder_roundness=holder_roundness);
-
-holder_complete_z = holder_total_z + clip_height;
-echo(holder_complete_z=holder_complete_z);
 
 echo(bottom_x_size=holder_x_size * taper_ratio);
 echo(bottom_y_size=holder_y_size * taper_ratio);
