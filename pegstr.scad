@@ -17,7 +17,7 @@ holder_x_size = 10; // [1:0.01:200]
 holder_y_size = 10; // [1:0.01:200]
 
 // hight of the holder
-holder_height = 15; // [1:0.01:120]
+holder_height = 15; // [1:0.001:120]
 
 // how thick are the walls. Hint: 6*extrusion width produces the best results.
 wall_thickness = 1.85; // [0:0.01:20]

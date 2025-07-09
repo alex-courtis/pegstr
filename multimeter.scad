@@ -1,3 +1,5 @@
+// Setting height to 84.753 results in an exactly flat base. Work out how this can be derived.
+
 cutout_bottom_x = -holder_total_x / 2 + 27;
 cutout_bottom_y = holder_total_y / 2 - wall_thickness - 5;
 
