@@ -1,28 +1,27 @@
-// Setting height to 84.753 results in an exactly flat base. Work out how this can be derived.
+// Setting height to 84.750 results in an exactly flat base. Work out how this can be derived.
 
-cutout_bottom_x = -holder_total_x / 2 + 27;
-cutout_bottom_y = holder_total_y / 2 - wall_thickness - 5;
+cutout_taper = 0.88;
+
+cutout_bottom_x = 30;
+cutout_bottom_y = 8;
+
+cutout_x = cutout_bottom_x / cutout_taper;
+cutout_y = cutout_bottom_y / cutout_taper;
+
+cutout_depth = wall_thickness * closed_bottom - epsilon;
 
 difference() {
   pegstr();
 
-  // depth and width
-  translate([-cutout_bottom_y, -cutout_bottom_x, 0])
-
-    // lift above bottom wall
-    translate([0, 0, -wall_thickness * closed_bottom + epsilon])
-
-      // move to the quadrant
-      translate([-holder_total_y / 2, holder_total_x / 2, 0])
-        // chamber and walls
-        translate(
-          v=[
-            -holder_offset - holder_total_y / 2,
-            0,
-            holder_height / 2 - clip_height / 2,
-          ]
-        )
-
-          color(c="green")
-            cube([holder_total_y, holder_total_x, holder_height], center=true);
+  // lead hole
+  color(c="pink", alpha=0.5)
+    translate(
+      v=[
+        -holder_offset - wall_thickness - cutout_y - holder_y_size + cutout_y,
+        cutout_x + holder_x_size / 2 - cutout_x,
+        -clip_height / 2 + holder_height / 2 - cutout_depth,
+      ]
+    )
+      linear_extrude(height=holder_height, scale=cutout_taper, center=true)
+        square(size=[cutout_y * 2, cutout_x * 2], center=true);
 }
