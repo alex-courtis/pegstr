@@ -8,55 +8,47 @@ module bin_interior(x, y) {
       (holder_height - clip_height - closed_bottom * wall_thickness + epsilon) / 2,
     ]
   )
-    cube([holder_y_size, holder_x_size, holder_height - closed_bottom * wall_thickness+ epsilon], center=true);
+    cube([holder_y_size, holder_x_size, holder_height - closed_bottom * wall_thickness + epsilon], center=true);
 }
 
+render() 
 difference() {
   pegstr();
 
-  // 3 double width
-  color(c="green")
-    bin_interior(1.5, 0);
-  color(c="red")
-    bin_interior(3.5, 0);
+  // double width
+  bin_interior(2.5, 2);
+  bin_interior(4.5, 2);
+  bin_interior(0.5, 3);
+  bin_interior(2.5, 3);
+  bin_interior(4.5, 3);
+  bin_interior(6.5, 3);
 
-  // 2 double depth
-  color(c="magenta")
-    bin_interior(1, 1.5);
-  color(c="orange")
-    bin_interior(4, 1.5);
+  // double depth
 
-  // 3/4 height front bins
-  color(c="yellow", alpha=0.5)
-    translate(
-      v=[
-        -holder_total_y / 2 - holder_offset - wall_thickness - (holder_y_size + wall_thickness) * 3,
-        0,
-        +holder_height / 2 - clip_height / 2 - holder_height * 3 / 4,
-      ]
-    )
-      cube(
-        [
-          holder_total_y,
-          holder_total_x,
-          holder_height,
-        ], center=true
-      );
+  // 100mm bin row
+  translate_100mm = [
+    -holder_total_y / 2 - holder_offset - wall_thickness - (holder_y_size + wall_thickness) * 1,
+    0,
+    +holder_height / 2 - clip_height / 2 - wall_thickness * closed_bottom - 100,
+  ];
+  translate(translate_100mm)
+    cube([holder_total_y, holder_total_x, holder_height], center=true);
 
-  // half height front bins
-  color(c="pink", alpha=0.5)
-    translate(
-      v=[
-        -holder_total_y / 2 - holder_offset - wall_thickness - (holder_y_size + wall_thickness) * 4,
-        0,
-        +holder_height / 2 - clip_height / 2 - holder_height * 1 / 2,
-      ]
-    )
-      cube(
-        [
-          holder_total_y,
-          holder_total_x,
-          holder_height,
-        ], center=true
-      );
+  // 70mm bin row
+  translate_70mm = [
+    -holder_total_y / 2 - holder_offset - wall_thickness - (holder_y_size + wall_thickness) * 2,
+    0,
+    +holder_height / 2 - clip_height / 2 - wall_thickness * closed_bottom- 70,
+  ];
+  translate(translate_70mm)
+    cube([holder_total_y, holder_total_x, holder_height], center=true);
+
+  // 20mm bin row
+  translate_20mm = [
+    -holder_total_y / 2 - holder_offset - wall_thickness - (holder_y_size + wall_thickness) * 3,
+    0,
+    +holder_height / 2 - clip_height / 2 - wall_thickness * closed_bottom- 20,
+  ];
+  translate(translate_20mm)
+    cube([holder_total_y, holder_total_x, holder_height], center=true);
 }
