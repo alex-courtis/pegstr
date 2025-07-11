@@ -226,6 +226,28 @@
             "strength_factor": "1",
             "taper_ratio": "0.96499999999999997",
             "wall_thickness": "2"
+        },
+        "cinewind": {
+            "board_thickness": "0",
+            "closed_bottom": "1",
+            "corner_radius": "5",
+            "holder_angle": "0",
+            "holder_cutout_side": "0",
+            "holder_height": "51",
+            "holder_offset": "2",
+            "holder_x_count": "1",
+            "holder_x_size": "52.5",
+            "holder_y_count": "1",
+            "holder_y_size": "41.5",
+            "hole_size": "5.9000000000000004",
+            "hole_spacing": "25",
+            "hook_size": "5.3500000000000005",
+            "pin_extra_len": "4",
+            "shave_extra": "0.0050000000000000001",
+            "shave_top": "difference",
+            "strength_factor": "0.33000000000000002",
+            "taper_ratio": "0.95999999999999996",
+            "wall_thickness": "2"
         }
     }
 }
