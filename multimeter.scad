@@ -1,5 +1,3 @@
-// Setting height to 84.750 results in an exactly flat base. Work out how this can be derived.
-
 cutout_taper = 0.88;
 
 cutout_bottom_x = 30;
@@ -19,9 +17,9 @@ difference() {
       v=[
         -holder_offset - wall_thickness - cutout_y - holder_y_size + cutout_y,
         cutout_x + holder_x_size / 2 - cutout_x,
-        -clip_height / 2 + holder_height / 2 - cutout_depth,
+        -clip_height / 2 + holder_height_actual / 2 - cutout_depth,
       ]
     )
-      linear_extrude(height=holder_height, scale=cutout_taper, center=true)
+      linear_extrude(height=holder_height_actual, scale=cutout_taper, center=true)
         square(size=[cutout_y * 2, cutout_x * 2], center=true);
 }
