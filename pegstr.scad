@@ -118,13 +118,18 @@ echo(holder_total_x=holder_total_x);
 holder_total_y = wall_thickness + holder_y_count * (wall_thickness + holder_y_size);
 echo(holder_total_y=holder_total_y);
 
-holder_total_z = round(holder_height / hole_spacing) * hole_spacing + clip_height / 2 + hole_size / 2 - epsilon;
-echo(holder_total_z=holder_total_z);
+total_z = round(holder_height / hole_spacing) * hole_spacing + clip_height / 2 + hole_size / 2 - epsilon;
+echo(total_z=total_z);
+
+min_z = -clip_height / 2;
+max_z = min_z + total_z;
+echo(min_z=min_z);
+echo(max_z=max_z);
 
 holder_roundness = min(corner_radius, holder_x_size_actual / 2, holder_y_size / 2);
 echo(holder_roundness=holder_roundness);
 
-holder_height_actual = quantized_height ? holder_total_z : holder_height;
+holder_height_actual = quantized_height ? total_z : holder_height;
 echo(holder_height_actual=holder_height_actual);
 
 echo(bottom_x_size=holder_x_size_actual * taper_ratio);
@@ -435,16 +440,16 @@ module flatten() {
   // confirmed by measuring
 
   // extra epsilon to depth
-  x = holder_total_y * (holder_y_count + 1) / holder_y_count;
+  x = holder_total_y + epsilon + clip_height / 2 + wall_thickness + holder_offset;
   dx = -x / 2 + epsilon + clip_height / 2 + wall_thickness;
 
   // beyond bounds
-  y = holder_total_x * (holder_x_count + 1) / holder_x_count;
+  y = holder_total_x + hole_spacing;
   dy = 0;
 
   // clip top and front top are equal; shave off the middle
-  z = holder_total_z;
-  dz = -z / 2 - clip_height / 2 + flatten_top_additional;
+  z = total_z;
+  dz = -z / 2 + min_z + flatten_top_additional;
 
   if (flatten_top) {
     color(c="blue")
@@ -453,7 +458,7 @@ module flatten() {
   }
 
   if (flatten_bottom) {
-    dz_bottom = -clip_height / 2 + 1.5 * holder_total_z - flatten_bottom_additional;
+    dz_bottom = z / 2 + max_z - flatten_bottom_additional;
 
     color(c="green")
       translate(v=[dx, dy, dz_bottom])
