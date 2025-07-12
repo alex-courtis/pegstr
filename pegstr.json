@@ -18,7 +18,8 @@
             "hook_size": "5.4",
             "pin_extra_len": "4",
             "strength_factor": "0",
-            "taper_ratio": "0.63",
+            "taper_ratio_x": "0.63",
+            "taper_ratio_y": "0.63",
             "wall_thickness": "5"
         },
         "nut drivers": {
@@ -38,7 +39,8 @@
             "hook_size": "5.25",
             "pin_extra_len": "3",
             "strength_factor": "0.45",
-            "taper_ratio": "0.925",
+            "taper_ratio_x": "0.925",
+            "taper_ratio_y": "0.925",
             "wall_thickness": "1.05"
         },
         "nut drivers small": {
@@ -58,7 +60,8 @@
             "hook_size": "5.35",
             "pin_extra_len": "3",
             "strength_factor": "0",
-            "taper_ratio": "0.95",
+            "taper_ratio_x": "0.95",
+            "taper_ratio_y": "0.95",
             "wall_thickness": "8"
         },
         "pen holders small": {
@@ -78,7 +81,8 @@
             "hook_size": "5.40",
             "pin_extra_len": "4",
             "strength_factor": "0.65",
-            "taper_ratio": "1",
+            "taper_ratio_x": "1",
+            "taper_ratio_y": "1",
             "wall_thickness": "1"
         },
         "pen holders large": {
@@ -98,7 +102,8 @@
             "hook_size": "5.40",
             "pin_extra_len": "4",
             "strength_factor": "0.65",
-            "taper_ratio": "1",
+            "taper_ratio_x": "1",
+            "taper_ratio_y": "1",
             "wall_thickness": "1"
         },
         "driver bits": {
@@ -118,7 +123,8 @@
             "hook_size": "5.40",
             "pin_extra_len": "4",
             "strength_factor": "1",
-            "taper_ratio": "1",
+            "taper_ratio_x": "1",
+            "taper_ratio_y": "1",
             "wall_thickness": "4.30"
         },
         "pen holders tiny": {
@@ -138,7 +144,8 @@
             "hook_size": "5.40",
             "pin_extra_len": "4",
             "strength_factor": "0.65",
-            "taper_ratio": "1",
+            "taper_ratio_x": "1",
+            "taper_ratio_y": "1",
             "wall_thickness": "1"
         },
         "drill bits": {
@@ -158,7 +165,8 @@
             "hook_size": "5.25",
             "pin_extra_len": "3",
             "strength_factor": "0",
-            "taper_ratio": "1",
+            "taper_ratio_x": "1",
+            "taper_ratio_y": "1",
             "wall_thickness": "0.56000000000000005"
         },
         "bins small": {
@@ -178,7 +186,8 @@
             "hook_size": "5.4000000000000004",
             "pin_extra_len": "4",
             "strength_factor": "1",
-            "taper_ratio": "1",
+            "taper_ratio_x": "1",
+            "taper_ratio_y": "1",
             "wall_thickness": "1.5"
         },
         "multimeter": {
@@ -199,7 +208,8 @@
             "pin_extra_len": "4",
             "quantized_height": "true",
             "strength_factor": "1",
-            "taper_ratio": "0.94000000000000006",
+            "taper_ratio_x": "0.94000000000000006",
+            "taper_ratio_y": "0.94000000000000006",
             "wall_thickness": "3"
         },
         "voltmeter": {
@@ -219,7 +229,8 @@
             "hook_size": "5.4000000000000004",
             "pin_extra_len": "4",
             "strength_factor": "1",
-            "taper_ratio": "0.96499999999999997",
+            "taper_ratio_x": "0.96499999999999997",
+            "taper_ratio_y": "0.96499999999999997",
             "wall_thickness": "2"
         },
         "cinewind": {
@@ -244,7 +255,8 @@
             "quantized_height": "true",
             "quantized_x_size": "false",
             "strength_factor": "0.28000000000000003",
-            "taper_ratio": "1",
+            "taper_ratio_x": "1",
+            "taper_ratio_y": "1",
             "wall_thickness": "1.5"
         },
         "hands": {
@@ -271,7 +283,8 @@
             "quantized_height": "false",
             "quantized_x_size": "false",
             "strength_factor": "0",
-            "taper_ratio": "0.5",
+            "taper_ratio_x": "0.5",
+            "taper_ratio_y": "0.5",
             "wall_thickness": "6"
         },
         "coil3x": {
@@ -298,8 +311,37 @@
             "quantized_height": "true",
             "quantized_x_size": "false",
             "strength_factor": "0",
-            "taper_ratio": "0.92000000000000004",
+            "taper_ratio_x": "0.92000000000000004",
+            "taper_ratio_y": "0.92000000000000004",
             "wall_thickness": "2"
+        },
+        "tweezers": {
+            "board_thickness": "0",
+            "closed_bottom": "0",
+            "corner_radius": "2",
+            "flatten_bottom": "false",
+            "flatten_bottom_additional": "0",
+            "flatten_method": "difference",
+            "flatten_top": "true",
+            "flatten_top_additional": "0",
+            "holder_angle": "0",
+            "holder_cutout_side": "0",
+            "holder_height": "33.561",
+            "holder_offset": "1.5",
+            "holder_x_count": "6",
+            "holder_x_size": "12",
+            "holder_y_count": "1",
+            "holder_y_size": "11",
+            "hole_size": "5.9500000000000002",
+            "hole_spacing": "25",
+            "hook_size": "5.4000000000000004",
+            "pin_extra_len": "4",
+            "quantized_height": "true",
+            "quantized_x_size": "false",
+            "strength_factor": "0",
+            "taper_ratio_x": "0.35000000000000003",
+            "taper_ratio_y": "1",
+            "wall_thickness": "1.5"
         }
     }
 }
