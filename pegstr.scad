@@ -13,11 +13,17 @@
 // width of the orifice
 holder_x_size = 10; // [1:0.01:200]
 
+// sides are flat
+quantized_x_size = false;
+
 // depth of the orifice
 holder_y_size = 10; // [1:0.01:200]
 
 // hight of the holder
 holder_height = 15; // [1:0.001:120]
+
+// base is at the bottom-most peg
+quantized_height = false;
 
 // how thick are the walls. Hint: 6*extrusion width produces the best results.
 wall_thickness = 1.85; // [0:0.01:20]
@@ -70,13 +76,22 @@ shave_top = "difference"; // [difference,intersection,none]
 // flatten more if needed
 shave_extra = 0; // [0:0.001:2]
 
-// base is at the bottom-most peg
-quantized_base = false;
-
 /* [Hidden] */
 
+requested_total_x = (holder_x_size + wall_thickness) * holder_x_count + wall_thickness;
+echo(requested_total_x=requested_total_x);
+
+quantized_total_x = round(requested_total_x / hole_spacing) * hole_spacing + hole_size;
+echo(quantized_total_x=quantized_total_x);
+
+quantized_x = (quantized_total_x - wall_thickness) / holder_x_count - wall_thickness;
+echo(quantized_x=quantized_x);
+
+holder_x_size_actual = quantized_x_size ? quantized_x : holder_x_size;
+echo(holder_x_size_actual=holder_x_size_actual);
+
 // what is the $fn parameter
-holder_sides = max(50, min(20, holder_x_size * 2));
+holder_sides = max(50, min(20, holder_x_size_actual * 2));
 
 // what is the $fn parameter for holders
 fn = 32;
@@ -88,22 +103,22 @@ echo(clip_height=clip_height);
 
 $fn = fn;
 
-holder_total_x = wall_thickness + holder_x_count * (wall_thickness + holder_x_size);
+holder_total_x = wall_thickness + holder_x_count * (wall_thickness + holder_x_size_actual);
 echo(holder_total_x=holder_total_x);
 
 holder_total_y = wall_thickness + holder_y_count * (wall_thickness + holder_y_size);
 echo(holder_total_y=holder_total_y);
 
-holder_total_z = round(holder_height / hole_spacing) * hole_spacing + clip_height / 2 + wall_thickness * closed_bottom - epsilon;
+holder_total_z = round(holder_height / hole_spacing) * hole_spacing + clip_height / 2 + hole_size / 2 - epsilon;
 echo(holder_total_z=holder_total_z);
 
-holder_roundness = min(corner_radius, holder_x_size / 2, holder_y_size / 2);
+holder_roundness = min(corner_radius, holder_x_size_actual / 2, holder_y_size / 2);
 echo(holder_roundness=holder_roundness);
 
-holder_height_actual = quantized_base ? holder_total_z : holder_height;
+holder_height_actual = quantized_height ? holder_total_z : holder_height;
 echo(holder_height_actual=holder_height_actual);
 
-echo(bottom_x_size=holder_x_size * taper_ratio);
+echo(bottom_x_size=holder_x_size_actual * taper_ratio);
 echo(bottom_y_size=holder_y_size * taper_ratio);
 
 module round_rect_ex(x1, y1, x2, y2, z, r1, r2) {
@@ -251,7 +266,7 @@ module holder(negative) {
         [
           -holder_total_y /*- (holder_y_size+wall_thickness)/2*/ + y * (holder_y_size + wall_thickness) + wall_thickness,
 
-          -holder_total_x / 2 + (holder_x_size + wall_thickness) / 2 + (x - 1) * (holder_x_size + wall_thickness) + wall_thickness / 2,
+          -holder_total_x / 2 + (holder_x_size_actual + wall_thickness) / 2 + (x - 1) * (holder_x_size_actual + wall_thickness) + wall_thickness / 2,
           0,
         ]
       ) {
@@ -268,9 +283,9 @@ module holder(negative) {
 
                 round_rect_ex(
                   (holder_y_size + 2 * wall_thickness),
-                  holder_x_size + 2 * wall_thickness,
+                  holder_x_size_actual + 2 * wall_thickness,
                   (holder_y_size + 2 * wall_thickness) * taper_ratio,
-                  (holder_x_size + 2 * wall_thickness) * taper_ratio,
+                  (holder_x_size_actual + 2 * wall_thickness) * taper_ratio,
                   holder_height_actual,
                   holder_roundness + epsilon,
                   holder_roundness * taper_ratio + epsilon
@@ -281,9 +296,9 @@ module holder(negative) {
               if (negative > 1) {
                 round_rect_ex(
                   holder_y_size * taper_ratio,
-                  holder_x_size * taper_ratio,
+                  holder_x_size_actual * taper_ratio,
                   holder_y_size * taper_ratio,
-                  holder_x_size * taper_ratio,
+                  holder_x_size_actual * taper_ratio,
                   3 * max(holder_height_actual, hole_spacing),
                   holder_roundness * taper_ratio + epsilon,
                   holder_roundness * taper_ratio + epsilon
@@ -291,9 +306,9 @@ module holder(negative) {
               } else {
                 round_rect_ex(
                   holder_y_size,
-                  holder_x_size,
+                  holder_x_size_actual,
                   holder_y_size * taper_ratio,
-                  holder_x_size * taper_ratio,
+                  holder_x_size_actual * taper_ratio,
                   holder_height_actual + 2 * epsilon,
                   holder_roundness + epsilon,
                   holder_roundness * taper_ratio + epsilon
@@ -308,9 +323,9 @@ module holder(negative) {
                       scale([1.0, holder_cutout_side, 1.0])
                         round_rect_ex(
                           holder_y_size * taper_ratio,
-                          holder_x_size * taper_ratio,
+                          holder_x_size_actual * taper_ratio,
                           holder_y_size * taper_ratio,
-                          holder_x_size * taper_ratio,
+                          holder_x_size_actual * taper_ratio,
                           3 * max(holder_height_actual, hole_spacing),
                           holder_roundness * taper_ratio + epsilon,
                           holder_roundness * taper_ratio + epsilon
@@ -320,9 +335,9 @@ module holder(negative) {
                         scale([1.0, holder_cutout_side, 1.0])
                           round_rect_ex(
                             holder_y_size * taper_ratio,
-                            holder_x_size * taper_ratio,
+                            holder_x_size_actual * taper_ratio,
                             holder_y_size * taper_ratio,
-                            holder_x_size * taper_ratio,
+                            holder_x_size_actual * taper_ratio,
                             3 * max(holder_height_actual, hole_spacing),
                             holder_roundness * taper_ratio + epsilon,
                             holder_roundness * taper_ratio + epsilon
@@ -333,9 +348,9 @@ module holder(negative) {
                       scale([1.0, holder_cutout_side, 1.0])
                         round_rect_ex(
                           holder_y_size,
-                          holder_x_size,
+                          holder_x_size_actual,
                           holder_y_size * taper_ratio,
-                          holder_x_size * taper_ratio,
+                          holder_x_size_actual * taper_ratio,
                           holder_height_actual + 2 * epsilon,
                           holder_roundness + epsilon,
                           holder_roundness * taper_ratio + epsilon
@@ -345,9 +360,9 @@ module holder(negative) {
                         scale([1.0, holder_cutout_side, 1.0])
                           round_rect_ex(
                             holder_y_size,
-                            holder_x_size,
+                            holder_x_size_actual,
                             holder_y_size * taper_ratio,
-                            holder_x_size * taper_ratio,
+                            holder_x_size_actual * taper_ratio,
                             holder_height_actual + 2 * epsilon,
                             holder_roundness + epsilon,
                             holder_roundness * taper_ratio + epsilon
