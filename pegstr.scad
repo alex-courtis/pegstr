@@ -16,8 +16,14 @@ holder_x_size = 10; // [1:0.01:200]
 // sides are flat
 quantized_x_size = false;
 
+// how many times to repeat the holder on X axis
+holder_x_count = 1; // [1:20]
+
 // depth of the orifice
 holder_y_size = 10; // [1:0.01:200]
+
+// how many times to repeat the holder on Y axis
+holder_y_count = 2; // [1:10]
 
 // hight of the holder
 holder_height = 15; // [1:0.001:120]
@@ -27,12 +33,6 @@ quantized_height = false;
 
 // how thick are the walls. Hint: 6*extrusion width produces the best results.
 wall_thickness = 1.85; // [0:0.01:20]
-
-// how many times to repeat the holder on X axis
-holder_x_count = 1; // [1:20]
-
-// how many times to repeat the holder on Y axis
-holder_y_count = 2; // [1:10]
 
 // orifice corner radius (roundness). Needs to be less than min(x,y)/2.
 corner_radius = 30; // [0:0.01:60]
@@ -70,11 +70,20 @@ board_thickness = 0; // [0:0.01:10]
 // longer pins for board_thickness 0
 pin_extra_len = 4; // [0:0.01:5]
 
-// flatten the top between pins and front, always equal z
-shave_top = "difference"; // [difference,intersection,none]
+// flatten method, for debugging
+flatten_method = "difference"; // [difference,intersection,union,none]
 
-// flatten more if needed
-shave_extra = 0; // [0:0.001:2]
+// flatten the top, to clips
+flatten_top = true;
+
+// flatten top further
+flatten_top_additional = 0; // [0:0.001:2]
+
+// flatten the bottom to lower pins
+flatten_bottom = false;
+
+// flatten bottom further
+flatten_bottom_additional = 0; // [0:0.001:5]
 
 /* [Hidden] */
 
@@ -422,35 +431,51 @@ module build() {
   }
 }
 
-module shave() {
+module flatten() {
   // confirmed by measuring
 
   // extra epsilon to depth
-  x = holder_total_y + epsilon + clip_height / 2 + wall_thickness + holder_offset;
+  x = holder_total_y * (holder_y_count + 1) / holder_y_count;
   dx = -x / 2 + epsilon + clip_height / 2 + wall_thickness;
 
+  // beyond bounds
   y = holder_total_x * (holder_x_count + 1) / holder_x_count;
   dy = 0;
 
   // clip top and front top are equal; shave off the middle
-  z = 1 + shave_extra;
-  dz = -z / 2 - clip_height / 2 + shave_extra;
+  z = holder_total_z;
+  dz = -z / 2 - clip_height / 2 + flatten_top_additional;
 
-  color(c="black")
-    translate(v=[dx, dy, dz])
-      cube(size=[x, y, z], center=true);
+  if (flatten_top) {
+    color(c="blue")
+      translate(v=[dx, dy, dz])
+        cube(size=[x, y, z], center=true);
+  }
+
+  if (flatten_bottom) {
+    dz_bottom = -clip_height / 2 + 1.5 * holder_total_z - flatten_bottom_additional;
+
+    color(c="green")
+      translate(v=[dx, dy, dz_bottom])
+        cube(size=[x, y, z], center=true);
+  }
 }
 
 module pegstr() {
-  if (shave_top == "difference") {
+  if (flatten_method == "difference") {
     difference() {
       rotate([180, 0, 0]) build();
-      shave();
+      flatten();
     }
-  } else if (shave_top == "intersection") {
+  } else if (flatten_method == "intersection") {
     intersection() {
       rotate([180, 0, 0]) build();
-      shave();
+      flatten();
+    }
+  } else if (flatten_method == "union") {
+    union() {
+      rotate([180, 0, 0]) build();
+      flatten();
     }
   } else {
     rotate([180, 0, 0]) build();
