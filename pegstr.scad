@@ -85,8 +85,9 @@ flatten_top_additional = 0; // [0:0.001:2]
 // flatten the bottom to lower pins
 flatten_bottom = false;
 
-// flatten bottom further
-flatten_bottom_additional = 0; // [0:0.001:5]
+// flatten bottom further, default to hex pin base: -epsilon + (hole_size - hole_size * sqrt(3) / 2) / 2
+flatten_bottom_additional = 0.29522505883590599204; // [-1:0.001:10]
+
 
 /* [Hidden] */
 
@@ -219,7 +220,7 @@ module pin(clip) {
   } else {
     translate([0, 0, pin_extra_len / 2])
       rotate([0, 0, 30])
-        #cylinder(r=hole_size / 2, h=board_thickness * 1.5 + epsilon + pin_extra_len, center=true, $fn=6);
+        cylinder(r=hole_size / 2, h=board_thickness * 1.5 + epsilon + pin_extra_len, center=true, $fn=6);
   }
 }
 

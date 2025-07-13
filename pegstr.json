@@ -370,6 +370,34 @@
             "taper_ratio_x": "0.90000000000000002",
             "taper_ratio_y": "1",
             "wall_thickness": "1.2"
+        },
+        "leads": {
+            "board_thickness": "0",
+            "closed_bottom": "1",
+            "corner_radius": "30",
+            "flatten_bottom": "false",
+            "flatten_bottom_additional": "0.29860000000000003",
+            "flatten_method": "difference",
+            "flatten_top": "true",
+            "flatten_top_additional": "0",
+            "holder_angle": "0",
+            "holder_cutout_side": "0.40000000000000002",
+            "holder_offset": "1",
+            "holder_x_count": "4",
+            "holder_x_size": "12.5",
+            "holder_y_count": "1",
+            "holder_y_size": "12.5",
+            "holder_z_size": "37.499000000000002",
+            "hole_size": "5.9500000000000002",
+            "hole_spacing": "25",
+            "hook_size": "5.4000000000000004",
+            "pin_extra_len": "4",
+            "quantized_x_size": "false",
+            "quantized_z_size": "false",
+            "strength_factor": "0.40000000000000002",
+            "taper_ratio_x": "1",
+            "taper_ratio_y": "1",
+            "wall_thickness": "1"
         }
     }
 }
