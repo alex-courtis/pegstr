@@ -92,7 +92,7 @@ flatten_bottom_additional = 0.295; // [-1:0.001:10]
 hole_size = 5.95; // [0:0.01:10]
 
 // smaller hook as they are fragile and only used for insertion, not strength
-hook_size = 5.35; // [0:0.01:10]
+hook_size = 5.25; // [0:0.01:10]
 
 // metric inch
 hole_spacing = 25.0; // [0:0.01:100]
