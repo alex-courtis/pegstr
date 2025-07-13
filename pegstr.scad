@@ -26,10 +26,10 @@ holder_y_size = 10; // [1:0.01:200]
 holder_y_count = 2; // [1:10]
 
 // hight of the holder
-holder_height = 15; // [1:0.001:120]
+holder_z_size = 15; // [1:0.001:120]
 
 // base is at the bottom-most peg
-quantized_height = false;
+quantized_z_size = false;
 
 // how thick are the walls. Hint: 6*extrusion width produces the best results.
 wall_thickness = 1.85; // [0:0.01:20]
@@ -90,6 +90,19 @@ flatten_bottom_additional = 0; // [0:0.001:5]
 
 /* [Hidden] */
 
+// what is the $fn parameter for holders
+$fn = 32;
+
+epsilon = 0.1;
+
+clip_height = 2 * hole_size + 2;
+echo(clip_height=clip_height);
+echo();
+
+taper_ratio = (taper_ratio_x + taper_ratio_y) / 2;
+echo(taper_ratio=taper_ratio);
+echo();
+
 requested_total_x = (holder_x_size + wall_thickness) * holder_x_count + wall_thickness;
 echo(requested_total_x=requested_total_x);
 
@@ -100,46 +113,36 @@ quantized_x = (quantized_total_x - wall_thickness) / holder_x_count - wall_thick
 echo(quantized_x=quantized_x);
 
 holder_x_size_actual = quantized_x_size ? quantized_x : holder_x_size;
-echo(holder_x_size_actual=holder_x_size_actual);
-
-// what is the $fn parameter
-holder_sides = max(50, min(20, holder_x_size_actual * 2));
-
-// what is the $fn parameter for holders
-fn = 32;
-
-epsilon = 0.1;
-
-clip_height = 2 * hole_size + 2;
-echo(clip_height=clip_height);
-
-$fn = fn;
 
 holder_total_x = wall_thickness + holder_x_count * (wall_thickness + holder_x_size_actual);
 echo(holder_total_x=holder_total_x);
 
+echo(holder_x_size_actual=holder_x_size_actual);
+echo(bottom_x_size=holder_x_size_actual * taper_ratio_x);
+echo();
+
 holder_total_y = wall_thickness + holder_y_count * (wall_thickness + holder_y_size);
 echo(holder_total_y=holder_total_y);
 
-quantized_z = round(holder_height / hole_spacing) * hole_spacing + clip_height / 2 + hole_size / 2 - epsilon;
+echo(holder_y_size=holder_y_size);
+echo(bottom_y_size=holder_y_size * taper_ratio_y);
+echo();
+
+quantized_z = round(holder_z_size / hole_spacing) * hole_spacing + clip_height / 2 + hole_size / 2 - epsilon;
 echo(quantized_z=quantized_z);
 
 min_z = -clip_height / 2;
 max_z = min_z + quantized_z;
-echo(min_z=min_z);
-echo(max_z=max_z);
+
+holder_z_size_actual = quantized_z_size ? quantized_z : holder_z_size;
+echo(holder_z_size_actual=holder_z_size_actual);
+
+echo();
 
 holder_roundness = min(corner_radius, holder_x_size_actual / 2, holder_y_size / 2);
-echo(holder_roundness=holder_roundness);
 
-holder_height_actual = quantized_height ? quantized_z : holder_height;
-echo(holder_height_actual=holder_height_actual);
-
-echo(bottom_x_size=holder_x_size_actual * taper_ratio_x);
-echo(bottom_y_size=holder_y_size * taper_ratio_y);
-
-taper_ratio = (taper_ratio_x + taper_ratio_y) / 2;
-echo(taper_ratio=taper_ratio);
+// what is the $fn parameter
+holder_sides = max(50, min(20, holder_x_size_actual * 2));
 
 module round_rect_ex(x1, y1, x2, y2, z, r1, r2) {
   $fn = holder_sides;
@@ -222,7 +225,7 @@ module pin(clip) {
 
 module pinboard_clips() {
   rotate([0, 90, 0])for (i = [0:round(holder_total_x / hole_spacing)]) {
-    for (j = [0:max(strength_factor, round(holder_height_actual / hole_spacing))]) {
+    for (j = [0:max(strength_factor, round(holder_z_size_actual / hole_spacing))]) {
 
       translate(
         [
@@ -260,7 +263,7 @@ module pinboard(clips) {
 
         translate(
           [
-            max(strength_factor, round(holder_height_actual / hole_spacing)) * hole_spacing,
+            max(strength_factor, round(holder_z_size_actual / hole_spacing)) * hole_spacing,
             -hole_spacing * (round(holder_total_x / hole_spacing) / 2),
             0,
           ]
@@ -269,7 +272,7 @@ module pinboard(clips) {
 
         translate(
           [
-            max(strength_factor, round(holder_height_actual / hole_spacing)) * hole_spacing,
+            max(strength_factor, round(holder_z_size_actual / hole_spacing)) * hole_spacing,
             hole_spacing * (round(holder_total_x / hole_spacing) / 2),
             0,
           ]
@@ -295,7 +298,7 @@ module holder(negative) {
             [
               -wall_thickness * abs(sin(holder_angle)) - 0 * abs((holder_y_size / 2) * sin(holder_angle)) - holder_offset - (holder_y_size + 2 * wall_thickness) / 2 - board_thickness / 2,
               0,
-              -(holder_height_actual / 2) * sin(holder_angle) - holder_height_actual / 2 + clip_height / 2,
+              -(holder_z_size_actual / 2) * sin(holder_angle) - holder_z_size_actual / 2 + clip_height / 2,
             ]
           )
             difference() {
@@ -306,7 +309,7 @@ module holder(negative) {
                   holder_x_size_actual + 2 * wall_thickness,
                   (holder_y_size + 2 * wall_thickness) * taper_ratio_y,
                   (holder_x_size_actual + 2 * wall_thickness) * taper_ratio_x,
-                  holder_height_actual,
+                  holder_z_size_actual,
                   holder_roundness + epsilon,
                   holder_roundness * taper_ratio + epsilon
                 );
@@ -319,7 +322,7 @@ module holder(negative) {
                   holder_x_size_actual * taper_ratio_x,
                   holder_y_size * taper_ratio_y,
                   holder_x_size_actual * taper_ratio_x,
-                  3 * max(holder_height_actual, hole_spacing),
+                  3 * max(holder_z_size_actual, hole_spacing),
                   holder_roundness * taper_ratio + epsilon,
                   holder_roundness * taper_ratio + epsilon
                 );
@@ -329,7 +332,7 @@ module holder(negative) {
                   holder_x_size_actual,
                   holder_y_size * taper_ratio_y,
                   holder_x_size_actual * taper_ratio_x,
-                  holder_height_actual + 2 * epsilon,
+                  holder_z_size_actual + 2 * epsilon,
                   holder_roundness + epsilon,
                   holder_roundness * taper_ratio + epsilon
                 );
@@ -346,7 +349,7 @@ module holder(negative) {
                           holder_x_size_actual * taper_ratio_x,
                           holder_y_size * taper_ratio_y,
                           holder_x_size_actual * taper_ratio_x,
-                          3 * max(holder_height_actual, hole_spacing),
+                          3 * max(holder_z_size_actual, hole_spacing),
                           holder_roundness * taper_ratio + epsilon,
                           holder_roundness * taper_ratio + epsilon
                         );
@@ -358,7 +361,7 @@ module holder(negative) {
                             holder_x_size_actual * taper_ratio_x,
                             holder_y_size * taper_ratio_y,
                             holder_x_size_actual * taper_ratio_x,
-                            3 * max(holder_height_actual, hole_spacing),
+                            3 * max(holder_z_size_actual, hole_spacing),
                             holder_roundness * taper_ratio + epsilon,
                             holder_roundness * taper_ratio + epsilon
                           );
@@ -371,7 +374,7 @@ module holder(negative) {
                           holder_x_size_actual,
                           holder_y_size * taper_ratio_y,
                           holder_x_size_actual * taper_ratio_x,
-                          holder_height_actual + 2 * epsilon,
+                          holder_z_size_actual + 2 * epsilon,
                           holder_roundness + epsilon,
                           holder_roundness * taper_ratio + epsilon
                         );
@@ -383,7 +386,7 @@ module holder(negative) {
                             holder_x_size_actual,
                             holder_y_size * taper_ratio_y,
                             holder_x_size_actual * taper_ratio_x,
-                            holder_height_actual + 2 * epsilon,
+                            holder_z_size_actual + 2 * epsilon,
                             holder_roundness + epsilon,
                             holder_roundness * taper_ratio + epsilon
                           );
@@ -415,7 +418,7 @@ module build() {
                 [
                   holder_total_y + 2 * wall_thickness,
                   holder_total_x + wall_thickness,
-                  2 * holder_height_actual,
+                  2 * holder_z_size_actual,
                 ], center=true
               );
 

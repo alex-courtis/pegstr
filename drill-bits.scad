@@ -52,7 +52,7 @@ if (render_holder) {
             v=[
               -holder_offset - holder_y_size / 2 - wall_thickness - row * (holder_y_size + wall_thickness),
               (col + 0.5 - holder_x_count / 2) * (holder_x_size + wall_thickness),
-              holder_height / 2 - clip_height / 2,
+              holder_z_size / 2 - clip_height / 2,
             ]
           ) {
             union() {
@@ -60,19 +60,19 @@ if (render_holder) {
 
                 // fill in the holes
                 color(c="blue")
-                  cylinder(h=holder_height, d=holder_x_size + wall_thickness, center=true, $fn=holder_sides);
+                  cylinder(h=holder_z_size, d=holder_x_size + wall_thickness, center=true, $fn=holder_sides);
 
                 // shift back a bit
                 translate(v=[holder_x_size / 3 - countersink, 0, 0]) {
 
                   // specific size hole
                   color(c="red")
-                    translate(v=[0, 0, -holder_height / 2])
+                    translate(v=[0, 0, -holder_z_size / 2])
                       cylinder(h=l, d=dw, center=true, $fn=holder_sides * 2);
 
                   // countersink
                   color(c="green")
-                    translate(v=[0, 0, -(holder_height - countersink) / 2])
+                    translate(v=[0, 0, -(holder_z_size - countersink) / 2])
                       cylinder(h=countersink, d1=dw + countersink, d2=dw, center=true, $fn=holder_sides * 2);
                 }
               }
@@ -94,12 +94,12 @@ if (render_text) {
         v=[
           -holder_offset - holder_y_size / 2 - wall_thickness - row * (holder_y_size + wall_thickness),
           (col + 0.5 - holder_x_count / 2) * (holder_x_size + wall_thickness),
-          holder_height / 2 - clip_height / 2,
+          holder_z_size / 2 - clip_height / 2,
         ]
       ) {
         // text
         color(c="yellow")
-          translate(v=[-holder_x_size * 0.35, 0, -holder_height / 2 + text_depth])
+          translate(v=[-holder_x_size * 0.35, 0, -holder_z_size / 2 + text_depth])
             rotate(a=180, v=[0, 1, 0])
               rotate(a=90, v=[0, 0, 1])
                 linear_extrude(height=text_depth, center=false)
