@@ -342,6 +342,34 @@
             "taper_ratio_x": "0.35000000000000003",
             "taper_ratio_y": "1",
             "wall_thickness": "1.5"
+        },
+        "coil6": {
+            "board_thickness": "0",
+            "closed_bottom": "0",
+            "corner_radius": "15",
+            "flatten_bottom": "false",
+            "flatten_bottom_additional": "0.59999999999999998",
+            "flatten_method": "difference",
+            "flatten_top": "true",
+            "flatten_top_additional": "0",
+            "holder_angle": "0",
+            "holder_cutout_side": "0.55000000000000004",
+            "holder_height": "37.422000000000004",
+            "holder_offset": "2",
+            "holder_x_count": "1",
+            "holder_x_size": "32",
+            "holder_y_count": "1",
+            "holder_y_size": "10",
+            "hole_size": "5.9000000000000004",
+            "hole_spacing": "25",
+            "hook_size": "5.3500000000000005",
+            "pin_extra_len": "4",
+            "quantized_height": "true",
+            "quantized_x_size": "true",
+            "strength_factor": "0",
+            "taper_ratio_x": "1",
+            "taper_ratio_y": "1",
+            "wall_thickness": "2"
         }
     }
 }
