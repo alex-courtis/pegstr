@@ -19,6 +19,8 @@ quantized_x_size = false;
 // how many times to repeat the holder on X axis
 holder_x_count = 1; // [1:20]
 
+holder_x_spacing = 0; // [0:0.01:50]
+
 // depth of the orifice
 holder_y_size = 10; // [1:0.01:200]
 
@@ -59,7 +61,7 @@ holder_cutout_side = 0.0; // [0:0.01:5]
 holder_angle = 0.0; // [-30:0.01:30]
 
 // pin diameter
-hole_size = 5.90; // [0:0.01:10]
+hole_size = 5.95; // [0:0.01:10]
 
 // smaller hook as they are fragile and only used for insertion, not strength
 hook_size = 5.35; // [0:0.01:10]
@@ -88,7 +90,6 @@ flatten_bottom = false;
 // flatten bottom further, default to hex pin base: -epsilon + (hole_size - hole_size * sqrt(3) / 2) / 2
 flatten_bottom_additional = 0.295; // [-1:0.001:10]
 
-
 /* [Hidden] */
 
 // what is the $fn parameter for holders
@@ -115,7 +116,7 @@ echo(quantized_x=quantized_x);
 
 holder_x_size_actual = quantized_x_size ? quantized_x : holder_x_size;
 
-holder_total_x = wall_thickness + holder_x_count * (wall_thickness + holder_x_size_actual);
+holder_total_x = wall_thickness + holder_x_count * (wall_thickness + holder_x_size_actual) + holder_x_spacing * (holder_x_count - 1);
 echo(holder_total_x=holder_total_x);
 
 echo(holder_x_size_actual=holder_x_size_actual);
@@ -290,7 +291,7 @@ module holder(negative) {
         [
           -holder_total_y /*- (holder_y_size+wall_thickness)/2*/ + y * (holder_y_size + wall_thickness) + wall_thickness,
 
-          -holder_total_x / 2 + (holder_x_size_actual + wall_thickness) / 2 + (x - 1) * (holder_x_size_actual + wall_thickness) + wall_thickness / 2,
+          -holder_total_x / 2 + (holder_x_size_actual + wall_thickness) / 2 + (x - 1) * (holder_x_size_actual + wall_thickness) + wall_thickness / 2 + (x - 1) * holder_x_spacing,
           0,
         ]
       ) {
