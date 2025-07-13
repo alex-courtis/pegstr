@@ -449,8 +449,8 @@ module flatten() {
   // confirmed by measuring
 
   // extra epsilon to depth
-  x = holder_total_y + epsilon + clip_height / 2 + wall_thickness + holder_offset;
-  dx = -x / 2 + epsilon + clip_height / 2 + wall_thickness;
+  x = holder_total_y + epsilon + clip_height / 2 + wall_thickness + holder_offset + 10;
+  dx = -x / 2 + epsilon + clip_height / 2 + wall_thickness + 5;
 
   // beyond bounds
   y = holder_total_x + hole_spacing;
