@@ -427,6 +427,35 @@
             "taper_ratio_x": "0.93000000000000005",
             "taper_ratio_y": "0.97499999999999998",
             "wall_thickness": "1"
+        },
+        "drivers-stanley": {
+            "board_thickness": "0",
+            "closed_bottom": "1",
+            "corner_radius": "2",
+            "flatten_bottom": "false",
+            "flatten_bottom_additional": "2.8500000000000001",
+            "flatten_method": "difference",
+            "flatten_top": "true",
+            "flatten_top_additional": "0",
+            "holder_angle": "-4.25",
+            "holder_cutout_side": "0.70000000000000007",
+            "holder_offset": "4",
+            "holder_x_count": "1",
+            "holder_x_size": "84",
+            "holder_x_spacing": "0",
+            "holder_y_count": "1",
+            "holder_y_size": "36",
+            "holder_z_size": "80",
+            "hole_size": "5.9000000000000004",
+            "hole_spacing": "25",
+            "hook_size": "5.3500000000000005",
+            "pin_extra_len": "4",
+            "quantized_x_size": "false",
+            "quantized_z_size": "true",
+            "strength_factor": "0.75900000000000001",
+            "taper_ratio_x": "0.95999999999999996",
+            "taper_ratio_y": "0.93000000000000005",
+            "wall_thickness": "1.25"
         }
     }
 }

@@ -49,7 +49,7 @@ taper_ratio_y = 1.0; // [0:0.005:1]
 holder_offset = 0.0; // [0:0.01:50]
 
 // what ratio of the holders bottom is reinforced to the plate [0.0-1.0]
-strength_factor = 0.66; // [0:0.01:1]
+strength_factor = 0.66; // [0:0.001:1]
 
 // for bins: what ratio of wall thickness to use for closing the bottom
 closed_bottom = 0.0; // [0:0.01:5]
