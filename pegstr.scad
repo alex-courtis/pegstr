@@ -10,16 +10,26 @@
 
 // preview[view:north, tilt:bottom diagonal]
 
-// width of the orifice
-holder_x_size = 10; // [1:0.01:200]
+/* [Size] [x] */
 
 // sides are flat
 quantized_x_size = false;
 
+// width of the orifice
+holder_x_size = 10; // [1:0.01:200]
+
 // how many times to repeat the holder on X axis
 holder_x_count = 1; // [1:20]
 
+// Use values less than 1.0 to make the bottom of the holder narrow
+taper_ratio_x = 1.0; // [0:0.005:1]
+
 holder_x_spacing = 0; // [0:0.01:50]
+
+// offset from the peg board, typically 0 unless you have an object that needs clearance
+holder_offset = 0.0; // [0:0.01:50]
+
+/* [Size] [y] */
 
 // depth of the orifice
 holder_y_size = 10; // [1:0.01:200]
@@ -27,26 +37,24 @@ holder_y_size = 10; // [1:0.01:200]
 // how many times to repeat the holder on Y axis
 holder_y_count = 2; // [1:10]
 
-// hight of the holder
-holder_z_size = 15; // [1:0.001:120]
+// Use values less than 1.0 to make the bottom of the holder narrow
+taper_ratio_y = 1.0; // [0:0.005:1]
+
+/* [Size] [z] */
 
 // base is at the bottom-most peg
 quantized_z_size = false;
+
+// hight of the holder
+holder_z_size = 15; // [1:0.001:120]
+
+/* [Shape] */
 
 // how thick are the walls. Hint: 6*extrusion width produces the best results.
 wall_thickness = 1.85; // [0:0.01:20]
 
 // orifice corner radius (roundness). Needs to be less than min(x,y)/2.
 corner_radius = 30; // [0:0.01:60]
-
-// Use values less than 1.0 to make the bottom of the holder narrow
-taper_ratio_x = 1.0; // [0:0.005:1]
-
-// Use values less than 1.0 to make the bottom of the holder narrow
-taper_ratio_y = 1.0; // [0:0.005:1]
-
-// offset from the peg board, typically 0 unless you have an object that needs clearance
-holder_offset = 0.0; // [0:0.01:50]
 
 // what ratio of the holders bottom is reinforced to the plate [0.0-1.0]
 strength_factor = 0.66; // [0:0.001:1]
@@ -59,6 +67,26 @@ holder_cutout_side = 0.0; // [0:0.01:5]
 
 // set an angle for the holder to prevent object from sliding or to view it better from the top
 holder_angle = 0.0; // [-30:0.01:30]
+
+/* [Flattening] */
+
+// flatten method, for debugging
+flatten_method = "difference"; // [difference,intersection,union,none]
+
+// flatten the top, to clips
+flatten_top = true;
+
+// flatten top further
+flatten_top_additional = 0; // [0:0.001:2]
+
+// flatten the bottom to lower pins
+flatten_bottom = false;
+
+// flatten bottom further, default to hex pin base
+flatten_bottom_additional = 0.295; // [-1:0.001:10]
+// -epsilon + (hole_size - hole_size * sqrt(3) / 2) / 2
+
+/* [Pins] */
 
 // pin diameter
 hole_size = 5.95; // [0:0.01:10]
@@ -74,21 +102,6 @@ board_thickness = 0; // [0:0.01:10]
 
 // longer pins for board_thickness 0
 pin_extra_len = 4; // [0:0.01:5]
-
-// flatten method, for debugging
-flatten_method = "difference"; // [difference,intersection,union,none]
-
-// flatten the top, to clips
-flatten_top = true;
-
-// flatten top further
-flatten_top_additional = 0; // [0:0.001:2]
-
-// flatten the bottom to lower pins
-flatten_bottom = false;
-
-// flatten bottom further, default to hex pin base: -epsilon + (hole_size - hole_size * sqrt(3) / 2) / 2
-flatten_bottom_additional = 0.295; // [-1:0.001:10]
 
 /* [Hidden] */
 
