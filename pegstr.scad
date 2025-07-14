@@ -12,7 +12,6 @@
 // closed bottom factor nonbinary
 // quantized x spacing
 // angle adds offset
-// height accounts for closed bottom
 
 // preview[view:north, tilt:bottom diagonal]
 
@@ -127,6 +126,8 @@ taper_ratio = (taper_ratio_x + taper_ratio_y) / 2;
 echo(taper_ratio=taper_ratio);
 echo();
 
+echo(holder_x_size=holder_x_size);
+
 requested_total_x = (holder_x_size + wall_thickness) * holder_x_count + wall_thickness;
 echo(requested_total_x=requested_total_x);
 
@@ -145,20 +146,26 @@ echo(holder_x_size_actual=holder_x_size_actual);
 echo(bottom_x_size=holder_x_size_actual * taper_ratio_x);
 echo();
 
+echo(holder_y_size=holder_y_size);
+
 holder_total_y = wall_thickness + holder_y_count * (wall_thickness + holder_y_size);
 echo(holder_total_y=holder_total_y);
 
-echo(holder_y_size=holder_y_size);
 echo(bottom_y_size=holder_y_size * taper_ratio_y);
 echo();
 
-quantized_z = round(holder_z_size / hole_spacing) * hole_spacing + clip_height / 2 + hole_size / 2 - epsilon;
+echo(holder_z_size=holder_z_size);
+
+holder_z_size_closed_bottom = holder_z_size + ((strength_factor > 0 || closed_bottom_factor > 0) ? closed_bottom * wall_thickness : 0);
+echo(holder_z_size_closed_bottom=holder_z_size_closed_bottom);
+
+quantized_z = round(holder_z_size_closed_bottom / hole_spacing) * hole_spacing + clip_height / 2 + hole_size / 2 - epsilon;
 echo(quantized_z=quantized_z);
 
 min_z = -clip_height / 2;
 max_z = min_z + quantized_z;
 
-holder_z_size_actual = quantized_z_size ? quantized_z : holder_z_size;
+holder_z_size_actual = quantized_z_size ? quantized_z : holder_z_size_closed_bottom;
 echo(holder_z_size_actual=holder_z_size_actual);
 
 echo();
