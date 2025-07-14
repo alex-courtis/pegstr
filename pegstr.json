@@ -543,6 +543,36 @@
             "taper_ratio_x": "1",
             "taper_ratio_y": "1",
             "wall_thickness": "2"
+        },
+        "battery-dewalt": {
+            "board_thickness": "0",
+            "closed_bottom": "1.48",
+            "closed_bottom_factor": "1",
+            "corner_radius": "11",
+            "flatten_bottom": "true",
+            "flatten_bottom_additional": "0.29600000000000004",
+            "flatten_method": "difference",
+            "flatten_top": "true",
+            "flatten_top_additional": "0",
+            "holder_angle": "0",
+            "holder_cutout_side": "0.63",
+            "holder_offset": "0",
+            "holder_x_count": "1",
+            "holder_x_size": "80",
+            "holder_x_spacing": "0",
+            "holder_y_count": "1",
+            "holder_y_size": "30.5",
+            "holder_z_size": "54.076000000000001",
+            "hole_size": "5.9000000000000004",
+            "hole_spacing": "25",
+            "hook_size": "5.3500000000000005",
+            "pin_extra_len": "4",
+            "quantized_x_size": "false",
+            "quantized_z_size": "true",
+            "strength_factor": "0",
+            "taper_ratio_x": "1",
+            "taper_ratio_y": "1",
+            "wall_thickness": "1.5"
         }
     }
 }
