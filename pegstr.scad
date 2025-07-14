@@ -26,9 +26,6 @@ taper_ratio_x = 1.0; // [0:0.005:1]
 
 holder_x_spacing = 0; // [0:0.01:50]
 
-// offset from the peg board, typically 0 unless you have an object that needs clearance
-holder_offset = 0.0; // [0:0.01:50]
-
 /* [Size] [y] */
 
 // depth of the orifice
@@ -39,6 +36,9 @@ holder_y_count = 2; // [1:10]
 
 // Use values less than 1.0 to make the bottom of the holder narrow
 taper_ratio_y = 1.0; // [0:0.005:1]
+
+// offset from the peg board, typically 0 unless you have an object that needs clearance
+holder_offset = 0.0; // [0:0.01:50]
 
 /* [Size] [z] */
 

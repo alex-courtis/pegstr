@@ -514,6 +514,35 @@
             "taper_ratio_x": "0.98999999999999999",
             "taper_ratio_y": "1",
             "wall_thickness": "1.25"
+        },
+        "bits-dewalt": {
+            "board_thickness": "0",
+            "closed_bottom": "1",
+            "corner_radius": "8",
+            "flatten_bottom": "true",
+            "flatten_bottom_additional": "8.8949999999999996",
+            "flatten_method": "difference",
+            "flatten_top": "false",
+            "flatten_top_additional": "0",
+            "holder_angle": "-4.25",
+            "holder_cutout_side": "0",
+            "holder_offset": "2.7600000000000002",
+            "holder_x_count": "1",
+            "holder_x_size": "98",
+            "holder_x_spacing": "0",
+            "holder_y_count": "1",
+            "holder_y_size": "46",
+            "holder_z_size": "49",
+            "hole_size": "5.9000000000000004",
+            "hole_spacing": "25",
+            "hook_size": "5.25",
+            "pin_extra_len": "4",
+            "quantized_x_size": "false",
+            "quantized_z_size": "false",
+            "strength_factor": "0.85299999999999998",
+            "taper_ratio_x": "1",
+            "taper_ratio_y": "1",
+            "wall_thickness": "2"
         }
     }
 }
