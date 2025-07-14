@@ -8,6 +8,12 @@
 // November 28th 2014
 //		- bug fixes
 
+// TODO
+// closed bottom factor nonbinary
+// quantized x spacing
+// angle adds offset
+// height accounts for closed bottom
+
 // preview[view:north, tilt:bottom diagonal]
 
 /* [Size] [x] */
@@ -62,8 +68,11 @@ strength_factor = 0.66; // [0:0.001:1]
 // for bins: what ratio of wall thickness to use for closing the bottom
 closed_bottom = 0.0; // [0:0.01:5]
 
+// what ratio of the holders bottom is closed
+closed_bottom_factor = 0.0; // [0:0.01:1]
+
 // what percentage cut in the front (example to slip in a cable or make the tool snap from the side)
-holder_cutout_side = 0.0; // [0:0.01:5]
+holder_cutout_side = 0.0; // [0:0.01:1.5]
 
 // set an angle for the holder to prevent object from sliding or to view it better from the top
 holder_angle = 0.0; // [-30:0.01:30]
@@ -332,15 +341,17 @@ module holder(negative) {
               translate([0, 0, closed_bottom * wall_thickness])
 
               if (negative > 1) {
-                round_rect_ex(
-                  holder_y_size * taper_ratio_y,
-                  holder_x_size_actual * taper_ratio_x,
-                  holder_y_size * taper_ratio_y,
-                  holder_x_size_actual * taper_ratio_x,
-                  3 * max(holder_z_size_actual, hole_spacing),
-                  holder_roundness * taper_ratio + epsilon,
-                  holder_roundness * taper_ratio + epsilon
-                );
+                if (closed_bottom_factor == 0) {
+                  round_rect_ex(
+                    holder_y_size * taper_ratio_y,
+                    holder_x_size_actual * taper_ratio_x,
+                    holder_y_size * taper_ratio_y,
+                    holder_x_size_actual * taper_ratio_x,
+                    3 * max(holder_z_size_actual, hole_spacing),
+                    holder_roundness * taper_ratio + epsilon,
+                    holder_roundness * taper_ratio + epsilon
+                  );
+                }
               } else {
                 round_rect_ex(
                   holder_y_size,
@@ -382,19 +393,11 @@ module holder(negative) {
                           );
                     }
                   } else {
-                    hull() {
-                      scale([1.0, holder_cutout_side, 1.0])
-                        round_rect_ex(
-                          holder_y_size,
-                          holder_x_size_actual,
-                          holder_y_size * taper_ratio_y,
-                          holder_x_size_actual * taper_ratio_x,
-                          holder_z_size_actual + 2 * epsilon,
-                          holder_roundness + epsilon,
-                          holder_roundness * taper_ratio + epsilon
-                        );
 
-                      translate([0 - (holder_y_size + 2 * wall_thickness), 0, 0])
+                    // preserve the closed bottom
+                    translate([0, 0, closed_bottom_factor > 0 ? wall_thickness * closed_bottom : 0])
+
+                      hull() {
                         scale([1.0, holder_cutout_side, 1.0])
                           round_rect_ex(
                             holder_y_size,
@@ -405,7 +408,19 @@ module holder(negative) {
                             holder_roundness + epsilon,
                             holder_roundness * taper_ratio + epsilon
                           );
-                    }
+
+                        translate([0 - (holder_y_size + 2 * wall_thickness), 0, 0])
+                          scale([1.0, holder_cutout_side, 1.0])
+                            round_rect_ex(
+                              holder_y_size,
+                              holder_x_size_actual,
+                              holder_y_size * taper_ratio_y,
+                              holder_x_size_actual * taper_ratio_x,
+                              holder_z_size_actual + 2 * epsilon,
+                              holder_roundness + epsilon,
+                              holder_roundness * taper_ratio + epsilon
+                            );
+                      }
                   }
                 }
             }
