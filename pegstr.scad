@@ -10,14 +10,13 @@
 
 // TODO
 // closed bottom factor nonbinary
-// quantized x spacing
 // angle adds offset
 
 // preview[view:north, tilt:bottom diagonal]
 
 /* [Size] [x] */
 
-// sides are flat
+// adjusts holder_x_size to fit entire width
 quantized_x_size = false;
 
 // width of the orifice
@@ -29,6 +28,10 @@ holder_x_count = 1; // [1:20]
 // Use values less than 1.0 to make the bottom of the holder narrow
 taper_ratio_x = 1.0; // [0:0.005:1]
 
+// adjusts holder_x_spacing to fit entire width
+quantized_x_spacing = false;
+
+// spacing greater than wall thickness
 holder_x_spacing = 0; // [0:0.01:50]
 
 /* [Size] [y] */
@@ -126,9 +129,14 @@ taper_ratio = (taper_ratio_x + taper_ratio_y) / 2;
 echo(taper_ratio=taper_ratio);
 echo();
 
+//
+// x
+//
+assert (!(quantized_x_size && quantized_x_spacing), "cannot use quantized x size and even spacing");
+
 echo(holder_x_size=holder_x_size);
 
-requested_total_x = (holder_x_size + wall_thickness) * holder_x_count + wall_thickness;
+requested_total_x = (holder_x_size + wall_thickness) * holder_x_count + wall_thickness + (holder_x_count - 1) * holder_x_spacing;
 echo(requested_total_x=requested_total_x);
 
 quantized_total_x = round(requested_total_x / hole_spacing) * hole_spacing + hole_size;
@@ -137,15 +145,24 @@ echo(quantized_total_x=quantized_total_x);
 quantized_x = (quantized_total_x - wall_thickness) / holder_x_count - wall_thickness;
 echo(quantized_x=quantized_x);
 
+quantized_spacing = (quantized_total_x - holder_x_count * (holder_x_size + wall_thickness) - wall_thickness) / (holder_x_count - 1);
+echo(quantized_spacing=quantized_spacing);
+
+holder_x_spacing_actual = (quantized_x_spacing && quantized_spacing > 0 && holder_x_count > 0) ? quantized_spacing : holder_x_spacing;
+echo(holder_x_spacing_actual=holder_x_spacing_actual);
+
 holder_x_size_actual = quantized_x_size ? quantized_x : holder_x_size;
 
-holder_total_x = wall_thickness + holder_x_count * (wall_thickness + holder_x_size_actual) + holder_x_spacing * (holder_x_count - 1);
+holder_total_x = wall_thickness + holder_x_count * (wall_thickness + holder_x_size_actual) + holder_x_spacing_actual * (holder_x_count - 1);
 echo(holder_total_x=holder_total_x);
 
 echo(holder_x_size_actual=holder_x_size_actual);
 echo(bottom_x_size=holder_x_size_actual * taper_ratio_x);
 echo();
 
+//
+// y
+//
 echo(holder_y_size=holder_y_size);
 
 holder_total_y = wall_thickness + holder_y_count * (wall_thickness + holder_y_size);
@@ -154,6 +171,9 @@ echo(holder_total_y=holder_total_y);
 echo(bottom_y_size=holder_y_size * taper_ratio_y);
 echo();
 
+//
+// z
+//
 echo(holder_z_size=holder_z_size);
 
 holder_z_size_closed_bottom = holder_z_size + ((strength_factor > 0 || closed_bottom_factor > 0) ? closed_bottom * wall_thickness : 0);
@@ -170,6 +190,9 @@ echo(holder_z_size_actual=holder_z_size_actual);
 
 echo();
 
+//
+// misc
+//
 holder_roundness = min(corner_radius, holder_x_size_actual / 2, holder_y_size / 2);
 
 // what is the $fn parameter
@@ -320,7 +343,7 @@ module holder(negative) {
         [
           -holder_total_y /*- (holder_y_size+wall_thickness)/2*/ + y * (holder_y_size + wall_thickness) + wall_thickness,
 
-          -holder_total_x / 2 + (holder_x_size_actual + wall_thickness) / 2 + (x - 1) * (holder_x_size_actual + wall_thickness) + wall_thickness / 2 + (x - 1) * holder_x_spacing,
+          -holder_total_x / 2 + (holder_x_size_actual + wall_thickness) / 2 + (x - 1) * (holder_x_size_actual + wall_thickness) + wall_thickness / 2 + (x - 1) * holder_x_spacing_actual,
           0,
         ]
       ) {
