@@ -506,7 +506,7 @@
             "holder_z_size": "80",
             "hole_size": "5.9000000000000004",
             "hole_spacing": "25",
-            "hook_size": "5.25",
+            "hook_size": "5.1500000000000004",
             "pin_extra_len": "4",
             "quantized_x_size": "false",
             "quantized_z_size": "true",
