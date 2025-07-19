@@ -68,10 +68,13 @@ corner_radius = 30; // [0:0.01:60]
 strength_factor = 0.66; // [0:0.001:1]
 
 // for bins: what ratio of wall thickness to use for closing the bottom
-closed_bottom = 0.0; // [0:0.01:5]
+closed_bottom = 0.0; // [0:0.01:10]
 
 // what ratio of the holders bottom is closed
 closed_bottom_factor = 0.0; // [0:0.01:1]
+
+// lip above closed bottom
+closed_bottom_lip = 0.0; // [0:0.01:50]
 
 // what percentage cut in the front (example to slip in a cable or make the tool snap from the side)
 holder_cutout_side = 0.0; // [0:0.01:1.5]
@@ -132,7 +135,7 @@ echo();
 //
 // x
 //
-assert (!(quantized_x_size && quantized_x_spacing), "cannot use quantized x size and even spacing");
+assert(!(quantized_x_size && quantized_x_spacing), "cannot use quantized x size and even spacing");
 
 echo(holder_x_size=holder_x_size);
 
@@ -176,7 +179,7 @@ echo();
 //
 echo(holder_z_size=holder_z_size);
 
-holder_z_size_closed_bottom = holder_z_size + ((strength_factor > 0 || closed_bottom_factor > 0) ? closed_bottom * wall_thickness : 0);
+holder_z_size_closed_bottom = holder_z_size + ( (strength_factor > 0 || closed_bottom_factor > 0) ? closed_bottom * wall_thickness : 0);
 echo(holder_z_size_closed_bottom=holder_z_size_closed_bottom);
 
 quantized_z = round(holder_z_size_closed_bottom / hole_spacing) * hole_spacing + clip_height / 2 + hole_size / 2 - epsilon;
@@ -425,7 +428,7 @@ module holder(negative) {
                   } else {
 
                     // preserve the closed bottom
-                    translate([0, 0, closed_bottom_factor > 0 ? wall_thickness * closed_bottom : 0])
+                    translate([0, 0, closed_bottom_factor > 0 ? wall_thickness * closed_bottom + closed_bottom_lip : 0])
 
                       hull() {
                         scale([1.0, holder_cutout_side, 1.0])
