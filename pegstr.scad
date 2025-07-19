@@ -567,3 +567,4 @@ pegstr();
 // include <bins.scad>
 // include <multimeter.scad>
 // include <voltmeter.scad>
+// include <multimeter3.scad>
