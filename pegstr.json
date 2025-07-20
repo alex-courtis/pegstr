@@ -638,6 +638,38 @@
             "taper_ratio_x": "0.98999999999999999",
             "taper_ratio_y": "1",
             "wall_thickness": "1.1000000000000001"
+        },
+        "drivers-wiha-flat": {
+            "board_thickness": "0",
+            "closed_bottom": "1.5",
+            "closed_bottom_factor": "1",
+            "closed_bottom_lip": "0",
+            "corner_radius": "5.25",
+            "flatten_bottom": "false",
+            "flatten_bottom_additional": "0.29499999999999998",
+            "flatten_method": "difference",
+            "flatten_top": "false",
+            "flatten_top_additional": "2.3439999999999999",
+            "holder_angle": "-45",
+            "holder_cutout_side": "0",
+            "holder_offset": "6",
+            "holder_x_count": "1",
+            "holder_x_size": "174",
+            "holder_x_spacing": "0",
+            "holder_y_count": "1",
+            "holder_y_size": "81.5",
+            "holder_z_size": "13",
+            "hole_size": "5.9500000000000002",
+            "hole_spacing": "25",
+            "hook_size": "5.25",
+            "pin_extra_len": "4",
+            "quantized_x_size": "false",
+            "quantized_x_spacing": "false",
+            "quantized_z_size": "false",
+            "strength_factor": "0.067000000000000004",
+            "taper_ratio_x": "0.996",
+            "taper_ratio_y": "0.98899999999999999",
+            "wall_thickness": "2"
         }
     }
 }

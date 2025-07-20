@@ -26,7 +26,7 @@ holder_x_size = 10; // [1:0.01:200]
 holder_x_count = 1; // [1:20]
 
 // Use values less than 1.0 to make the bottom of the holder narrow
-taper_ratio_x = 1.0; // [0:0.005:1]
+taper_ratio_x = 1.0; // [0:0.001:1]
 
 // adjusts holder_x_spacing to fit entire width
 quantized_x_spacing = false;
@@ -43,7 +43,7 @@ holder_y_size = 10; // [1:0.01:200]
 holder_y_count = 2; // [1:10]
 
 // Use values less than 1.0 to make the bottom of the holder narrow
-taper_ratio_y = 1.0; // [0:0.005:1]
+taper_ratio_y = 1.0; // [0:0.001:1]
 
 // offset from the peg board, typically 0 unless you have an object that needs clearance
 holder_offset = 0.0; // [0:0.01:50]
@@ -80,7 +80,7 @@ closed_bottom_lip = 0.0; // [0:0.01:50]
 holder_cutout_side = 0.0; // [0:0.01:1.5]
 
 // set an angle for the holder to prevent object from sliding or to view it better from the top
-holder_angle = 0.0; // [-30:0.01:30]
+holder_angle = 0.0; // [-45:0.01:45]
 
 /* [Flattening] */
 
@@ -91,7 +91,7 @@ flatten_method = "difference"; // [difference,intersection,union,none]
 flatten_top = true;
 
 // flatten top further
-flatten_top_additional = 0; // [0:0.001:2]
+flatten_top_additional = 0; // [0:0.001:5]
 
 // flatten the bottom to lower pins
 flatten_bottom = false;
@@ -568,3 +568,4 @@ pegstr();
 // include <multimeter.scad>
 // include <voltmeter.scad>
 // include <multimeter3.scad>
+// include <drivers-wiha-flat.scad>
