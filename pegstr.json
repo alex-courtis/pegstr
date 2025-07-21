@@ -616,6 +616,38 @@
             "taper_ratio_x": "1",
             "taper_ratio_y": "1",
             "wall_thickness": "3"
+        },
+        "milk-jug-holder": {
+            "board_thickness": "0",
+            "closed_bottom": "1.2",
+            "closed_bottom_factor": "1",
+            "closed_bottom_lip": "4.5",
+            "corner_radius": "60",
+            "flatten_bottom": "true",
+            "flatten_bottom_additional": "0.29899999999999993",
+            "flatten_method": "difference",
+            "flatten_top": "false",
+            "flatten_top_additional": "0",
+            "holder_angle": "0",
+            "holder_cutout_side": "0.70000000000000007",
+            "holder_offset": "0",
+            "holder_x_count": "1",
+            "holder_x_size": "82",
+            "holder_x_spacing": "0",
+            "holder_y_count": "1",
+            "holder_y_size": "82",
+            "holder_z_size": "15",
+            "hole_size": "5.9500000000000002",
+            "hole_spacing": "25",
+            "hook_size": "5.25",
+            "pin_extra_len": "4",
+            "quantized_x_size": "false",
+            "quantized_x_spacing": "false",
+            "quantized_z_size": "true",
+            "strength_factor": "0.30933000000000005",
+            "taper_ratio_x": "0.98199999999999998",
+            "taper_ratio_y": "0.98199999999999998",
+            "wall_thickness": "2"
         }
     }
 }
