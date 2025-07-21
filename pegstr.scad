@@ -564,8 +564,9 @@ pegstr();
 // include <caliper.scad>
 // include <drill-bits.scad>
 // include <nut-drivers.scad>
-// include <bins.scad>
 // include <multimeter.scad>
 // include <voltmeter.scad>
 // include <multimeter3.scad>
 // include <drivers-wiha-flat.scad>
+// include <bins-small-tall.scad>
+// include <bins-small-short.scad>
