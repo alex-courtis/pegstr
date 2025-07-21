@@ -65,7 +65,7 @@ wall_thickness = 1.85; // [0:0.01:20]
 corner_radius = 30; // [0:0.01:60]
 
 // what ratio of the holders bottom is reinforced to the plate [0.0-1.0]
-strength_factor = 0.66; // [0:0.001:1]
+strength_factor = 0.66; // [0:0.00001:1]
 
 // for bins: what ratio of wall thickness to use for closing the bottom
 closed_bottom = 0.0; // [0:0.01:10]
@@ -80,7 +80,7 @@ closed_bottom_lip = 0.0; // [0:0.01:50]
 holder_cutout_side = 0.0; // [0:0.01:1.5]
 
 // set an angle for the holder to prevent object from sliding or to view it better from the top
-holder_angle = 0.0; // [-45:0.01:45]
+holder_angle = 0.0; // [-90:0.01:90]
 
 /* [Flattening] */
 
