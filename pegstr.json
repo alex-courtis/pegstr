@@ -603,7 +603,7 @@
             "closed_bottom_lip": "6.25",
             "corner_radius": "60",
             "flatten_bottom": "true",
-            "flatten_bottom_additional": "0.29899999999999993",
+            "flatten_bottom_additional": "0.29899999999999949",
             "flatten_method": "difference",
             "flatten_sides": "false",
             "flatten_sides_additional": "0",
