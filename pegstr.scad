@@ -530,47 +530,45 @@ module flatten() {
   x = clip_height + holder_total_y + holder_offset;
   dx = clip_height - x / 2;
 
-  y = quantized_total_x;
+  y = max(holder_total_x, quantized_total_x);
   dy = 0;
 
-  z = quantized_z;
+  z = holder_z_size_actual;
   dz = z / 2 + min_z;
 
   if (flatten_top) {
-    dz = -z / 2 + min_z + flatten_top_additional;
+    dz = dz - z + flatten_top_additional;
 
-    color(c="blue")
+    color(c="blue", alpha=0.25)
       translate(v=[dx, dy, dz])
         cube(size=[x, y, z], center=true);
   }
 
   if (flatten_bottom) {
-    dz = z / 2 + max_z - flatten_bottom_additional;
+    dz = dz + z - flatten_bottom_additional;
 
-    color(c="green")
+    color(c="green", alpha=0.25)
       translate(v=[dx, dy, dz])
         cube(size=[x, y, z], center=true);
   }
 
   if (flatten_sides) {
-    dy = y - flatten_sides_additional;
+    dy = dy + y - flatten_sides_additional;
 
-    color(c="yellow") {
+    color(c="yellow", alpha=0.25)
       translate(v=[dx, dy, dz])
         cube(size=[x, y, z], center=true);
-    }
 
-    color(c="yellow") {
+    color(c="yellow", alpha=0.25)
       translate(v=[dx, -dy, dz])
         cube(size=[x, y, z], center=true);
-    }
   }
 
   if (flatten_front) {
-    dx = clip_height - x * 1.5 + flatten_front_additional;
+    dx = dx - x + flatten_front_additional;
 
-    color(c="orange")
-      translate(v=[dx, -dy, dz])
+    color(c="red", alpha=0.25)
+      translate(v=[dx, dy, dz])
         cube(size=[x, y, z], center=true);
   }
 }
