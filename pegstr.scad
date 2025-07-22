@@ -97,8 +97,9 @@ flatten_top_additional = 0; // [0:0.001:5]
 flatten_bottom = false;
 
 // flatten bottom further, default to hex pin base
-flatten_bottom_additional = 0.295; // [-1:0.001:10]
+flatten_bottom_additional = 0.299; // [-1:0.001:10]
 // -epsilon + (hole_size - hole_size * sqrt(3) / 2) / 2
+// add 0.04 bit to reach the hex pin base
 
 /* [Pins] */
 
@@ -117,10 +118,13 @@ board_thickness = 0; // [0:0.01:10]
 // longer pins for board_thickness 0
 pin_extra_len = 4; // [0:0.01:5]
 
-/* [Hidden] */
+/* [Tuning] */
 
 // what is the $fn parameter for holders
-$fn = 32;
+$fn = 200;
+
+// what is the $fn parameter for rounded rects
+holder_sides_fn = 200;
 
 epsilon = 0.1;
 
@@ -202,7 +206,7 @@ holder_roundness = min(corner_radius, holder_x_size_actual / 2, holder_y_size / 
 holder_sides = max(50, min(20, holder_x_size_actual * 2));
 
 module round_rect_ex(x1, y1, x2, y2, z, r1, r2) {
-  $fn = holder_sides;
+  $fn = holder_sides_fn;
   brim = z / 10;
 
   //rotate([0,0,(holder_sides==6)?30:((holder_sides==4)?45:0)])
