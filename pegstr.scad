@@ -91,13 +91,13 @@ flatten_method = "difference"; // [difference,intersection,union,none]
 flatten_top = true;
 
 // flatten top further
-flatten_top_additional = 0; // [0:0.001:5]
+flatten_top_additional = 0; // [-10:0.001:10]
 
 // flatten the bottom to lower pins
 flatten_bottom = false;
 
 // flatten bottom further, default to hex pin base
-flatten_bottom_additional = 0.299; // [-1:0.001:10]
+flatten_bottom_additional = 0.299; // [-10:0.001:10]
 // -epsilon + (hole_size - hole_size * sqrt(3) / 2) / 2
 // add 0.04 bit to reach the hex pin base
 
@@ -106,6 +106,12 @@ flatten_sides = false;
 
 // flatten sides further
 flatten_sides_additional = 0; // [-10:0.001:10]
+
+// flatten to the front of pinboard
+flatten_front = false;
+
+// flatten front further
+flatten_front_additional = 0; // [-10:0.001:10]
 
 /* [Pins] */
 
@@ -519,49 +525,53 @@ module build() {
 }
 
 module flatten() {
-  // confirmed by measuring
 
-  // extra epsilon to depth
-  x = holder_total_y + epsilon + clip_height / 2 + wall_thickness + holder_offset + 10;
-  dx = -x / 2 + epsilon + clip_height / 2 + wall_thickness + 5;
+  // covers the entire unit, with an entire clip_height out the back
+  x = clip_height + holder_total_y + holder_offset;
+  dx = clip_height -x / 2;
 
-  // beyond bounds
-  y = holder_total_x + hole_spacing;
+  y = quantized_total_x;
   dy = 0;
 
-  // clip top and front top are equal; shave off the middle
-  z = quantized_z;
-  dz = -z / 2 + min_z + flatten_top_additional;
+  z = quantized_z + clip_height / 2;
+  dz = clip_height / 2;
 
   if (flatten_top) {
+    dz = -z / 2 + min_z + flatten_top_additional;
+
     color(c="blue")
       translate(v=[dx, dy, dz])
         cube(size=[x, y, z], center=true);
   }
 
   if (flatten_bottom) {
-    dz_bottom = z / 2 + max_z - flatten_bottom_additional;
+    dz = z / 2 + max_z - flatten_bottom_additional;
 
     color(c="green")
-      translate(v=[dx, dy, dz_bottom])
+      translate(v=[dx, dy, dz])
         cube(size=[x, y, z], center=true);
   }
 
   if (flatten_sides) {
-    y = quantized_total_x;
-
-    z = quantized_z + clip_height;
-	dz = clip_height;
+    dy = y - flatten_sides_additional;
 
     color(c="yellow") {
-      translate(v=[dx, y - flatten_sides_additional, dz])
+      translate(v=[dx, dy, dz])
         cube(size=[x, y, z], center=true);
     }
 
     color(c="yellow") {
-      translate(v=[dx, -y + flatten_sides_additional, dz])
+      translate(v=[dx, -dy, dz])
         cube(size=[x, y, z], center=true);
     }
+  }
+
+  if (flatten_front) {
+    dx = clip_height -x * 1.5 + flatten_front_additional;
+
+    color(c="orange")
+      translate(v=[dx, -dy, dz])
+        cube(size=[x, y, z], center=true);
   }
 }
 
