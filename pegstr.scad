@@ -526,15 +526,15 @@ module build() {
 
 module flatten() {
 
-  // covers the entire unit, with an entire clip_height out the back
+  // covers the entire unit, with an entire clip_height out the back, top stops at hook top
   x = clip_height + holder_total_y + holder_offset;
-  dx = clip_height -x / 2;
+  dx = clip_height - x / 2;
 
   y = quantized_total_x;
   dy = 0;
 
-  z = quantized_z + clip_height / 2;
-  dz = clip_height / 2;
+  z = quantized_z;
+  dz = z / 2 + min_z;
 
   if (flatten_top) {
     dz = -z / 2 + min_z + flatten_top_additional;
@@ -567,7 +567,7 @@ module flatten() {
   }
 
   if (flatten_front) {
-    dx = clip_height -x * 1.5 + flatten_front_additional;
+    dx = clip_height - x * 1.5 + flatten_front_additional;
 
     color(c="orange")
       translate(v=[dx, -dy, dz])
