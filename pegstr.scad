@@ -101,6 +101,12 @@ flatten_bottom_additional = 0.299; // [-1:0.001:10]
 // -epsilon + (hole_size - hole_size * sqrt(3) / 2) / 2
 // add 0.04 bit to reach the hex pin base
 
+// flatten to the sides of pinboard
+flatten_sides = false;
+
+// flatten sides further
+flatten_sides_additional = 0; // [-10:0.001:10]
+
 /* [Pins] */
 
 // pin diameter
@@ -539,6 +545,23 @@ module flatten() {
     color(c="green")
       translate(v=[dx, dy, dz_bottom])
         cube(size=[x, y, z], center=true);
+  }
+
+  if (flatten_sides) {
+    y = quantized_total_x;
+
+    z = quantized_z + clip_height;
+	dz = clip_height;
+
+    color(c="yellow") {
+      translate(v=[dx, y - flatten_sides_additional, dz])
+        cube(size=[x, y, z], center=true);
+    }
+
+    color(c="yellow") {
+      translate(v=[dx, -y + flatten_sides_additional, dz])
+        cube(size=[x, y, z], center=true);
+    }
   }
 }
 
