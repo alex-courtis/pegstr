@@ -539,7 +539,7 @@ module flatten() {
   if (flatten_top) {
     dz = dz - z + flatten_top_additional;
 
-    color(c="blue", alpha=0.25)
+    color(c="blue")
       translate(v=[dx, dy, dz])
         cube(size=[x, y, z], center=true);
   }
@@ -547,7 +547,7 @@ module flatten() {
   if (flatten_bottom) {
     dz = dz + z - flatten_bottom_additional;
 
-    color(c="green", alpha=0.25)
+    color(c="green")
       translate(v=[dx, dy, dz])
         cube(size=[x, y, z], center=true);
   }
@@ -555,11 +555,11 @@ module flatten() {
   if (flatten_sides) {
     dy = dy + y - flatten_sides_additional;
 
-    color(c="yellow", alpha=0.25)
+    color(c="yellow")
       translate(v=[dx, dy, dz])
         cube(size=[x, y, z], center=true);
 
-    color(c="yellow", alpha=0.25)
+    color(c="yellow")
       translate(v=[dx, -dy, dz])
         cube(size=[x, y, z], center=true);
   }
@@ -567,7 +567,7 @@ module flatten() {
   if (flatten_front) {
     dx = dx - x + flatten_front_additional;
 
-    color(c="red", alpha=0.25)
+    color(c="red")
       translate(v=[dx, dy, dz])
         cube(size=[x, y, z], center=true);
   }
