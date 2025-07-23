@@ -97,7 +97,7 @@ flatten_top_additional = 0; // [-10:0.001:10]
 flatten_bottom = false;
 
 // flatten bottom further, default to hex pin base
-flatten_bottom_additional = 0.299; // [-10:0.001:10]
+flatten_bottom_additional = 0.299; // [-20:0.001:20]
 // -epsilon + (hole_size - hole_size * sqrt(3) / 2) / 2
 // add 0.04 bit to reach the hex pin base
 
