@@ -6,7 +6,7 @@ render()
 
     // double width
     bin_interior(5.5, 0);
-	
+
     bin_interior(3.5, 1);
     bin_interior(5.5, 1);
 
@@ -17,6 +17,7 @@ render()
 
     // double depth
 
-    bin_height(row=1, h=65);
-    bin_height(row=2, h=25);
+    bin_height(row=0, back_h=holder_z_size_actual, front_h=holder_z_size_actual - 12.5);
+    bin_height(row=1, back_h=72.5, front_h=60);
+    bin_height(row=2, back_h=25, front_h=12.5);
   }
