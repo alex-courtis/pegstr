@@ -19,21 +19,19 @@ module bin_interior(x, y) {
       );
 }
 
-module bin_height(y, h) {
+module bin_height(row, h) {
+
+  x = holder_total_y;
+  y = max(holder_total_x, quantized_total_x) + epsilon;
+  z = holder_z_size_actual;
+
   color(c="green")
     translate(
-      [
-        -holder_total_y / 2 - holder_offset - wall_thickness - (holder_y_size + wall_thickness) * y,
+      v=[
+        -x / 2 - holder_offset - wall_thickness - (holder_y_size + wall_thickness) * row,
         0,
-        +holder_z_size / 2 - clip_height / 2 - wall_thickness * closed_bottom - h,
+        z / 2 + min_z - h - closed_bottom * wall_thickness - epsilon,
       ]
     )
-      cube(
-        [
-          holder_total_y,
-          holder_total_x,
-          holder_z_size,
-        ],
-        center=true
-      );
+      cube(size=[x, y, z], center=true);
 }
