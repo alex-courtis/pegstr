@@ -97,7 +97,7 @@ flatten_top_additional = 0; // [-10:0.001:10]
 flatten_bottom = false;
 
 // flatten bottom further, default to hex pin base
-flatten_bottom_additional = 0.295225; // [-20:0.00001:20]
+flatten_bottom_additional = 0.29525; // [-20:0.00001:20]
 // echo(flatten_bottom_calc=-epsilon + (hole_size - hole_size * sqrt(3) / 2) / 2);
 
 // flatten to the sides of pinboard
