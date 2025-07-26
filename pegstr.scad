@@ -105,7 +105,7 @@ echo();
 flatten_sides = false;
 
 // flatten sides further
-flatten_sides_additional = 0; // [-10:0.001:10]
+flatten_sides_additional = 0; // [-10:0.001:20]
 
 // flatten to the front of pinboard
 flatten_front = false;
@@ -607,3 +607,4 @@ pegstr();
 // include <bins-small-short.scad>
 // include <bins-pry.scad>
 // include <bins-eraser-lead.scad>
+// include <isopropyl-acetone-holder.scad>
