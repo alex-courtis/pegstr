@@ -110,6 +110,7 @@
             "board_thickness": "0",
             "closed_bottom": "0.29",
             "corner_radius": "30",
+            "flatten_bottom_additional": "0.29899999999999949",
             "holder_angle": "0",
             "holder_cutout_side": "0",
             "holder_offset": "3",
@@ -729,7 +730,7 @@
             "taper_ratio_y": "1",
             "wall_thickness": "0.80000000000000004"
         },
-        "leads-wire": {
+        "wire-clip": {
             "$fn": "200",
             "board_thickness": "0",
             "closed_bottom": "0",
@@ -851,7 +852,7 @@
             "board_thickness": "0",
             "closed_bottom": "1.5",
             "closed_bottom_factor": "1",
-            "closed_bottom_lip": "0",
+            "closed_bottom_lip": "2",
             "corner_radius": "60",
             "epsilon": "0.10000000000000001",
             "flatten_bottom": "true",
@@ -878,7 +879,7 @@
             "hook_size": "5",
             "pin_extra_len": "4",
             "quantized_x_size": "false",
-            "quantized_x_spacing": "false",
+            "quantized_x_spacing": "true",
             "quantized_z_size": "true",
             "strength_factor": "0",
             "taper_ratio_x": "1",
