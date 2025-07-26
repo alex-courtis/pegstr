@@ -605,3 +605,4 @@ pegstr();
 // include <bins-small-tall.scad>
 // include <bins-small-short.scad>
 // include <bins-pry.scad>
+// include <bins-eraser-lead.scad>
