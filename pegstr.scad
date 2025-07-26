@@ -97,8 +97,8 @@ flatten_top_additional = 0; // [-10:0.001:10]
 flatten_bottom = false;
 
 // flatten bottom further, default to hex pin base
-flatten_bottom_additional = 0.29525; // [-20:0.00001:20]
-// echo(flatten_bottom_calc=-epsilon + (hole_size - hole_size * sqrt(3) / 2) / 2);
+flatten_bottom_additional = 0.298574; // [-20:0.000001:20]
+echo(flatten_bottom_calc=-epsilon + (hole_size - hole_size * sqrt(3) / 2) / 2);
 
 // flatten to the sides of pinboard
 flatten_sides = false;
@@ -115,7 +115,7 @@ flatten_front_additional = 0; // [-10:0.001:10]
 /* [Pins] */
 
 // pin diameter
-hole_size = 5.90; // [0:0.01:10]
+hole_size = 5.95; // [0:0.01:10]
 
 // smaller hook as they are fragile and only used for insertion, not strength
 hook_size = 5.20; // [0:0.01:10]
