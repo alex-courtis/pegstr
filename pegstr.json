@@ -1084,7 +1084,7 @@
             "closed_bottom": "0",
             "closed_bottom_factor": "0",
             "closed_bottom_lip": "0",
-            "corner_radius": "4",
+            "corner_radius": "0",
             "epsilon": "0.10000000000000001",
             "flatten_bottom": "true",
             "flatten_bottom_dz": "0",
@@ -1096,8 +1096,8 @@
             "flatten_top": "true",
             "flatten_top_dz": "0",
             "holder_angle": "0",
-            "holder_cutout_side": "0",
-            "holder_offset": "0",
+            "holder_cutout_side": "0.48999999999999999",
+            "holder_offset": "1",
             "holder_sides_fn": "200",
             "holder_x_count": "1",
             "holder_x_size": "22",
@@ -1112,9 +1112,9 @@
             "quantized_x_size": "false",
             "quantized_x_spacing": "false",
             "quantized_z_size": "true",
-            "strength_factor": "0.046540000000000005",
+            "strength_factor": "0.050830000000000007",
             "taper_ratio_x": "0.88",
-            "taper_ratio_y": "0.83999999999999997",
+            "taper_ratio_y": "0.79000000000000004",
             "wall_thickness": "0.80000000000000004"
         }
     }

@@ -1,4 +1,4 @@
-r = 2;
+r = 3;
 dz = -clip_height / 2;
 
 difference() {
