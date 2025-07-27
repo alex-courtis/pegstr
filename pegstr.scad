@@ -608,3 +608,4 @@ pegstr();
 // include <bins-pry.scad>
 // include <bins-eraser-lead.scad>
 // include <isopropyl-acetone-holder.scad>
+// include <compass.scad>
