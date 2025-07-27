@@ -1112,10 +1112,10 @@
             "quantized_x_size": "false",
             "quantized_x_spacing": "false",
             "quantized_z_size": "true",
-            "strength_factor": "0.0034100000000000003",
+            "strength_factor": "0.046540000000000005",
             "taper_ratio_x": "0.88",
             "taper_ratio_y": "0.83999999999999997",
-            "wall_thickness": "1.2"
+            "wall_thickness": "0.80000000000000004"
         }
     }
 }
