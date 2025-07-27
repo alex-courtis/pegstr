@@ -90,28 +90,26 @@ flatten_method = "difference"; // [difference,intersection,union,none]
 // flatten the top, to clips
 flatten_top = true;
 
-// flatten top further
-flatten_top_additional = 0; // [-10:0.001:10]
+// adjust top flattening
+flatten_top_dz = 0; // [-10:0.001:10]
 
 // flatten the bottom to lower pins
 flatten_bottom = false;
 
-// flatten bottom further, default to hex pin base
-flatten_bottom_additional = 0.298574; // [-20:0.000001:40]
-echo(flatten_bottom_calc=-epsilon + (hole_size - hole_size * sqrt(3) / 2) / 2);
-echo();
+// adjust bottom flattening further than hex pin base
+flatten_bottom_dz = 0; // [-10:0.001:10]
 
 // flatten to the sides of pinboard
 flatten_sides = false;
 
-// flatten sides further
-flatten_sides_additional = 0; // [-10:0.001:20]
+// adjust sides flattening
+flatten_sides_dy = 0; // [-10:0.001:20]
 
 // flatten to the front of pinboard
 flatten_front = false;
 
-// flatten front further
-flatten_front_additional = 0; // [-10:0.001:10]
+// adjust front flattening
+flatten_front_dx = 0; // [-10:0.001:10]
 
 /* [Pins] */
 
@@ -533,11 +531,11 @@ module flatten() {
   y = max(holder_total_x, quantized_total_x) + epsilon * 2;
   dy = 0;
 
-  z = holder_z_size_actual;
+  z = max_z - min_z;
   dz = z / 2 + min_z;
 
   if (flatten_top) {
-    dz = dz - z + flatten_top_additional;
+    dz = dz - z + flatten_top_dz;
 
     color(c="blue")
       translate(v=[dx, dy, dz])
@@ -545,7 +543,9 @@ module flatten() {
   }
 
   if (flatten_bottom) {
-    dz = dz + z - flatten_bottom_additional;
+  	hole_hex_delta = -epsilon + (hole_size - hole_size * sqrt(3) / 2) / 2;
+
+    dz = dz + z - hole_hex_delta - flatten_bottom_dz;
 
     color(c="green")
       translate(v=[dx, dy, dz])
@@ -553,7 +553,7 @@ module flatten() {
   }
 
   if (flatten_sides) {
-    dy = dy + y - flatten_sides_additional;
+    dy = dy + y - flatten_sides_dy;
 
     color(c="yellow")
       translate(v=[dx, dy, dz])
@@ -565,7 +565,7 @@ module flatten() {
   }
 
   if (flatten_front) {
-    dx = dx - x + flatten_front_additional;
+    dx = dx - x + flatten_front_dx;
 
     color(c="red")
       translate(v=[dx, dy, dz])
