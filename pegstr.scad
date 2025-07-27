@@ -530,7 +530,7 @@ module flatten() {
   x = clip_height + holder_total_y + holder_offset;
   dx = clip_height - x / 2;
 
-  y = max(holder_total_x, quantized_total_x) + epsilon;
+  y = max(holder_total_x, quantized_total_x) + epsilon * 2;
   dy = 0;
 
   z = holder_z_size_actual;
