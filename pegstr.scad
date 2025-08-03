@@ -54,7 +54,7 @@ holder_offset = 0.0; // [0:0.01:50]
 quantized_z_size = false;
 
 // hight of the holder
-holder_z_size = 15; // [1:0.001:120]
+holder_z_size = 15; // [1:0.001:150]
 
 /* [Shape] */
 
@@ -609,3 +609,6 @@ pegstr();
 // include <bins-eraser-lead.scad>
 // include <isopropyl-acetone-holder.scad>
 // include <compass.scad>
+// include <bins-pry-tall.scad>
+// include <bins-pry-short.scad>
+
