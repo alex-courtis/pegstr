@@ -68,7 +68,7 @@ corner_radius = 30; // [0:0.01:60]
 strength_factor = 0.66; // [0:0.00001:1]
 
 // for bins: what ratio of wall thickness to use for closing the bottom
-closed_bottom = 0.0; // [0:0.01:10]
+closed_bottom = 0.0; // [0:0.01:30]
 
 // what ratio of the holders bottom is closed
 closed_bottom_factor = 0.0; // [0:0.01:1]
@@ -97,7 +97,7 @@ flatten_top_dz = 0; // [-10:0.001:10]
 flatten_bottom = false;
 
 // adjust bottom flattening further than hex pin base
-flatten_bottom_dz = 0; // [-10:0.001:10]
+flatten_bottom_dz = 0; // [-10:0.001:50]
 
 // flatten to the sides of pinboard
 flatten_sides = false;
