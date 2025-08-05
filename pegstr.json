@@ -1513,7 +1513,7 @@
             "closed_bottom": "2",
             "closed_bottom_factor": "0",
             "closed_bottom_lip": "0",
-            "corner_radius": "1",
+            "corner_radius": "0.40000000000000002",
             "epsilon": "0.10000000000000001",
             "flatten_bottom": "true",
             "flatten_bottom_dz": "17.244",
@@ -1542,8 +1542,8 @@
             "quantized_x_spacing": "false",
             "quantized_z_size": "false",
             "strength_factor": "0",
-            "taper_ratio_x": "0.96599999999999997",
-            "taper_ratio_y": "0.98199999999999998",
+            "taper_ratio_x": "0.97999999999999998",
+            "taper_ratio_y": "0.98799999999999999",
             "wall_thickness": "1.2"
         }
     }
