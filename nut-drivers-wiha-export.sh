@@ -1,6 +1,9 @@
 #!/bin/sh
 
 for c in \
+	"nut-drivers-wiha-1-3-flat" \
+	"nut-drivers-wiha-4-6-flat" \
+	"nut-drivers-wiha-7-flat" \
 	"nut-drivers-wiha-1-3-big-end" \
 	"nut-drivers-wiha-4-6-big-end" \
 	"nut-drivers-wiha-7-big-end" \
