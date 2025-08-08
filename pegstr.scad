@@ -54,7 +54,7 @@ holder_offset = 0.0; // [0:0.01:50]
 quantized_z_size = false;
 
 // hight of the holder
-holder_z_size = 15; // [1:0.001:150]
+holder_z_size = 15; // [1:0.001:200]
 
 /* [Shape] */
 
@@ -612,3 +612,4 @@ pegstr();
 // include <bins-pry-tall.scad>
 // include <bins-pry-short.scad>
 // include <drill-bits-conical.scad>
+// include <caliper3.scad>
