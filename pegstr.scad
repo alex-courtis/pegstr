@@ -537,13 +537,17 @@ module flatten() {
   if (flatten_top) {
     dz = dz - z + flatten_top_dz;
 
+    // double sized to cover angled holders
+    dx = dx - x / 2;
+    x = x * 2;
+
     color(c="blue")
       translate(v=[dx, dy, dz])
         cube(size=[x, y, z], center=true);
   }
 
   if (flatten_bottom) {
-  	hole_hex_delta = -epsilon + (hole_size - hole_size * sqrt(3) / 2) / 2;
+    hole_hex_delta = -epsilon + (hole_size - hole_size * sqrt(3) / 2) / 2;
 
     dz = dz + z - hole_hex_delta - flatten_bottom_dz;
 
