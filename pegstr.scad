@@ -19,7 +19,7 @@
 // adjusts holder_x_size to fit entire width
 quantized_x_size = false;
 
-// width of the orifice
+// width of the orifice, NOTE: it is larger when round
 holder_x_size = 10; // [1:0.01:200]
 
 // how many times to repeat the holder on X axis
@@ -36,7 +36,7 @@ holder_x_spacing = 0; // [0:0.01:50]
 
 /* [Size] [y] */
 
-// depth of the orifice
+// depth of the orifice, NOTE: it is larger when round
 holder_y_size = 10; // [1:0.01:200]
 
 // how many times to repeat the holder on Y axis
