@@ -596,20 +596,20 @@ module pegstr() {
 
 pegstr();
 
-// include <caliper.scad>
-// include <drill-bits.scad>
-// include <nut-drivers.scad>
-// include <multimeter.scad>
-// include <voltmeter.scad>
-// include <multimeter3.scad>
-// include <drivers-wiha-flat.scad>
-// include <bins-small-tall.scad>
-// include <bins-small-short.scad>
-// include <bins-pry.scad>
-// include <bins-eraser-lead.scad>
-// include <isopropyl-acetone-holder.scad>
-// include <compass.scad>
-// include <bins-pry-tall.scad>
-// include <bins-pry-short.scad>
-// include <drill-bits-conical.scad>
-// include <caliper3.scad>
+// include <overrides/caliper.scad>
+// include <overrides/drill-bits.scad>
+// include <overrides/nut-drivers.scad>
+// include <overrides/multimeter.scad>
+// include <overrides/voltmeter.scad>
+// include <overrides/multimeter3.scad>
+// include <overrides/drivers-wiha-flat.scad>
+// include <overrides/bins-small-tall.scad>
+// include <overrides/bins-small-short.scad>
+// include <overrides/bins-pry.scad>
+// include <overrides/bins-eraser-lead.scad>
+// include <overrides/isopropyl-acetone-holder.scad>
+// include <overrides/compass.scad>
+// include <overrides/bins-pry-tall.scad>
+// include <overrides/bins-pry-short.scad>
+// include <overrides/drill-bits-conical.scad>
+// include <overrides/caliper3.scad>
