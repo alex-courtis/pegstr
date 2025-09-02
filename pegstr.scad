@@ -23,7 +23,7 @@ quantized_x_size = false;
 holder_x_size = 10; // [1:0.01:200]
 
 // how many times to repeat the holder on X axis
-holder_x_count = 1; // [1:20]
+holder_x_count = 1; // [0:20]
 
 // Use values less than 1.0 to make the bottom of the holder narrow
 taper_ratio_x = 1.0; // [0:0.001:1]
@@ -40,7 +40,7 @@ holder_x_spacing = 0; // [0:0.01:50]
 holder_y_size = 10; // [1:0.01:200]
 
 // how many times to repeat the holder on Y axis
-holder_y_count = 2; // [1:10]
+holder_y_count = 2; // [0:10]
 
 // Use values less than 1.0 to make the bottom of the holder narrow
 taper_ratio_y = 1.0; // [0:0.001:1]
@@ -136,8 +136,6 @@ $fn = 200;
 // what is the $fn parameter for rounded rects
 holder_sides_fn = 200;
 
-epsilon = 0.1;
-
 clip_height = 2 * hole_size + 2;
 echo(clip_height=clip_height);
 echo();
@@ -196,7 +194,7 @@ echo(holder_z_size=holder_z_size);
 holder_z_size_closed_bottom = holder_z_size + ( (strength_factor > 0 || closed_bottom_factor > 0) ? closed_bottom * wall_thickness : 0);
 echo(holder_z_size_closed_bottom=holder_z_size_closed_bottom);
 
-quantized_z = round(holder_z_size_closed_bottom / hole_spacing) * hole_spacing + clip_height / 2 + hole_size / 2 - epsilon;
+quantized_z = round(holder_z_size_closed_bottom / hole_spacing) * hole_spacing + clip_height / 2 + hole_size / 2;
 echo(quantized_z=quantized_z);
 
 min_z = -clip_height / 2;
@@ -204,6 +202,12 @@ max_z = min_z + quantized_z;
 
 holder_z_size_actual = quantized_z_size ? quantized_z : holder_z_size_closed_bottom;
 echo(holder_z_size_actual=holder_z_size_actual);
+
+holder_total_z = max(
+  max(strength_factor, round(holder_z_size_actual / hole_spacing)) * hole_spacing + (clip_height + hole_size) / 2,
+  holder_z_size_closed_bottom
+);
+echo(holder_total_z=holder_total_z);
 
 echo();
 
@@ -241,39 +245,13 @@ module round_rect_ex(x1, y1, x2, y2, z, r1, r2) {
   }
 }
 
-module old_pin(clip) {
-  rotate([0, 0, 15])
-    cylinder(r=hole_size / 2, h=board_thickness * 1.5 + epsilon, center=true, $fn=12);
-
-  if (clip) {
-    //
-    rotate([0, 0, 90])
-      intersection() {
-        translate([0, 0, hole_size - epsilon])
-          cube([hole_size + 2 * epsilon, clip_height, 2 * hole_size], center=true);
-
-        // [-hole_size/2 - 1.95,0, board_thickness/2]
-        translate([0, hole_size / 2 + 2, board_thickness / 2])
-          rotate([0, 90, 0])
-            rotate_extrude(convexity=5, $fn=20)
-              translate([5, 0, 0])
-                circle(r=(hole_size * 0.95) / 2);
-
-        translate([0, hole_size / 2 + 2 - 1.6, board_thickness / 2])
-          rotate([45, 0, 0])
-            translate([0, -0, hole_size * 0.6])
-              cube([hole_size + 2 * epsilon, 3 * hole_size, hole_size], center=true);
-      }
-  }
-}
-
 module pin(clip) {
   if (clip) {
     //
     rotate([0, 0, 90])
       intersection() {
-        translate([0, 0, hole_size - epsilon])
-          cube([hole_size + 2 * epsilon, clip_height, 2 * hole_size], center=true);
+        translate([0, 0, hole_size])
+          cube([hole_size, clip_height, 2 * hole_size], center=true);
 
         // [-hole_size/2 - 1.95,0, board_thickness/2]
         translate([0, hole_size / 2 + 2, board_thickness / 2])
@@ -285,12 +263,12 @@ module pin(clip) {
         translate([0, hole_size / 2 + 2 - 1.6, board_thickness / 2])
           rotate([45, 0, 0])
             translate([0, -0, hole_size * 0.6])
-              cube([hole_size + 2 * epsilon, 3 * hole_size, hole_size], center=true);
+              cube([hole_size, 3 * hole_size, hole_size], center=true);
       }
   } else {
     translate([0, 0, pin_extra_len / 2])
       rotate([0, 0, 30])
-        cylinder(r=hole_size / 2, h=board_thickness * 1.5 + epsilon + pin_extra_len, center=true, $fn=6);
+        cylinder(r=hole_size / 2, h=board_thickness * 1.5 + pin_extra_len, center=true, $fn=6);
   }
 }
 
@@ -312,7 +290,7 @@ module pinboard_clips() {
 
 module pinboard(clips) {
   rotate([0, 90, 0])
-    translate([-epsilon, 0, -wall_thickness - board_thickness / 2 + epsilon])
+    translate([0, 0, -wall_thickness - board_thickness / 2])
       hull() {
         translate(
           [
@@ -381,8 +359,8 @@ module holder(negative) {
                   (holder_y_size + 2 * wall_thickness) * taper_ratio_y,
                   (holder_x_size_actual + 2 * wall_thickness) * taper_ratio_x,
                   holder_z_size_actual,
-                  holder_roundness + epsilon,
-                  holder_roundness * taper_ratio + epsilon
+                  holder_roundness,
+                  holder_roundness * taper_ratio,
                 );
 
               translate([0, 0, closed_bottom * wall_thickness])
@@ -395,8 +373,8 @@ module holder(negative) {
                     holder_y_size * taper_ratio_y,
                     holder_x_size_actual * taper_ratio_x,
                     3 * max(holder_z_size_actual, hole_spacing),
-                    holder_roundness * taper_ratio + epsilon,
-                    holder_roundness * taper_ratio + epsilon
+                    holder_roundness * taper_ratio,
+                    holder_roundness * taper_ratio,
                   );
                 }
               } else {
@@ -405,9 +383,9 @@ module holder(negative) {
                   holder_x_size_actual,
                   holder_y_size * taper_ratio_y,
                   holder_x_size_actual * taper_ratio_x,
-                  holder_z_size_actual + 2 * epsilon,
-                  holder_roundness + epsilon,
-                  holder_roundness * taper_ratio + epsilon
+                  holder_z_size_actual,
+                  holder_roundness,
+                  holder_roundness * taper_ratio,
                 );
               }
 
@@ -423,8 +401,8 @@ module holder(negative) {
                           holder_y_size * taper_ratio_y,
                           holder_x_size_actual * taper_ratio_x,
                           3 * max(holder_z_size_actual, hole_spacing),
-                          holder_roundness * taper_ratio + epsilon,
-                          holder_roundness * taper_ratio + epsilon
+                          holder_roundness * taper_ratio,
+                          holder_roundness * taper_ratio,
                         );
 
                       translate([0 - (holder_y_size + 2 * wall_thickness), 0, 0])
@@ -435,8 +413,8 @@ module holder(negative) {
                             holder_y_size * taper_ratio_y,
                             holder_x_size_actual * taper_ratio_x,
                             3 * max(holder_z_size_actual, hole_spacing),
-                            holder_roundness * taper_ratio + epsilon,
-                            holder_roundness * taper_ratio + epsilon
+                            holder_roundness * taper_ratio,
+                            holder_roundness * taper_ratio,
                           );
                     }
                   } else {
@@ -451,9 +429,9 @@ module holder(negative) {
                             holder_x_size_actual,
                             holder_y_size * taper_ratio_y,
                             holder_x_size_actual * taper_ratio_x,
-                            holder_z_size_actual + 2 * epsilon,
-                            holder_roundness + epsilon,
-                            holder_roundness * taper_ratio + epsilon
+                            holder_z_size_actual,
+                            holder_roundness,
+                            holder_roundness * taper_ratio,
                           );
 
                         translate([0 - (holder_y_size + 2 * wall_thickness), 0, 0])
@@ -463,9 +441,9 @@ module holder(negative) {
                               holder_x_size_actual,
                               holder_y_size * taper_ratio_y,
                               holder_x_size_actual * taper_ratio_x,
-                              holder_z_size_actual + 2 * epsilon,
-                              holder_roundness + epsilon,
-                              holder_roundness * taper_ratio + epsilon
+                              holder_z_size_actual,
+                              holder_roundness,
+                              holder_roundness * taper_ratio,
                             );
                       }
                   }
@@ -502,10 +480,6 @@ module build() {
             holder(0);
           }
         }
-
-        if (closed_bottom * wall_thickness < epsilon) {
-          holder(2);
-        }
       }
 
       //color([0.2,0.5,0])
@@ -528,7 +502,7 @@ module flatten() {
   x = clip_height + holder_total_y + holder_offset;
   dx = clip_height - x / 2;
 
-  y = max(holder_total_x, quantized_total_x) + epsilon * 2;
+  y = max(holder_total_x, quantized_total_x);
   dy = 0;
 
   z = max_z - min_z;
@@ -547,7 +521,7 @@ module flatten() {
   }
 
   if (flatten_bottom) {
-    hole_hex_delta = -epsilon + (hole_size - hole_size * sqrt(3) / 2) / 2;
+    hole_hex_delta = (hole_size - hole_size * sqrt(3) / 2) / 2;
 
     dz = dz + z - hole_hex_delta - flatten_bottom_dz;
 
