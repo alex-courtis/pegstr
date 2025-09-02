@@ -93,23 +93,23 @@ flatten_top = true;
 // adjust top flattening
 flatten_top_dz = 0; // [-10:0.001:10]
 
-// flatten the bottom to lower pins
+// flatten the bottom
 flatten_bottom = false;
 
-// adjust bottom flattening further than hex pin base
-flatten_bottom_dz = 0; // [-10:0.001:50]
+// adjust bottom flattening, 0.3985 to hex pin base
+flatten_bottom_dz = 0; // [-10:0.0001:50]
 
 // flatten to the sides of pinboard
 flatten_sides = false;
 
 // adjust sides flattening
-flatten_sides_dy = 0; // [-10:0.001:20]
+flatten_sides_dx = 0; // [-10:0.001:20]
 
 // flatten to the front of pinboard
 flatten_front = false;
 
 // adjust front flattening
-flatten_front_dx = 0; // [-10:0.001:10]
+flatten_front_dy = 0; // [-10:0.001:10]
 
 /* [Pins] */
 
@@ -173,6 +173,10 @@ echo(holder_total_x=holder_total_x);
 
 echo(holder_x_size_actual=holder_x_size_actual);
 echo(bottom_x_size=holder_x_size_actual * taper_ratio_x);
+
+tx = max(holder_total_x, quantized_total_x);
+echo(tx=tx);
+
 echo();
 
 //
@@ -184,6 +188,9 @@ holder_total_y = wall_thickness + holder_y_count * (wall_thickness + holder_y_si
 echo(holder_total_y=holder_total_y);
 
 echo(bottom_y_size=holder_y_size * taper_ratio_y);
+
+ty = holder_total_y + holder_offset;
+echo(ty=ty);
 echo();
 
 //
@@ -203,12 +210,11 @@ max_z = min_z + quantized_z;
 holder_z_size_actual = quantized_z_size ? quantized_z : holder_z_size_closed_bottom;
 echo(holder_z_size_actual=holder_z_size_actual);
 
-holder_total_z = max(
+tz = max(
   max(strength_factor, round(holder_z_size_actual / hole_spacing)) * hole_spacing + (clip_height + hole_size) / 2,
   holder_z_size_closed_bottom
 );
-echo(holder_total_z=holder_total_z);
-
+echo(tz=tz);
 echo();
 
 //
@@ -498,77 +504,73 @@ module build() {
 
 module flatten() {
 
-  // covers the entire unit, with an entire clip_height out the back, top stops at hook top
-  x = clip_height + holder_total_y + holder_offset;
-  dx = clip_height - x / 2;
+  // twice x
+  x = tx * 2;
+  dx = -tx / 2;
 
-  y = max(holder_total_x, quantized_total_x);
-  dy = 0;
+  // cover pins and twice y
+  y = ty * 2 + 2 * hole_size;
+  dy = -2 * hole_size;
 
-  z = max_z - min_z;
-  dz = z / 2 + min_z;
+  // extra two hole_spacing
+  z = tz + 2 * hole_spacing;
+  dz = -hole_spacing;
 
   if (flatten_top) {
-    dz = dz - z + flatten_top_dz;
-
-    // double sized to cover angled holders
-    dx = dx - x / 2;
-    x = x * 2;
-
     color(c="blue")
-      translate(v=[dx, dy, dz])
-        cube(size=[x, y, z], center=true);
+      translate(v=[dx, dy, tz - flatten_top_dz])
+        cube(size=[x, y, z]);
   }
 
   if (flatten_bottom) {
-    hole_hex_delta = (hole_size - hole_size * sqrt(3) / 2) / 2;
-
-    dz = dz + z - hole_hex_delta - flatten_bottom_dz;
-
     color(c="green")
-      translate(v=[dx, dy, dz])
-        cube(size=[x, y, z], center=true);
+      translate(v=[dx, dy, -z + flatten_bottom_dz])
+        cube(size=[x, y, z]);
   }
 
   if (flatten_sides) {
-    dy = dy + y - flatten_sides_dy;
+    color(c="yellow")
+      translate(v=[tx - flatten_sides_dx, dy, dz])
+        cube(size=[x, y, z]);
 
     color(c="yellow")
-      translate(v=[dx, dy, dz])
-        cube(size=[x, y, z], center=true);
-
-    color(c="yellow")
-      translate(v=[dx, -dy, dz])
-        cube(size=[x, y, z], center=true);
+      translate(v=[-x + flatten_sides_dx, dy, dz])
+        cube(size=[x, y, z]);
   }
 
   if (flatten_front) {
-    dx = dx - x + flatten_front_dx;
-
     color(c="red")
-      translate(v=[dx, dy, dz])
-        cube(size=[x, y, z], center=true);
+      translate(v=[dx, ty - flatten_front_dy, dz])
+        cube(size=[x, y, z]);
   }
 }
 
 module pegstr() {
-  if (flatten_method == "difference") {
+
+  // move to sane coordinates, only pins have y < 0
+  module move() {
+    translate(v=[tx / 2, 0, tz - clip_height / 2])
+      rotate([0, 0, -90])
+        build();
+  }
+
+  render() if (flatten_method == "difference") {
     difference() {
-      rotate([180, 0, 0]) build();
+      move();
       flatten();
     }
   } else if (flatten_method == "intersection") {
     intersection() {
-      rotate([180, 0, 0]) build();
+      move();
       flatten();
     }
   } else if (flatten_method == "union") {
     union() {
-      rotate([180, 0, 0]) build();
+      move();
       flatten();
     }
   } else {
-    rotate([180, 0, 0]) build();
+    move();
   }
 }
 
