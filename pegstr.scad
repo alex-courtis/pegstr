@@ -103,7 +103,7 @@ flatten_bottom_dz = 0; // [-10:0.0001:50]
 flatten_sides = false;
 
 // adjust sides flattening
-flatten_sides_dx = 0; // [-10:0.001:20]
+flatten_sides_dx = 0; // [-10:0.001:100]
 
 // flatten to the front of pinboard
 flatten_front = false;

@@ -1,25 +1,20 @@
-cutout_taper = 0.88;
+render()
+  difference() {
+    pegstr();
 
-cutout_bottom_x = 30;
-cutout_bottom_y = 8;
-
-cutout_x = cutout_bottom_x / cutout_taper;
-cutout_y = cutout_bottom_y / cutout_taper;
-
-cutout_depth = wall_thickness * closed_bottom - epsilon;
-
-difference() {
-  pegstr();
-
-  // lead hole
-  color(c="pink", alpha=0.5)
-    translate(
-      v=[
-        -holder_offset - wall_thickness - cutout_y - holder_y_size + cutout_y,
-        cutout_x + holder_x_size / 2 - cutout_x,
-        -clip_height / 2 + holder_z_size_actual / 2 - cutout_depth,
-      ]
-    )
-      linear_extrude(height=holder_z_size_actual, scale=cutout_taper, center=true)
-        square(size=[cutout_y * 2, cutout_x * 2], center=true);
-}
+    color(c="red", alpha=1)
+      translate(
+        v=[
+          holder_x_size + 14.047 - 1.522 + 2.548,
+          ty - wall_thickness * 2,
+          tz - 68.4,
+        ]
+      )
+        cube(
+          [
+            70,
+            wall_thickness * 2.5,
+            68.4,
+          ], center=false
+        );
+  }
