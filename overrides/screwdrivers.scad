@@ -1,28 +1,36 @@
-
 check_bounds = false;
 
-module v6_large() {
+scale = 1;
 
-  // experiment
-  model_dx = 0;
-  model_dy = 16.550;
-  model_dz = 18.730;
+model = "v6_large.stl";
+model_dx = 0;
+model_dy = 16.550;
+model_dz = 18.730;
+holes_x = 132.95;
+holes_z = 6.05;
+holes_dz = 8.0;
+back_y = 2;
 
-  holes_x = 132.95;
-  holes_z = 6.05;
-  holes_dz = 8.0;
+// model = "v6_small.stl";
+// model_dx = 0;
+// model_dy = 14.701;
+// model_dz = 15.729;
+// holes_x = 58;
+// holes_z = 6;
+// holes_dz = 7.5;
+// back_y = 2;
 
-  back_y = 2;
+module model() {
 
-  translate(v=[model_dx, model_dy, model_dz]) {
-    rotate(a=180, v=[0, 0, 1]) {
-      color(c="lightblue") {
-        import("/lord/prn/FrankLumien/screwdriver-holder-pegboard-or-wall-mounted/Screwdriver holder v6 large nologo.stl", center=true);
+  color(c="pink") {
+    translate(v=[model_dx, model_dy, model_dz]) {
+      rotate(a=180, v=[0, 0, 1]) {
+        import(model, center=true);
       }
     }
   }
 
-  color(c="green") {
+  color(c="magenta") {
     translate(v=[0, back_y / 2, holes_dz]) {
       cube([holes_x, back_y, holes_z], center=true);
     }
@@ -43,15 +51,15 @@ render() {
     // nothing should be rendered
     color(c="red") {
       intersection() {
-        v6_large();
+        model();
         out_of_bounds();
       }
     }
   } else {
     difference() {
       union() {
-        scale(1)
-          v6_large();
+        scale(scale)
+          model();
 
         translate(v=[-tx / 2, 0, 0]) {
           pegstr();
