@@ -6,7 +6,7 @@ module v6_large() {
   // experiment
   model_dx = 0;
   model_dy = 16.550;
-  model_dz = 18.729;
+  model_dz = 18.730;
 
   holes_x = 132.95;
   holes_z = 6.05;
@@ -16,13 +16,13 @@ module v6_large() {
 
   translate(v=[model_dx, model_dy, model_dz]) {
     rotate(a=180, v=[0, 0, 1]) {
-      color(c="blue") {
+      color(c="lightblue") {
         import("/lord/prn/FrankLumien/screwdriver-holder-pegboard-or-wall-mounted/Screwdriver holder v6 large nologo.stl", center=true);
       }
     }
   }
 
-  color(c="orange") {
+  color(c="green") {
     translate(v=[0, back_y / 2, holes_dz]) {
       cube([holes_x, back_y, holes_z], center=true);
     }
@@ -48,16 +48,16 @@ render() {
       }
     }
   } else {
-    union() {
-      color(c="grey") {
-        translate(v=[0, 0, flatten_bottom_dz]) {
+    difference() {
+      union() {
+        scale(1)
           v6_large();
+
+        translate(v=[-tx / 2, 0, 0]) {
+          pegstr();
         }
       }
-
-      translate(v=[-tx / 2, 0, 0]) {
-        pegstr();
-      }
+      cube([500, 500, flatten_bottom_dz], center=true);
     }
   }
 }
