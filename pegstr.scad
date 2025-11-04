@@ -8,6 +8,10 @@
 // November 28th 2014
 //		- bug fixes
 
+// model_dx = 91.09; // [0:0.01:200]
+// model_dy = 16.55; // [0:0.01:200]
+// model_dz = 18.73; // [0:0.01:200]
+
 // TODO
 // closed bottom factor nonbinary
 // angle adds offset
@@ -593,3 +597,4 @@ pegstr();
 // include <overrides/bins-pry-short.scad>
 // include <overrides/drill-bits-conical.scad>
 // include <overrides/caliper3.scad>
+// include <overrides/screwdrivers.scad>
