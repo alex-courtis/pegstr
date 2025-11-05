@@ -24,12 +24,35 @@ module model_bounds() {
   }
 }
 
+module mirror() {
+  if (screwdrivers_model_mirror_dx) {
+    intersection() {
+      translate(v=[screwdrivers_model_mirror_dx, 0, 0]) {
+        children();
+      }
+      cube([500, 400, 400], center=false);
+    }
+    intersection() {
+      translate(v=[-screwdrivers_model_mirror_dx, 0, 0]) {
+        children();
+      }
+      translate(v=[-500, 0, 0]) {
+        cube([500, 400, 400], center=false);
+      }
+    }
+  } else {
+    children();
+  }
+}
+
 module combined() {
   if (screwdrivers_show_model) {
     difference() {
-      translate(v=[0, screwdrivers_model_offset_dy, 0]) {
-        scale(screwdrivers_scale) {
-          model();
+      mirror() {
+        translate(v=[0, screwdrivers_model_offset_dy, 0]) {
+          scale(screwdrivers_scale) {
+            model();
+          }
         }
       }
       color(c="red") {
