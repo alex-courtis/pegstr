@@ -1617,7 +1617,7 @@
             "screwdrivers_model_dx": "0",
             "screwdrivers_model_dy": "14.700000000000001",
             "screwdrivers_model_dz": "15.728",
-            "screwdrivers_model_offset_dy": "0",
+            "screwdrivers_model_offset_dy": "-2.6050000000000004",
             "screwdrivers_scale": "1.1800000000000002",
             "screwdrivers_show_fill": "true",
             "screwdrivers_show_holder": "true",
@@ -1625,7 +1625,7 @@
             "strength_factor": "0",
             "taper_ratio_x": "1",
             "taper_ratio_y": "1",
-            "wall_thickness": "4"
+            "wall_thickness": "2"
         }
     }
 }
