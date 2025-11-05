@@ -25,19 +25,32 @@ module model_bounds() {
 }
 
 module combined() {
-  translate(v=[0, screwdrivers_model_offset_dy, 0]) {
-    scale(screwdrivers_scale)
-      model();
-  }
-
-  translate(v=[-tx / 2, 0, screwdrivers_holder_dz]) {
-    pegstr();
-  }
-
-  color(c="blue")
-    translate(v=[0, wall_thickness / 2, (screwdrivers_holder_dz + hole_size) / 2]) {
-      cube([tx, wall_thickness, screwdrivers_holder_dz + hole_size], center=true);
+  if (screwdrivers_show_model) {
+    difference() {
+      translate(v=[0, screwdrivers_model_offset_dy, 0]) {
+        scale(screwdrivers_scale) {
+          model();
+        }
+      }
+      color(c="red") {
+        model_bounds();
+      }
     }
+  }
+
+  if (screwdrivers_show_holder) {
+    translate(v=[-tx / 2, 0, screwdrivers_fill_dz]) {
+      pegstr();
+    }
+  }
+
+  if (screwdrivers_show_fill) {
+    color(c="blue") {
+      translate(v=[0, wall_thickness / 2, (screwdrivers_fill_dz + hole_size) / 2]) {
+        cube([tx, wall_thickness, screwdrivers_fill_dz + hole_size], center=true);
+      }
+    }
+  }
 }
 
 render() {
@@ -49,6 +62,6 @@ render() {
       }
     }
   } else {
-      combined();
+    combined();
   }
 }
