@@ -8,10 +8,6 @@
 // November 28th 2014
 //		- bug fixes
 
-// model_dx = 91.09; // [0:0.01:200]
-// model_dy = 16.55; // [0:0.01:200]
-// model_dz = 18.73; // [0:0.01:200]
-
 // TODO
 // closed bottom factor nonbinary
 // angle adds offset
@@ -131,6 +127,22 @@ board_thickness = 0; // [0:0.01:10]
 
 // longer pins for board_thickness 0
 pin_extra_len = 4; // [0:0.01:5]
+
+/* [Screwdrivers Specific] */
+screwdrivers_scale = 1; // [0.5:0.01:2]
+screwdrivers_color = "springgreen";
+screwdrivers_model = "v6_large.stl";
+screwdrivers_model_dx = 0; // [0:0.002:200]
+screwdrivers_model_dy = 16.550; // [0:0.002:200]
+screwdrivers_model_dz = 18.730; // [0:0.002:200]
+screwdrivers_model_offset_dy = 0;// [-20:0.001:20]
+screwdrivers_holes_x = 132.95; // [0:0.01:200]
+screwdrivers_holes_z = 6.05; // [0:0.01:200]
+screwdrivers_holes_dz = 8.0; // [0:0.01:200]
+screwdrivers_back_y = 2; // [0:0.01:200]
+screwdrivers_holder_dz = 0; // [-20:0.01:20]
+screwdrivers_check_model_bounds = false;
+screwdrivers_flatten_intersection = false;
 
 /* [Tuning] */
 

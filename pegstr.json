@@ -1525,7 +1525,7 @@
             "taper_ratio_y": "1",
             "wall_thickness": "0.80000000000000004"
         },
-        "screwdrivers": {
+        "screwdrivers-philips-large": {
             "$fn": "200",
             "board_thickness": "0",
             "closed_bottom": "0",
@@ -1533,24 +1533,24 @@
             "closed_bottom_lip": "0",
             "corner_radius": "30",
             "flatten_bottom": "false",
-            "flatten_bottom_dz": "1.0812000000000008",
+            "flatten_bottom_dz": "-0.54059999999999953",
             "flatten_front": "false",
             "flatten_front_dy": "0",
             "flatten_method": "difference",
             "flatten_sides": "false",
             "flatten_sides_dx": "0",
             "flatten_top": "false",
-            "flatten_top_dz": "2.0009999999999994",
+            "flatten_top_dz": "0",
             "holder_angle": "0",
             "holder_cutout_side": "0",
             "holder_offset": "0",
             "holder_sides_fn": "200",
             "holder_x_count": "1",
-            "holder_x_size": "82.760000000000005",
+            "holder_x_size": "155",
             "holder_x_spacing": "0",
             "holder_y_count": "0",
-            "holder_y_size": "41.649999999999999",
-            "holder_z_size": "35.067",
+            "holder_y_size": "44.119999999999997",
+            "holder_z_size": "18.677",
             "hole_size": "5.9500000000000002",
             "hole_spacing": "25",
             "hook_size": "5.2000000000000002",
@@ -1558,10 +1558,18 @@
             "quantized_x_size": "true",
             "quantized_x_spacing": "false",
             "quantized_z_size": "true",
+            "screwdrivers_check_model_bounds": "false",
+            "screwdrivers_flatten_intersection": "false",
+            "screwdrivers_holder_dz": "8.0399999999999991",
+            "screwdrivers_holes_x": "132.94999999999999",
+            "screwdrivers_model_dy": "16.550000000000001",
+            "screwdrivers_model_dz": "18.728000000000002",
+            "screwdrivers_model_offset_dy": "1.6400000000000006",
+            "screwdrivers_scale": "1.1800000000000002",
             "strength_factor": "0",
             "taper_ratio_x": "1",
             "taper_ratio_y": "1",
-            "wall_thickness": "2"
+            "wall_thickness": "4"
         }
     }
 }

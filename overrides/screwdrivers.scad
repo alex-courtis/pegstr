@@ -1,43 +1,21 @@
-check_bounds = false;
-
-scale = 1;
-
-model = "v6_large.stl";
-model_dx = 0;
-model_dy = 16.550;
-model_dz = 18.730;
-holes_x = 132.95;
-holes_z = 6.05;
-holes_dz = 8.0;
-back_y = 2;
-
-// model = "v6_small.stl";
-// model_dx = 0;
-// model_dy = 14.701;
-// model_dz = 15.729;
-// holes_x = 58;
-// holes_z = 6;
-// holes_dz = 7.5;
-// back_y = 2;
-
 module model() {
 
-  color(c="pink") {
-    translate(v=[model_dx, model_dy, model_dz]) {
+  color(c=screwdrivers_color) {
+    translate(v=[screwdrivers_model_dx, screwdrivers_model_dy, screwdrivers_model_dz]) {
       rotate(a=180, v=[0, 0, 1]) {
-        import(model, center=true);
+        import(screwdrivers_model, center=true);
       }
     }
   }
 
   color(c="magenta") {
-    translate(v=[0, back_y / 2, holes_dz]) {
-      cube([holes_x, back_y, holes_z], center=true);
+    translate(v=[0, screwdrivers_back_y / 2, screwdrivers_holes_dz]) {
+      cube([screwdrivers_holes_x, screwdrivers_back_y, screwdrivers_holes_z], center=true);
     }
   }
 }
 
-module out_of_bounds() {
+module model_bounds() {
   difference() {
     cube([500, 400, 400], center=true);
     translate(v=[0, 100, 100]) {
@@ -46,26 +24,47 @@ module out_of_bounds() {
   }
 }
 
+module combined() {
+  translate(v=[0, screwdrivers_model_offset_dy, 0]) {
+    scale(screwdrivers_scale)
+      model();
+  }
+
+  translate(v=[-tx / 2, 0, screwdrivers_holder_dz]) {
+    pegstr();
+  }
+
+  color(c="blue")
+    translate(v=[0, wall_thickness / 2, (screwdrivers_holder_dz + hole_size) / 2]) {
+      cube([tx, wall_thickness, screwdrivers_holder_dz + hole_size], center=true);
+    }
+}
+
+module negative_z() {
+  color(c="red") {
+    translate(v=[0, 0, -50]) {
+      cube([500, 500, 100], center=true);
+    }
+  }
+}
+
 render() {
-  if (check_bounds) {
-    // nothing should be rendered
+  if (screwdrivers_check_model_bounds) {
     color(c="red") {
       intersection() {
         model();
-        out_of_bounds();
+        model_bounds();
       }
+    }
+  } else if (screwdrivers_flatten_intersection) {
+    intersection() {
+      combined();
+      negative_z();
     }
   } else {
     difference() {
-      union() {
-        scale(scale)
-          model();
-
-        translate(v=[-tx / 2, 0, 0]) {
-          pegstr();
-        }
-      }
-      cube([500, 500, flatten_bottom_dz], center=true);
+      combined();
+      negative_z();
     }
   }
 }
