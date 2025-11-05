@@ -40,14 +40,6 @@ module combined() {
     }
 }
 
-module negative_z() {
-  color(c="red") {
-    translate(v=[0, 0, -50]) {
-      cube([500, 500, 100], center=true);
-    }
-  }
-}
-
 render() {
   if (screwdrivers_check_model_bounds) {
     color(c="red") {
@@ -56,15 +48,7 @@ render() {
         model_bounds();
       }
     }
-  } else if (screwdrivers_flatten_intersection) {
-    intersection() {
-      combined();
-      negative_z();
-    }
   } else {
-    difference() {
       combined();
-      negative_z();
-    }
   }
 }

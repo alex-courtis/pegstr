@@ -142,7 +142,6 @@ screwdrivers_holes_dz = 8.0; // [0:0.01:200]
 screwdrivers_back_y = 2; // [0:0.01:200]
 screwdrivers_holder_dz = 0; // [-20:0.01:20]
 screwdrivers_check_model_bounds = false;
-screwdrivers_flatten_intersection = false;
 
 /* [Tuning] */
 

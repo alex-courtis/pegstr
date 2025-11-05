@@ -1559,7 +1559,6 @@
             "quantized_x_spacing": "false",
             "quantized_z_size": "true",
             "screwdrivers_check_model_bounds": "false",
-            "screwdrivers_flatten_intersection": "false",
             "screwdrivers_holder_dz": "8.0399999999999991",
             "screwdrivers_holes_x": "132.94999999999999",
             "screwdrivers_model_dy": "16.550000000000001",
