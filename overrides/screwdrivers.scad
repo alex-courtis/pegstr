@@ -49,7 +49,7 @@ module combined() {
   if (screwdrivers_show_model) {
     difference() {
       mirror() {
-        translate(v=[0, screwdrivers_model_offset_dy, 0]) {
+        translate(v=[0, screwdrivers_model_offset_dy, screwdrivers_model_offset_dz]) {
           scale(screwdrivers_scale) {
             model();
           }
