@@ -1791,7 +1791,7 @@
             "taper_ratio_y": "1",
             "wall_thickness": "2"
         },
-        "screwdrivers-small-extra-1-1": {
+        "screwdrivers-small-extra-1-1.05": {
             "$fn": "200",
             "board_thickness": "0",
             "closed_bottom": "0",
@@ -1835,17 +1835,17 @@
             "screwdrivers_model_dx": "0",
             "screwdrivers_model_dy": "14.700000000000001",
             "screwdrivers_model_dz": "15.728",
-            "screwdrivers_model_mirror_dx": "12.552999999999997",
+            "screwdrivers_model_mirror_dx": "13.188000000000002",
             "screwdrivers_model_offset_dy": "-1.3129999999999988",
             "screwdrivers_model_offset_dz": "0",
-            "screwdrivers_scale": "1",
+            "screwdrivers_scale": "1.0508999999999999",
             "screwdrivers_show_fill": "true",
             "screwdrivers_show_holder": "true",
             "screwdrivers_show_model": "true",
             "strength_factor": "0",
             "taper_ratio_x": "1",
             "taper_ratio_y": "1",
-            "wall_thickness": "2"
+            "wall_thickness": "2.3999999999999999"
         }
     }
 }
