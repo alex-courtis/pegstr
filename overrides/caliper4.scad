@@ -1,19 +1,19 @@
 include <BOSL2/std.scad>
 
+$fn = 200;
+
 t_shell = 0.5;
-r_shell = t_shell * 2;
+r_shell = t_shell * 1;
 
-t_mould = 3;
-r_mould = 4;
-dz_mould = 0.4;
-z_mould = 6.5 + dz_mould;
+t_mould_wall = 3;
+r_mould_wall = t_mould_wall * 1;
 
-x_max_model = 77;
-y_max_model = 236;
-z_max_model = 17;
+t_mould_base = 0.4;
 
-module grow(t, or) {
-  shell2d(thickness=t, or=or)
+dy_mould = -120;
+
+module grow(thickness, or) {
+  shell2d(thickness=thickness, or=or)
     children();
   children();
 }
@@ -38,8 +38,7 @@ module major3d() {
   color(c="green")
     translate(v=[0, 0, 2.5])
       linear_extrude(h=4)
-        grow(t_shell, r_shell)
-          major2d();
+        major2d();
 }
 
 module minor2d() {
@@ -60,8 +59,7 @@ module minor2d() {
 module minor3d() {
   color(c="orange")
     linear_extrude(h=6.5)
-      grow(t_shell, r_shell)
-        minor2d();
+      minor2d();
 }
 
 module body2d() {
@@ -85,8 +83,7 @@ module body2d() {
 module body3d() {
   color(c="brown")
     linear_extrude(h=17)
-      grow(t_shell, r_shell)
-        body2d();
+      body2d();
 }
 
 module wheel2d() {
@@ -105,8 +102,7 @@ module wheel2d() {
 module wheel3d() {
   color(c="yellow")
     linear_extrude(h=9)
-      grow(t_shell, r_shell)
-        wheel2d();
+      wheel2d();
 }
 
 module slide2d() {
@@ -125,16 +121,7 @@ module slide3d() {
   color(c="purple")
     translate(v=[0, 0, 2.5])
       linear_extrude(h=4)
-        grow(t_shell, r_shell)
-          slide2d();
-}
-
-module model3d() {
-  major3d();
-  minor3d();
-  body3d();
-  wheel3d();
-  slide3d();
+        slide2d();
 }
 
 module model2d() {
@@ -145,25 +132,82 @@ module model2d() {
   slide2d();
 }
 
-module test_mould() {
-  intersection() {
-    translate(v=[-5, 80, 0]) {
-      cube([x_max_model * 1.2, y_max_model * 1.2, 20]);
-    }
+module model3d() {
+  major3d();
+  minor3d();
+  body3d();
+  wheel3d();
+  slide3d();
+}
 
-    difference() {
-      linear_extrude(h=z_mould) {
-        grow(t_mould, r_mould) {
-          model2d();
+module mould_outer() {
+  grow(thickness=t_mould_wall, or=r_mould_wall) {
+    grow(thickness=t_shell, or=r_shell) {
+      major2d();
+      minor2d();
+      body2d();
+      wheel2d();
+      slide2d();
+    }
+  }
+}
+
+module mould() {
+
+  // base
+  color(c="blue") {
+    linear_extrude(h=t_mould_base) {
+      mould_outer();
+    }
+  }
+
+  // layer 0 2.5
+  color(c="pink") {
+    translate(v=[0, 0, t_mould_base]) {
+      linear_extrude(h=2.5) {
+        difference() {
+          mould_outer();
+
+          grow(thickness=t_shell, or=r_shell) {
+            // major2d();
+            minor2d();
+            body2d();
+            wheel2d();
+            // slide2d();
+          }
         }
       }
-      translate(v=[0, 0, dz_mould]) {
-        model3d();
+    }
+  }
+
+  // layer 1 9
+  color(c="brown") {
+    translate(v=[0, 0, t_mould_base + 2.5]) {
+      linear_extrude(h=9 - 2.5) {
+        difference() {
+          mould_outer();
+
+          grow(thickness=t_shell, or=r_shell) {
+            major2d();
+            minor2d();
+            body2d();
+            wheel2d();
+            slide2d();
+          }
+        }
       }
     }
   }
 }
 
-render() model3d();
+render() {
+  translate(v=[100, dy_mould, t_mould_base]) {
+    model3d();
+  }
 
-// render() test_mould();
+  back_half(s=200) {
+    translate(v=[0, dy_mould, 0]) {
+      mould();
+    }
+  }
+}
