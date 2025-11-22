@@ -1,19 +1,27 @@
 include <BOSL2/std.scad>
+include <BOSL2/hinges.scad>
 
 $fn = 200;
 
 t_shell = 0.5;
 r_shell = t_shell * 1;
 
-t_mould_wall = 3;
+t_mould_wall = 1.6;
 r_mould_wall = t_mould_wall * 1;
 
 t_mould_base = 0.8;
 
-dy_mould = -120;
+dy_mould = -120; //[-200:0.1:200]
 
-show_model = true;
+show_model = false;
 show_mould = true;
+
+pin_diam = 3.75;
+t_knuckle = 1.6;
+l_hinge = 62 - 36;
+dy_hinge = t_shell;
+hinge_arm_height = t_knuckle * 1;
+hinge_overcentre = 1;
 
 module grow(thickness, or) {
   shell2d(thickness=thickness, or=or)
@@ -160,6 +168,30 @@ module model3d() {
   slide3d();
 }
 
+module hinge(offset, inner) {
+  translate(
+    v=[
+      0,
+      pin_diam / 2 + t_knuckle + dy_hinge,
+      // there's a slop or rounding of 0.01 coming from somewhere
+      0.01,
+    ]
+  ) {
+    knuckle_hinge(
+      length=l_hinge,
+      segs=7,
+      offset=offset,
+      arm_height=hinge_arm_height,
+      arm_angle=90,
+      clear_top=false,
+      pin_diam=pin_diam,
+      knuckle_diam=pin_diam + t_knuckle * 2,
+      inner=inner,
+      seg_ratio=1,
+    );
+  }
+}
+
 module mould_outer() {
   grow(thickness=t_mould_wall, or=r_mould_wall) {
     grow(thickness=t_shell, or=r_shell) {
@@ -256,6 +288,25 @@ module mould_top() {
         }
       }
     }
+
+    // major [36, 236] to minor [62, 236]
+    // offset y by t_shell inner and t_mould_wall outer
+    // offset z 6.5 - t_shell top 
+    color(c="olive") {
+      translate(
+        v=[
+          36 + l_hinge / 2,
+          236 + t_shell + t_mould_wall,
+          9 + t_mould_base,
+        ]
+      ) {
+        mirror(v=[0, 0, 1]) {
+          bottom_half(z=9 - 6.5 + t_mould_base + t_shell + hinge_overcentre) {
+            hinge(offset=9 - 6.5 + t_shell + t_mould_base, inner=false);
+          }
+        }
+      }
+    }
   }
 }
 
@@ -309,6 +360,23 @@ module mould_bottom() {
             }
           }
         }
+      }
+    }
+  }
+
+  // major [36, 236] to minor [62, 236]
+  // offset y by t_shell inner and t_mould_wall outer
+  // offset z 6.5 top 
+  color(c="olive") {
+    translate(
+      v=[
+        36 + l_hinge / 2,
+        236 + t_shell + t_mould_wall,
+        0,
+      ]
+    ) {
+      bottom_half(z=6.5 + t_mould_base + hinge_overcentre) {
+        hinge(offset=6.5 + t_mould_base, inner=true);
       }
     }
   }
