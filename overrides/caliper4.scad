@@ -65,15 +65,29 @@ module minor3d() {
       minor2d();
 }
 
+module screw2d() {
+  polygon(
+    [
+      [63, 193],
+      [70, 193],
+      [70, 185.5],
+      [63, 185.5],
+      [63, 193],
+    ]
+  );
+}
+
+module screw3d() {
+  color(c="yellowgreen")
+    linear_extrude(h=8)
+      screw2d();
+}
+
 module body2d() {
   polygon(
     [
       [33, 221],
       [63, 221],
-      [63, 193],
-      [70, 193],
-      [70, 185.5],
-      [63, 185.5],
       [63, 159],
       [33, 159],
       [26, 168],
@@ -84,7 +98,7 @@ module body2d() {
 }
 
 module body3d() {
-  color(c="brown")
+  color(c="mediumvioletred")
     linear_extrude(h=17)
       body2d();
 }
@@ -130,6 +144,7 @@ module slide3d() {
 module model2d() {
   major2d();
   minor2d();
+  screw2d();
   body2d();
   wheel2d();
   slide2d();
@@ -138,6 +153,7 @@ module model2d() {
 module model3d() {
   major3d();
   minor3d();
+  screw3d();
   body3d();
   wheel3d();
   slide3d();
@@ -148,6 +164,7 @@ module mould_outer() {
     grow(thickness=t_shell, or=r_shell) {
       major2d();
       minor2d();
+      screw2d();
       body2d();
       wheel2d();
       slide2d();
@@ -169,6 +186,7 @@ module mould_top() {
             grow(thickness=t_shell, or=r_shell) {
               // major2d();
               // minor2d();
+              // screw2d();
               body2d();
               // wheel2d();
               // slide2d();
@@ -178,16 +196,37 @@ module mould_top() {
       }
     }
 
-    // layer 9 to 6.5
-    color(c="peru") {
-      translate(v=[0, 0, 6.5]) {
-        linear_extrude(h=9 - 6.5) {
+    // layer 9 to 8
+    color(c="darkorange") {
+      translate(v=[0, 0, 8]) {
+        linear_extrude(h=9 - 8) {
           difference() {
             mould_outer();
 
             grow(thickness=t_shell, or=r_shell) {
               // major2d();
               // minor2d();
+              // screw2d();
+              body2d();
+              wheel2d();
+              // slide2d();
+            }
+          }
+        }
+      }
+    }
+
+    // layer 8 to 6.5
+    color(c="peru") {
+      translate(v=[0, 0, 6.5]) {
+        linear_extrude(h=8 - 6.5) {
+          difference() {
+            mould_outer();
+
+            grow(thickness=t_shell, or=r_shell) {
+              // major2d();
+              // minor2d();
+              screw2d();
               body2d();
               wheel2d();
               // slide2d();
@@ -207,6 +246,7 @@ module mould_top() {
             grow(thickness=t_shell, or=r_shell) {
               major2d();
               minor2d();
+              screw2d();
               body2d();
               wheel2d();
               slide2d();
@@ -241,6 +281,7 @@ module mould_bottom() {
             grow(thickness=t_shell, or=r_shell) {
               // major2d();
               minor2d();
+              screw2d();
               body2d();
               wheel2d();
               // slide2d();
@@ -260,6 +301,7 @@ module mould_bottom() {
             grow(thickness=t_shell, or=r_shell) {
               major2d();
               minor2d();
+              screw2d();
               body2d();
               wheel2d();
               slide2d();
@@ -297,14 +339,16 @@ render() {
   translate(v=[10, 0, 0]) {
     back_half(s=800) {
       translate(v=[0, dy_mould, 0]) {
-        if (show_model) {
-          translate(v=[0, 0, t_mould_base]) {
-            model3d();
+        union() {
+          if (show_model) {
+            translate(v=[0, 0, t_mould_base]) {
+              model3d();
+            }
           }
-        }
 
-        if (show_mould) {
-          mould_bottom();
+          if (show_mould) {
+            mould_bottom();
+          }
         }
       }
     }
