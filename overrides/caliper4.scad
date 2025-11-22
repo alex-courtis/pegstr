@@ -11,10 +11,13 @@ r_mould_wall = t_mould_wall * 1;
 
 t_mould_base = 0.8;
 
-dy_mould = -120; //[-200:0.1:200]
+dy_cutoff = -120; //[-200:0.1:200]
+
+dz_top = 50; //[0:1:200]
 
 show_model = false;
-show_mould = true;
+show_top = true;
+show_bottom = true;
 
 pin_diam = 3.75;
 t_knuckle = 1.6;
@@ -207,7 +210,7 @@ module mould_outer() {
 
 module mould_top() {
 
-  translate(v=[0, 0, t_mould_base]) {
+  translate(v=[0, 0, t_mould_base + t_shell * 2]) {
 
     // base 9 + t_mould_base to 9
     color(c="blue") {
@@ -269,10 +272,10 @@ module mould_top() {
       }
     }
 
-    // padding 6.5 to 6.5 - t_shell
-    color(c="maroon") {
-      translate(v=[0, 0, 6.5 - t_shell]) {
-        linear_extrude(h=t_shell) {
+    // padding 6.5 to 6.5 - twice t_shell
+    color(c="black") {
+      translate(v=[0, 0, 6.5 - t_shell * 2]) {
+        linear_extrude(h=t_shell * 2) {
           difference() {
             mould_outer();
 
@@ -312,52 +315,49 @@ module mould_top() {
 
 module mould_bottom() {
 
-  translate(v=[0, 0, t_mould_base]) {
-
-    // base -t_mould_base to 0
-    color(c="blue") {
-      translate(v=[0, 0, -t_mould_base]) {
-        linear_extrude(h=t_mould_base) {
-          mould_outer();
-        }
+  // base pushes everything up by t_mould_base
+  color(c="blue") {
+    translate(v=[0, 0, 0]) {
+      linear_extrude(h=t_mould_base) {
+        mould_outer();
       }
     }
+  }
 
-    // layer 0 to 2.5
-    color(c="pink") {
-      translate(v=[0, 0, 0]) {
-        linear_extrude(h=2.5) {
-          difference() {
-            mould_outer();
+  // layer 0 to 2.5
+  color(c="pink") {
+    translate(v=[0, 0, t_mould_base + 0]) {
+      linear_extrude(h=2.5) {
+        difference() {
+          mould_outer();
 
-            grow(thickness=t_shell, or=r_shell) {
-              // major2d();
-              minor2d();
-              screw2d();
-              body2d();
-              wheel2d();
-              // slide2d();
-            }
+          grow(thickness=t_shell, or=r_shell) {
+            // major2d();
+            minor2d();
+            screw2d();
+            body2d();
+            wheel2d();
+            // slide2d();
           }
         }
       }
     }
+  }
 
-    // layer 2.5 to 6.5 
-    color(c="brown") {
-      translate(v=[0, 0, 2.5]) {
-        linear_extrude(h=6.5 - 2.5) {
-          difference() {
-            mould_outer();
+  // layer 2.5 to 6.5 
+  color(c="brown") {
+    translate(v=[0, 0, t_mould_base + 2.5]) {
+      linear_extrude(h=6.5 - 2.5) {
+        difference() {
+          mould_outer();
 
-            grow(thickness=t_shell, or=r_shell) {
-              major2d();
-              minor2d();
-              screw2d();
-              body2d();
-              wheel2d();
-              slide2d();
-            }
+          grow(thickness=t_shell, or=r_shell) {
+            major2d();
+            minor2d();
+            screw2d();
+            body2d();
+            wheel2d();
+            slide2d();
           }
         }
       }
@@ -383,41 +383,22 @@ module mould_bottom() {
 }
 
 render() {
-  // top
-  translate(v=[-10, 0, 0]) {
-    back_half(s=800) {
-      translate(v=[0, dy_mould, 0]) {
-        rotate(a=180, v=[0, 1, 0]) {
-          union() {
-            if (show_model) {
-              translate(v=[0, 0, t_mould_base]) {
-                model3d();
-              }
-            }
+  back_half(s=800) {
+    translate(v=[0, dy_cutoff, 0]) {
 
-            if (show_mould) {
-              mould_top();
-            }
-          }
+      if (show_model) {
+        translate(v=[0, 0, t_mould_base + t_shell]) {
+          model3d();
         }
       }
-    }
-  }
 
-  // bottom
-  translate(v=[10, 0, 0]) {
-    back_half(s=800) {
-      translate(v=[0, dy_mould, 0]) {
-        union() {
-          if (show_model) {
-            translate(v=[0, 0, t_mould_base]) {
-              model3d();
-            }
-          }
+      if (show_bottom) {
+        mould_bottom();
+      }
 
-          if (show_mould) {
-            mould_bottom();
-          }
+      if (show_top) {
+        translate(v=[0, 0, dz_top]) {
+          mould_top();
         }
       }
     }
