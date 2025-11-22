@@ -19,12 +19,9 @@ show_model = false;
 show_top = true;
 show_bottom = true;
 
-pin_diam = 3.75;
-t_knuckle = 1.6;
 l_hinge = 62 - 36;
-dy_hinge = t_shell;
-hinge_arm_height = t_knuckle * 1;
-hinge_overcentre = 1;
+d_pin = 3.75;
+t_knuckle = 1.6;
 
 module grow(thickness, or) {
   shell2d(thickness=thickness, or=or)
@@ -171,28 +168,24 @@ module model3d() {
   slide3d();
 }
 
-module hinge(offset, inner) {
-  translate(
-    v=[
-      0,
-      pin_diam / 2 + t_knuckle + dy_hinge,
-      // there's a slop or rounding of 0.01 coming from somewhere
-      0.01,
-    ]
-  ) {
-    knuckle_hinge(
-      length=l_hinge,
-      segs=7,
-      offset=offset,
-      arm_height=hinge_arm_height,
-      arm_angle=90,
-      clear_top=false,
-      pin_diam=pin_diam,
-      knuckle_diam=pin_diam + t_knuckle * 2,
-      inner=inner,
-      seg_ratio=1,
-    );
-  }
+// pin center is at y=0
+// length x>=0
+module hinge(inner, arm_height) {
+  knuckle_diam = d_pin + t_knuckle * 2;
+  knuckle_hinge(
+    length=l_hinge,
+    segs=5,
+    offset=knuckle_diam / 2 + t_knuckle,
+    arm_height=arm_height,
+    arm_angle=90,
+    clear_top=true,
+    spin=180,
+    pin_diam=d_pin,
+    knuckle_diam=knuckle_diam,
+    orient=BACK,
+    anchor=BOTTOM + RIGHT,
+    inner=inner,
+  );
 }
 
 module mould_outer() {
@@ -294,19 +287,17 @@ module mould_top() {
 
     // major [36, 236] to minor [62, 236]
     // offset y by t_shell inner and t_mould_wall outer
-    // offset z 6.5 - t_shell top 
-    color(c="olive") {
+    // offset z 6.5 - t_shell top * 2 
+    color(c="crimson") {
       translate(
         v=[
-          36 + l_hinge / 2,
+          36,
           236 + t_shell + t_mould_wall,
-          9 + t_mould_base,
+          6.5 - t_shell * 2,
         ]
       ) {
         mirror(v=[0, 0, 1]) {
-          bottom_half(z=9 - 6.5 + t_mould_base + t_shell + hinge_overcentre) {
-            hinge(offset=9 - 6.5 + t_shell + t_mould_base, inner=false);
-          }
+          hinge(inner=false, arm_height=t_mould_base);
         }
       }
     }
@@ -370,14 +361,12 @@ module mould_bottom() {
   color(c="olive") {
     translate(
       v=[
-        36 + l_hinge / 2,
+        36,
         236 + t_shell + t_mould_wall,
-        0,
+        t_mould_base + 2.5 + 4,
       ]
     ) {
-      bottom_half(z=6.5 + t_mould_base + hinge_overcentre) {
-        hinge(offset=6.5 + t_mould_base, inner=true);
-      }
+      hinge(inner=false, arm_height=t_mould_base + 6.5 - (d_pin / 2 + t_knuckle));
     }
   }
 }
