@@ -6,8 +6,11 @@ $fn = 200;
 t_shell = 0.5;
 r_shell = t_shell * 1;
 
-t_mould_wall = 1.6;
-r_mould_wall = t_mould_wall * 1;
+t_mould_wall_bottom = 3.0;
+r_mould_wall_bottom = t_mould_wall_bottom * 1;
+
+t_mould_wall_top = 4.5;
+r_mould_wall_top = t_mould_wall_top * 1;
 
 t_mould_base = 0.8;
 
@@ -25,6 +28,9 @@ t_knuckle = 2.0; // [0.4:0.1:8]
 gap_hinge = 0.2; // [0:0.01:3]
 r_hinge = d_pin / 2 + t_knuckle;
 seg_ratio_hinge = 1.25; // [0:0.01:10]
+y_offset_hinge = 0.5;
+
+assert(t_mould_wall_bottom <= t_mould_wall_top);
 
 module grow(thickness, or) {
   shell2d(thickness=thickness, or=or)
@@ -173,12 +179,12 @@ module model3d() {
 
 // pin center is at y=0
 // length x>=0
-module hinge(inner, arm_height, length) {
+module hinge(inner, arm_height, length, d_offset = 0) {
   knuckle_diam = d_pin + t_knuckle * 2;
   knuckle_hinge(
     length=length,
     segs=5,
-    offset=knuckle_diam / 2 + t_knuckle,
+    offset=knuckle_diam / 2 + d_offset + y_offset_hinge,
     arm_height=arm_height,
     arm_angle=90,
     clear_top=true,
@@ -194,8 +200,8 @@ module hinge(inner, arm_height, length) {
   );
 }
 
-module mould_outer() {
-  grow(thickness=t_mould_wall, or=r_mould_wall) {
+module mould_outer(thickness, or) {
+  grow(thickness=thickness, or=or) {
     grow(thickness=t_shell, or=r_shell) {
       major2d();
       minor2d();
@@ -216,7 +222,7 @@ module mould_top() {
       translate(v=[0, 0, 9 - 0]) {
         linear_extrude(h=t_mould_base) {
           difference() {
-            mould_outer();
+            mould_outer(t_mould_wall_top, r_mould_wall_top);
 
             grow(thickness=t_shell, or=r_shell) {
               // major2d();
@@ -236,7 +242,7 @@ module mould_top() {
       translate(v=[0, 0, 8]) {
         linear_extrude(h=9 - 8) {
           difference() {
-            mould_outer();
+            mould_outer(t_mould_wall_top, r_mould_wall_top);
 
             grow(thickness=t_shell, or=r_shell) {
               // major2d();
@@ -256,7 +262,7 @@ module mould_top() {
       translate(v=[0, 0, 6.5]) {
         linear_extrude(h=8 - 6.5) {
           difference() {
-            mould_outer();
+            mould_outer(t_mould_wall_top, r_mould_wall_top);
 
             grow(thickness=t_shell, or=r_shell) {
               // major2d();
@@ -276,7 +282,7 @@ module mould_top() {
       translate(v=[0, 0, 6.5 - t_shell]) {
         linear_extrude(h=t_shell) {
           difference() {
-            mould_outer();
+            mould_outer(t_mould_wall_top, r_mould_wall_top);
 
             grow(thickness=t_shell, or=r_shell) {
               major2d();
@@ -292,13 +298,13 @@ module mould_top() {
     }
 
     // major [36, 236] to minor [62, 236]
-    // offset y by t_shell inner and t_mould_wall outer
+    // offset y by t_shell inner and t_mould_wall_top outer
     // offset z to top of shell 6.5 - t_shell top * 2
     color(c="crimson") {
       translate(
         v=[
           36,
-          236 + t_shell + t_mould_wall,
+          236 + t_shell + t_mould_wall_top,
           6.5 - t_shell * 2,
         ]
       ) {
@@ -320,7 +326,7 @@ module mould_bottom() {
   color(c="blue") {
     translate(v=[0, 0, 0]) {
       linear_extrude(h=t_mould_base) {
-        mould_outer();
+        mould_outer(t_mould_wall_bottom, r_mould_wall_bottom);
       }
     }
   }
@@ -330,7 +336,7 @@ module mould_bottom() {
     translate(v=[0, 0, t_mould_base + 0]) {
       linear_extrude(h=2.5) {
         difference() {
-          mould_outer();
+          mould_outer(t_mould_wall_bottom, r_mould_wall_bottom);
 
           grow(thickness=t_shell, or=r_shell) {
             // major2d();
@@ -350,7 +356,7 @@ module mould_bottom() {
     translate(v=[0, 0, t_mould_base + 2.5]) {
       linear_extrude(h=6.5 - 2.5) {
         difference() {
-          mould_outer();
+          mould_outer(t_mould_wall_bottom, r_mould_wall_bottom);
 
           grow(thickness=t_shell, or=r_shell) {
             major2d();
@@ -366,13 +372,13 @@ module mould_bottom() {
   }
 
   // major [36, 236] to minor [62, 236]
-  // offset y by t_shell inner and t_mould_wall outer
+  // offset y by t_shell inner and t_mould_wall_bottom outer
   // offset z to top of shell 6.5
   color(c="olive") {
     translate(
       v=[
         36,
-        236 + t_shell + t_mould_wall,
+        236 + t_shell + t_mould_wall_bottom,
         t_mould_base + 2.5 + 4,
       ]
     ) {
@@ -380,6 +386,7 @@ module mould_bottom() {
         length=62 - 36,
         inner=false,
         arm_height=t_mould_base + 6.5 - r_hinge,
+        d_offset=t_mould_wall_top - t_mould_wall_bottom
       );
     }
   }
