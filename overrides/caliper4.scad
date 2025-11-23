@@ -9,10 +9,19 @@ r_shell = t_shell * 1;
 t_mould_wall_bottom = 3.0;
 r_mould_wall_bottom = t_mould_wall_bottom * 1;
 
-t_mould_wall_top = 4.5;
+t_mould_wall_top = 3.0;
 r_mould_wall_top = t_mould_wall_top * 1;
 
 t_mould_base = 0.8;
+
+t_clip = 2.4;
+y_clip = 135;
+dx_clip = 0.2;
+dy_clip_socket = 1.0;
+r_clip_pin = 1.6;
+r_clip_socket = 2.0;
+dx_clip_socket = -1.05;
+dx_clip_pin = -0.7;
 
 dy_cutoff = -120; // [-200:0.1:200]
 
@@ -318,76 +327,161 @@ module mould_top() {
       }
     }
   }
+
+  color(c="green") {
+    x = t_clip;
+    z = t_mould_base * 2 + 9 + t_shell * 2;
+
+    translate(
+      v=[
+        40 - x - t_mould_wall_bottom - t_shell - dx_clip,
+        0,
+        0,
+      ]
+    ) {
+      cube([x, y_clip, z]);
+      translate(v=[x + dx_clip_pin, 0, (t_mould_base + 6.5) / 2]) {
+        rotate(a=270, v=[1, 0, 0]) {
+          right_half(x=-dx_clip_pin, s=400) {
+            cylinder(r=r_clip_pin, h=y_clip);
+          }
+        }
+      }
+      translate(v=[0, 0, z - t_mould_base - 2.5 - t_shell]) {
+        cube([t_clip + dx_clip, y_clip, t_mould_base + 2.5 + t_shell]);
+      }
+    }
+
+    translate(
+      v=[
+        56 + t_shell + t_mould_wall_bottom + dx_clip,
+        0,
+        0,
+      ]
+    ) {
+      cube([x, y_clip, z]);
+      translate(v=[-dx_clip_pin, 0, (t_mould_base + 6.5) / 2]) {
+        rotate(a=270, v=[1, 0, 0]) {
+          left_half(x=dx_clip_pin, s=400) {
+            cylinder(r=r_clip_pin, h=y_clip);
+          }
+        }
+      }
+      translate(v=[-dx_clip, 0, z - t_mould_base - 2.5 - t_shell]) {
+        cube([x + dx_clip, y_clip, t_mould_base + 2.5 + t_shell]);
+      }
+    }
+  }
 }
 
 module mould_bottom() {
 
-  // base pushes everything up by t_mould_base
-  color(c="blue") {
-    translate(v=[0, 0, 0]) {
-      linear_extrude(h=t_mould_base) {
-        mould_outer(t_mould_wall_bottom, r_mould_wall_bottom);
-      }
-    }
-  }
-
-  // layer 0 to 2.5
-  color(c="pink") {
-    translate(v=[0, 0, t_mould_base + 0]) {
-      linear_extrude(h=2.5) {
-        difference() {
-          mould_outer(t_mould_wall_bottom, r_mould_wall_bottom);
-
-          grow(thickness=t_shell, or=r_shell) {
-            // major2d();
-            minor2d();
-            screw2d();
-            body2d();
-            wheel2d();
-            // slide2d();
+  difference() {
+    union() {
+      // base pushes everything up by t_mould_base
+      color(c="blue") {
+        translate(v=[0, 0, 0]) {
+          linear_extrude(h=t_mould_base) {
+            mould_outer(t_mould_wall_bottom, r_mould_wall_bottom);
           }
         }
       }
-    }
-  }
 
-  // layer 2.5 to 6.5
-  color(c="brown") {
-    translate(v=[0, 0, t_mould_base + 2.5]) {
-      linear_extrude(h=6.5 - 2.5) {
-        difference() {
-          mould_outer(t_mould_wall_bottom, r_mould_wall_bottom);
+      // layer 0 to 2.5
+      color(c="pink") {
+        translate(v=[0, 0, t_mould_base + 0]) {
+          linear_extrude(h=2.5) {
+            difference() {
+              mould_outer(t_mould_wall_bottom, r_mould_wall_bottom);
 
-          grow(thickness=t_shell, or=r_shell) {
-            major2d();
-            minor2d();
-            screw2d();
-            body2d();
-            wheel2d();
-            slide2d();
+              grow(thickness=t_shell, or=r_shell) {
+                // major2d();
+                minor2d();
+                screw2d();
+                body2d();
+                wheel2d();
+                // slide2d();
+              }
+            }
           }
         }
       }
-    }
-  }
 
-  // major [36, 236] to minor [62, 236]
-  // offset y by t_shell inner and t_mould_wall_bottom outer
-  // offset z to top of shell 6.5
-  color(c="olive") {
-    translate(
-      v=[
-        36,
-        236 + t_shell + t_mould_wall_bottom,
-        t_mould_base + 2.5 + 4,
-      ]
-    ) {
-      hinge(
-        length=62 - 36,
-        inner=false,
-        arm_height=t_mould_base + 6.5 - r_hinge,
-        d_offset=t_mould_wall_top - t_mould_wall_bottom
-      );
+      // layer 2.5 to 6.5
+      color(c="brown") {
+        translate(v=[0, 0, t_mould_base + 2.5]) {
+          linear_extrude(h=6.5 - 2.5) {
+            difference() {
+              mould_outer(t_mould_wall_bottom, r_mould_wall_bottom);
+
+              grow(thickness=t_shell, or=r_shell) {
+                major2d();
+                minor2d();
+                screw2d();
+                body2d();
+                wheel2d();
+                slide2d();
+              }
+            }
+          }
+        }
+      }
+
+      // major [36, 236] to minor [62, 236]
+      // offset y by t_shell inner and t_mould_wall_bottom outer
+      // offset z to top of shell 6.5
+      color(c="olive") {
+        translate(
+          v=[
+            36,
+            236 + t_shell + t_mould_wall_bottom,
+            t_mould_base + 2.5 + 4,
+          ]
+        ) {
+          hinge(
+            length=62 - 36,
+            inner=false,
+            arm_height=t_mould_base + 6.5 - r_hinge,
+            d_offset=t_mould_wall_top - t_mould_wall_bottom
+          );
+        }
+      }
+    }
+
+    color(c="orange") {
+      x = t_clip;
+      z = t_mould_base * 2 + 9 + t_shell * 2;
+
+      translate(
+        v=[
+          0,
+          0,
+          (t_mould_base + 6.5) / 2,
+        ]
+      ) {
+        translate(
+          v=[
+            40 - t_mould_wall_bottom - t_shell - dx_clip + dx_clip_socket,
+            0,
+            0,
+          ]
+        ) {
+          rotate(a=270, v=[1, 0, 0]) {
+            cylinder(r=r_clip_socket, h=y_clip + dy_clip_socket);
+          }
+        }
+        translate(
+          v=[
+            56 + t_mould_wall_bottom + t_shell + dx_clip - dx_clip_socket,
+            0,
+            0,
+          ]
+        ) {
+          rotate(a=270, v=[1, 0, 0]) {
+            cylinder(r=r_clip_socket, h=y_clip + dy_clip_socket);
+          }
+        }
+      }
     }
   }
 }
