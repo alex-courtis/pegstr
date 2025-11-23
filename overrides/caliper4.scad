@@ -112,13 +112,13 @@ module screw3d() {
       screw2d();
 }
 
-module body2d() {
+module body2d(dy_bottom = 0) {
   polygon(
     [
       [33, 221],
       [63, 221],
-      [63, 159],
-      [33, 159],
+      [63, 159 + dy_bottom],
+      [33, 159 + dy_bottom],
       [26, 168],
       [30, 221 - 35.5],
       [30, 221 - 12.2],
@@ -258,7 +258,7 @@ module mould_top() {
               // major2d();
               // minor2d();
               // screw2d();
-              body2d();
+              body2d(dy_bottom=-t_shell * 1); // step down to allow top to swing over body
               // wheel2d();
               // slide2d();
             }
@@ -278,7 +278,7 @@ module mould_top() {
               // major2d();
               // minor2d();
               // screw2d();
-              body2d();
+              body2d(dy_bottom=-t_shell * 1.25);
               wheel2d();
               // slide2d();
             }
@@ -298,7 +298,7 @@ module mould_top() {
               // major2d();
               // minor2d();
               screw2d();
-              body2d();
+              body2d(dy_bottom=-t_shell * 1.5);
               wheel2d();
               // slide2d();
             }
@@ -318,7 +318,7 @@ module mould_top() {
               major2d();
               minor2d();
               screw2d();
-              body2d();
+              body2d(dy_bottom=-t_shell * 1.75);
               wheel2d();
               slide2d();
             }
@@ -526,7 +526,7 @@ module mould_bottom() {
 
   color(c="limegreen") {
     if (show_pin) {
-      translate(v=[33.5, 159.0, 0]) {
+      translate(v=[33.5, 159.0, -10]) {
         rotate(a=-90, v=[1, 0, 0]) {
           mirror(v=[0, 1, 0]) {
             pegstr();
@@ -538,31 +538,63 @@ module mould_bottom() {
 }
 
 render() {
-  back_half(s=800) {
-    translate(v=[0, dy_cutoff, 0]) {
+  difference() {
+    union() {
+      back_half(s=800) {
+        translate(v=[0, dy_cutoff, 0]) {
 
-      if (show_model) {
-        translate(v=[0, 0, t_mould_base + t_shell + dz_model]) {
-          model3d();
+          if (show_model) {
+            translate(v=[0, 0, t_mould_base + t_shell + dz_model]) {
+              model3d();
+            }
+          }
+
+          if (show_bottom) {
+            mould_bottom();
+          }
+
+          if (show_top) {
+            translate(v=[0, 0, dz_top]) {
+              mould_top();
+            }
+          }
         }
       }
 
-      if (show_bottom) {
-        mould_bottom();
-      }
-
+      // gripping bit
       if (show_top) {
-        translate(v=[0, 0, dz_top]) {
-          mould_top();
+        color(c="steelblue") {
+          translate(
+            v=[
+              40 - t_shell - t_mould_wall_top - dx_clip - t_clip * 2,
+              -t_clip,
+              9 + t_mould_base + t_shell + dz_top,
+            ]
+          ) {
+            cube(
+              [
+                16 + 2 * (t_shell + t_mould_wall_top + t_clip + dx_clip) + t_clip * 2,
+                y_clip + dy_cutoff + t_clip,
+                t_mould_base + t_shell,
+              ]
+            );
+          }
         }
       }
     }
-  }
 
-  if (show_top) {
-    color(c="steelblue") {
-      translate(v=[40 - t_shell - t_mould_wall_top - dx_clip - t_clip * 2, -t_clip, 9 + t_mould_base + t_shell + dz_top]) {
-        cube([16 + 2 * (t_shell + t_mould_wall_top + t_clip + dx_clip) + t_clip * 2, y_clip + dy_cutoff + t_clip, t_mould_base + t_shell]);
+    // lining up holes for gluing
+    if(show_pin) {
+      translate(v=[0, dy_cutoff, -15]) {
+        translate(v=[38, 168, 0]) {
+          cylinder(r=1.5, h=30);
+        }
+        translate(v=[60, 168, 0]) {
+          cylinder(r=1.5, h=30);
+        }
+        translate(v=[49, 232, 0]) {
+          cylinder(r=1.5, h=30);
+        }
       }
     }
   }
