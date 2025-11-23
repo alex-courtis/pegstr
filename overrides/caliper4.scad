@@ -1,9 +1,9 @@
 include <BOSL2/std.scad>
 include <BOSL2/hinges.scad>
 
-// $fn = 200;
+$fn = 200;
 
-t_shell = 0.5;
+t_shell = 0.2;
 r_shell = t_shell * 1;
 
 t_mould_wall_bottom = 3.0;
@@ -16,12 +16,13 @@ t_mould_base = 0.8;
 
 t_clip = 1.6;
 y_clip = 135;
-dx_clip = 0.2;
+dx_clip = 0.0;
 dy_clip_socket = 1.0;
 r_clip_pin = 2.6;
-r_clip_socket = 2.0;
-dx_clip_socket = -1.05;
+r_clip_socket = 2.6;
+dx_clip_socket = -2.3;
 dx_clip_pin = -2.3;
+dz_clip_bottom = 2.45;
 
 dy_cutoff = -120; // [-200:0.1:200]
 
@@ -35,7 +36,7 @@ show_clip = true;
 show_hinge = true;
 show_pin = false;
 
-d_pin = 3.85; // [1:0.01:10]
+d_pin = 3.80; // [1:0.01:10]
 t_knuckle = 2.0; // [0.4:0.1:8]
 gap_hinge = 0.2; // [0:0.01:3]
 r_hinge = d_pin / 2 + t_knuckle;
@@ -363,7 +364,14 @@ module mould_top() {
           0,
         ]
       ) {
-        cube([x, y_clip, z]);
+        translate(v=[0, 0, dz_clip_bottom]) {
+          cube([x, y_clip, z - dz_clip_bottom]);
+        }
+        translate(v=[x / 2, 0, dz_clip_bottom]) {
+          rotate(a=270, v=[1, 0, 0]) {
+            cylinder(r=t_clip / 2, h=y_clip);
+          }
+        }
         translate(v=[x + dx_clip_pin, 0, (t_mould_base + 6.5) / 2]) {
           rotate(a=270, v=[1, 0, 0]) {
             right_half(x=-dx_clip_pin, s=400) {
@@ -383,7 +391,14 @@ module mould_top() {
           0,
         ]
       ) {
-        cube([x, y_clip, z]);
+        translate(v=[0, 0, dz_clip_bottom]) {
+          cube([x, y_clip, z - dz_clip_bottom]);
+        }
+        translate(v=[x / 2, 0, dz_clip_bottom]) {
+          rotate(a=270, v=[1, 0, 0]) {
+            cylinder(r=t_clip / 2, h=y_clip);
+          }
+        }
         translate(v=[-dx_clip_pin, 0, (t_mould_base + 6.5) / 2]) {
           rotate(a=270, v=[1, 0, 0]) {
             left_half(x=dx_clip_pin, s=400) {
@@ -561,7 +576,7 @@ render() {
         }
       }
 
-      // gripping bit
+      // gripping bits
       if (show_top) {
         color(c="steelblue") {
           translate(
@@ -581,10 +596,30 @@ render() {
           }
         }
       }
+
+      if (show_bottom) {
+        color(c="thistle") {
+          translate(
+            v=[
+              40 - t_shell - t_mould_wall_top - dx_clip - t_clip * 2,
+              -t_clip,
+              0,
+            ]
+          ) {
+            cube(
+              [
+                16 + 2 * (t_shell + t_mould_wall_top + t_clip + dx_clip) + t_clip * 2,
+                y_clip + dy_cutoff + t_clip,
+                t_mould_base + t_shell,
+              ]
+            );
+          }
+        }
+      }
     }
 
     // lining up holes for gluing
-    if(show_pin) {
+    if (show_pin) {
       translate(v=[0, dy_cutoff, -15]) {
         translate(v=[38, 168, 0]) {
           cylinder(r=1.5, h=30);
