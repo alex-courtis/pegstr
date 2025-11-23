@@ -11,17 +11,19 @@ r_mould_wall = t_mould_wall * 1;
 
 t_mould_base = 0.8;
 
-dy_cutoff = -120; //[-200:0.1:200]
+dy_cutoff = -120; // [-200:0.1:200]
 
-dz_top = 50; //[0:1:200]
+dz_top = 50; // [0:1:200]
+dz_model = 0; // [0:1:200]
 
 show_model = false;
 show_top = true;
 show_bottom = true;
 
-l_hinge = 62 - 36;
 d_pin = 3.75;
-t_knuckle = 1.6;
+t_knuckle = 2.0; // [0.4:0.1:8]
+gap_hinge = 0.4;
+r_hinge = d_pin / 2 + t_knuckle;
 
 module grow(thickness, or) {
   shell2d(thickness=thickness, or=or)
@@ -170,10 +172,10 @@ module model3d() {
 
 // pin center is at y=0
 // length x>=0
-module hinge(inner, arm_height) {
+module hinge(inner, arm_height, length) {
   knuckle_diam = d_pin + t_knuckle * 2;
   knuckle_hinge(
-    length=l_hinge,
+    length=length,
     segs=5,
     offset=knuckle_diam / 2 + t_knuckle,
     arm_height=arm_height,
@@ -185,6 +187,8 @@ module hinge(inner, arm_height) {
     orient=BACK,
     anchor=BOTTOM + RIGHT,
     inner=inner,
+    teardrop=true,
+    gap=gap_hinge,
   );
 }
 
@@ -265,10 +269,10 @@ module mould_top() {
       }
     }
 
-    // padding 6.5 to 6.5 - twice t_shell
+    // padding 6.5 to 6.5 - once t_shell
     color(c="black") {
-      translate(v=[0, 0, 6.5 - t_shell * 2]) {
-        linear_extrude(h=t_shell * 2) {
+      translate(v=[0, 0, 6.5 - t_shell]) {
+        linear_extrude(h=t_shell) {
           difference() {
             mould_outer();
 
@@ -287,7 +291,7 @@ module mould_top() {
 
     // major [36, 236] to minor [62, 236]
     // offset y by t_shell inner and t_mould_wall outer
-    // offset z 6.5 - t_shell top * 2 
+    // offset z to top of shell 6.5 - t_shell top * 2
     color(c="crimson") {
       translate(
         v=[
@@ -297,7 +301,11 @@ module mould_top() {
         ]
       ) {
         mirror(v=[0, 0, 1]) {
-          hinge(inner=false, arm_height=t_mould_base);
+          hinge(
+            length=62 - 36,
+            inner=true,
+            arm_height=9 - 6.5 + t_shell * 2 + t_mould_base - r_hinge
+          );
         }
       }
     }
@@ -335,7 +343,7 @@ module mould_bottom() {
     }
   }
 
-  // layer 2.5 to 6.5 
+  // layer 2.5 to 6.5
   color(c="brown") {
     translate(v=[0, 0, t_mould_base + 2.5]) {
       linear_extrude(h=6.5 - 2.5) {
@@ -357,7 +365,7 @@ module mould_bottom() {
 
   // major [36, 236] to minor [62, 236]
   // offset y by t_shell inner and t_mould_wall outer
-  // offset z 6.5 top 
+  // offset z to top of shell 6.5
   color(c="olive") {
     translate(
       v=[
@@ -366,7 +374,11 @@ module mould_bottom() {
         t_mould_base + 2.5 + 4,
       ]
     ) {
-      hinge(inner=false, arm_height=t_mould_base + 6.5 - (d_pin / 2 + t_knuckle));
+      hinge(
+        length=62 - 36,
+        inner=false,
+        arm_height=t_mould_base + 6.5 - r_hinge,
+      );
     }
   }
 }
@@ -376,7 +388,7 @@ render() {
     translate(v=[0, dy_cutoff, 0]) {
 
       if (show_model) {
-        translate(v=[0, 0, t_mould_base + t_shell]) {
+        translate(v=[0, 0, t_mould_base + t_shell + dz_model]) {
           model3d();
         }
       }
