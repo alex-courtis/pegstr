@@ -374,7 +374,7 @@ module mould_top() {
         }
         translate(v=[x + dx_clip_pin, 0, (t_mould_base + 6.5) / 2]) {
           rotate(a=270, v=[1, 0, 0]) {
-            right_half(x=-dx_clip_pin, s=400) {
+            right_half(x=-dx_clip_pin - 0.001, s=400) {
               cylinder(r=r_clip_pin, h=y_clip);
             }
           }
@@ -401,7 +401,7 @@ module mould_top() {
         }
         translate(v=[-dx_clip_pin, 0, (t_mould_base + 6.5) / 2]) {
           rotate(a=270, v=[1, 0, 0]) {
-            left_half(x=dx_clip_pin, s=400) {
+            left_half(x=dx_clip_pin + 0.001, s=400) {
               cylinder(r=r_clip_pin, h=y_clip);
             }
           }
