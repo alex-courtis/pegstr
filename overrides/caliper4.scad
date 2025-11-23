@@ -14,14 +14,14 @@ r_mould_wall_top = t_mould_wall_top * 1;
 
 t_mould_base = 0.8;
 
-t_clip = 2.4;
+t_clip = 1.6;
 y_clip = 135;
 dx_clip = 0.2;
 dy_clip_socket = 1.0;
-r_clip_pin = 1.6;
+r_clip_pin = 2.6;
 r_clip_socket = 2.0;
 dx_clip_socket = -1.05;
-dx_clip_pin = -0.7;
+dx_clip_pin = -2.3;
 
 dy_cutoff = -120; // [-200:0.1:200]
 
@@ -33,9 +33,9 @@ show_top = true;
 show_bottom = true;
 show_clip = true;
 show_hinge = true;
-show_pin = true;
+show_pin = false;
 
-d_pin = 3.75; // [1:0.01:10]
+d_pin = 3.85; // [1:0.01:10]
 t_knuckle = 2.0; // [0.4:0.1:8]
 gap_hinge = 0.2; // [0:0.01:3]
 r_hinge = d_pin / 2 + t_knuckle;
@@ -523,6 +523,18 @@ module mould_bottom() {
       }
     }
   }
+
+  color(c="limegreen") {
+    if (show_pin) {
+      translate(v=[33.5, 159.0, 0]) {
+        rotate(a=-90, v=[1, 0, 0]) {
+          mirror(v=[0, 1, 0]) {
+            pegstr();
+          }
+        }
+      }
+    }
+  }
 }
 
 render() {
@@ -543,6 +555,14 @@ render() {
         translate(v=[0, 0, dz_top]) {
           mould_top();
         }
+      }
+    }
+  }
+
+  if (show_top) {
+    color(c="steelblue") {
+      translate(v=[40 - t_shell - t_mould_wall_top - dx_clip - t_clip * 2, -t_clip, 9 + t_mould_base + t_shell + dz_top]) {
+        cube([16 + 2 * (t_shell + t_mould_wall_top + t_clip + dx_clip) + t_clip * 2, y_clip + dy_cutoff + t_clip, t_mould_base + t_shell]);
       }
     }
   }
