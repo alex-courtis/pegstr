@@ -20,10 +20,11 @@ show_model = false;
 show_top = true;
 show_bottom = true;
 
-d_pin = 3.75;
+d_pin = 3.75; // [1:0.01:10]
 t_knuckle = 2.0; // [0.4:0.1:8]
-gap_hinge = 0.4;
+gap_hinge = 0.2; // [0:0.01:3]
 r_hinge = d_pin / 2 + t_knuckle;
+seg_ratio_hinge = 1.25; // [0:0.01:10]
 
 module grow(thickness, or) {
   shell2d(thickness=thickness, or=or)
@@ -189,6 +190,7 @@ module hinge(inner, arm_height, length) {
     inner=inner,
     teardrop=true,
     gap=gap_hinge,
+    seg_ratio=seg_ratio_hinge,
   );
 }
 
