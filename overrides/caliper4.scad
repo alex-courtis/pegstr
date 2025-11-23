@@ -1,7 +1,7 @@
 include <BOSL2/std.scad>
 include <BOSL2/hinges.scad>
 
-$fn = 200;
+// $fn = 200;
 
 t_shell = 0.2;
 r_shell = t_shell * 1;
@@ -30,11 +30,11 @@ dz_top = 50; // [0:1:200]
 dz_model = 0; // [0:1:200]
 
 show_model = false;
-show_top = true;
+show_top = false;
 show_bottom = true;
 show_clip = true;
-show_hinge = true;
-show_pin = false;
+show_hinge = false;
+show_pin = true;
 
 d_pin = 3.80; // [1:0.01:10]
 t_knuckle = 2.0; // [0.4:0.1:8]
@@ -214,7 +214,7 @@ module hinge(inner, arm_height, length, d_offset = 0) {
 }
 
 module base_pin() {
-  extra_len = 0;
+  extra_len = 5;
   translate(
     v=[
       0,
@@ -227,7 +227,7 @@ module base_pin() {
     }
   }
   translate(v=[0, 0, 0]) {
-    cylinder(r=5.2 / 2, h=t_mould_base + 2.5 + 4 + extra_len, $fn=20);
+    cylinder(r=hook_size / 2, h=t_mould_base + 2.5 + 4 + extra_len, $fn=20);
   }
 }
 
@@ -541,7 +541,7 @@ module mould_bottom() {
 
   color(c="limegreen") {
     if (show_pin) {
-      translate(v=[33.5, 159.0, -10]) {
+      translate(v=[33.5, 153.975, -1.6 - 10]) {
         rotate(a=-90, v=[1, 0, 0]) {
           mirror(v=[0, 1, 0]) {
             pegstr();
@@ -597,7 +597,7 @@ render() {
         }
       }
 
-      if (show_bottom) {
+      if (show_bottom && !show_pin) {
         color(c="thistle") {
           translate(
             v=[
@@ -621,13 +621,10 @@ render() {
     // lining up holes for gluing
     if (show_pin) {
       translate(v=[0, dy_cutoff, -15]) {
-        translate(v=[38, 168, 0]) {
+        translate(v=[45, 168, 0]) {
           cylinder(r=1.5, h=30);
         }
-        translate(v=[60, 168, 0]) {
-          cylinder(r=1.5, h=30);
-        }
-        translate(v=[49, 232, 0]) {
+        translate(v=[54, 225, 0]) {
           cylinder(r=1.5, h=30);
         }
       }
