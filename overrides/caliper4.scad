@@ -1,7 +1,7 @@
 include <BOSL2/std.scad>
 include <BOSL2/hinges.scad>
 
-// $fn = 200;
+$fn = 200;
 
 t_shell = 0.5;
 r_shell = t_shell * 1;
@@ -31,9 +31,6 @@ dz_model = 0; // [0:1:200]
 show_model = false;
 show_top = true;
 show_bottom = true;
-show_clip = true;
-show_hinge = true;
-show_pin = true;
 
 d_pin = 3.75; // [1:0.01:10]
 t_knuckle = 2.0; // [0.4:0.1:8]
@@ -212,24 +209,6 @@ module hinge(inner, arm_height, length, d_offset = 0) {
   );
 }
 
-module base_pin() {
-  extra_len = 0;
-  translate(
-    v=[
-      0,
-      0,
-      t_mould_base + 2.5 + 4 + extra_len,
-    ]
-  ) {
-    rotate(a=-90) {
-      pin(clip=true);
-    }
-  }
-  translate(v=[0, 0, 0]) {
-    cylinder(r=5.2 / 2, h=t_mould_base + 2.5 + 4 + extra_len, $fn=20);
-  }
-}
-
 module mould_outer(thickness, or) {
   grow(thickness=thickness, or=or) {
     grow(thickness=t_shell, or=r_shell) {
@@ -327,73 +306,69 @@ module mould_top() {
       }
     }
 
-    if (show_hinge) {
-      // major [36, 236] to minor [62, 236]
-      // offset y by t_shell inner and t_mould_wall_top outer
-      // offset z to top of shell 6.5 - t_shell top * 2
-      color(c="crimson") {
-        translate(
-          v=[
-            36,
-            236 + t_shell + t_mould_wall_top,
-            6.5 - t_shell * 2,
-          ]
-        ) {
-          mirror(v=[0, 0, 1]) {
-            hinge(
-              length=62 - 36,
-              inner=true,
-              arm_height=9 - 6.5 + t_shell * 2 + t_mould_base - r_hinge
-            );
-          }
+    // major [36, 236] to minor [62, 236]
+    // offset y by t_shell inner and t_mould_wall_top outer
+    // offset z to top of shell 6.5 - t_shell top * 2
+    color(c="crimson") {
+      translate(
+        v=[
+          36,
+          236 + t_shell + t_mould_wall_top,
+          6.5 - t_shell * 2,
+        ]
+      ) {
+        mirror(v=[0, 0, 1]) {
+          hinge(
+            length=62 - 36,
+            inner=true,
+            arm_height=9 - 6.5 + t_shell * 2 + t_mould_base - r_hinge
+          );
         }
       }
     }
   }
 
-  if (show_clip) {
-    color(c="green") {
-      x = t_clip;
-      z = t_mould_base * 2 + 9 + t_shell * 2;
+  color(c="green") {
+    x = t_clip;
+    z = t_mould_base * 2 + 9 + t_shell * 2;
 
-      translate(
-        v=[
-          40 - x - t_mould_wall_bottom - t_shell - dx_clip,
-          0,
-          0,
-        ]
-      ) {
-        cube([x, y_clip, z]);
-        translate(v=[x + dx_clip_pin, 0, (t_mould_base + 6.5) / 2]) {
-          rotate(a=270, v=[1, 0, 0]) {
-            right_half(x=-dx_clip_pin, s=400) {
-              cylinder(r=r_clip_pin, h=y_clip);
-            }
+    translate(
+      v=[
+        40 - x - t_mould_wall_bottom - t_shell - dx_clip,
+        0,
+        0,
+      ]
+    ) {
+      cube([x, y_clip, z]);
+      translate(v=[x + dx_clip_pin, 0, (t_mould_base + 6.5) / 2]) {
+        rotate(a=270, v=[1, 0, 0]) {
+          right_half(x=-dx_clip_pin, s=400) {
+            cylinder(r=r_clip_pin, h=y_clip);
           }
-        }
-        translate(v=[0, 0, z - t_mould_base - 2.5 - t_shell]) {
-          cube([t_clip + dx_clip, y_clip, t_mould_base + 2.5 + t_shell]);
         }
       }
+      translate(v=[0, 0, z - t_mould_base - 2.5 - t_shell]) {
+        cube([t_clip + dx_clip, y_clip, t_mould_base + 2.5 + t_shell]);
+      }
+    }
 
-      translate(
-        v=[
-          56 + t_shell + t_mould_wall_bottom + dx_clip,
-          0,
-          0,
-        ]
-      ) {
-        cube([x, y_clip, z]);
-        translate(v=[-dx_clip_pin, 0, (t_mould_base + 6.5) / 2]) {
-          rotate(a=270, v=[1, 0, 0]) {
-            left_half(x=dx_clip_pin, s=400) {
-              cylinder(r=r_clip_pin, h=y_clip);
-            }
+    translate(
+      v=[
+        56 + t_shell + t_mould_wall_bottom + dx_clip,
+        0,
+        0,
+      ]
+    ) {
+      cube([x, y_clip, z]);
+      translate(v=[-dx_clip_pin, 0, (t_mould_base + 6.5) / 2]) {
+        rotate(a=270, v=[1, 0, 0]) {
+          left_half(x=dx_clip_pin, s=400) {
+            cylinder(r=r_clip_pin, h=y_clip);
           }
         }
-        translate(v=[-dx_clip, 0, z - t_mould_base - 2.5 - t_shell]) {
-          cube([x + dx_clip, y_clip, t_mould_base + 2.5 + t_shell]);
-        }
+      }
+      translate(v=[-dx_clip, 0, z - t_mould_base - 2.5 - t_shell]) {
+        cube([x + dx_clip, y_clip, t_mould_base + 2.5 + t_shell]);
       }
     }
   }
@@ -452,72 +427,58 @@ module mould_bottom() {
         }
       }
 
-      if (show_hinge) {
-        // major [36, 236] to minor [62, 236]
-        // offset y by t_shell inner and t_mould_wall_bottom outer
-        // offset z to top of shell 6.5
-        color(c="olive") {
-          translate(
-            v=[
-              36,
-              236 + t_shell + t_mould_wall_bottom,
-              t_mould_base + 2.5 + 4,
-            ]
-          ) {
-            hinge(
-              length=62 - 36,
-              inner=false,
-              arm_height=t_mould_base + 6.5 - r_hinge,
-              d_offset=t_mould_wall_top - t_mould_wall_bottom
-            );
-          }
-        }
-      }
-
-      if (show_pin) {
-        translate(v=[26.9, 206.43, 0]) {
-          base_pin();
-        }
-
-        translate(v=[66.1, 218.90, 0]) {
-          base_pin();
+      // major [36, 236] to minor [62, 236]
+      // offset y by t_shell inner and t_mould_wall_bottom outer
+      // offset z to top of shell 6.5
+      color(c="olive") {
+        translate(
+          v=[
+            36,
+            236 + t_shell + t_mould_wall_bottom,
+            t_mould_base + 2.5 + 4,
+          ]
+        ) {
+          hinge(
+            length=62 - 36,
+            inner=false,
+            arm_height=t_mould_base + 6.5 - r_hinge,
+            d_offset=t_mould_wall_top - t_mould_wall_bottom
+          );
         }
       }
     }
 
-    if (show_clip) {
-      color(c="orange") {
-        x = t_clip;
-        z = t_mould_base * 2 + 9 + t_shell * 2;
+    color(c="orange") {
+      x = t_clip;
+      z = t_mould_base * 2 + 9 + t_shell * 2;
 
+      translate(
+        v=[
+          0,
+          0,
+          (t_mould_base + 6.5) / 2,
+        ]
+      ) {
         translate(
           v=[
+            40 - t_mould_wall_bottom - t_shell - dx_clip + dx_clip_socket,
             0,
             0,
-            (t_mould_base + 6.5) / 2,
           ]
         ) {
-          translate(
-            v=[
-              40 - t_mould_wall_bottom - t_shell - dx_clip + dx_clip_socket,
-              0,
-              0,
-            ]
-          ) {
-            rotate(a=270, v=[1, 0, 0]) {
-              cylinder(r=r_clip_socket, h=y_clip + dy_clip_socket);
-            }
+          rotate(a=270, v=[1, 0, 0]) {
+            cylinder(r=r_clip_socket, h=y_clip + dy_clip_socket);
           }
-          translate(
-            v=[
-              56 + t_mould_wall_bottom + t_shell + dx_clip - dx_clip_socket,
-              0,
-              0,
-            ]
-          ) {
-            rotate(a=270, v=[1, 0, 0]) {
-              cylinder(r=r_clip_socket, h=y_clip + dy_clip_socket);
-            }
+        }
+        translate(
+          v=[
+            56 + t_mould_wall_bottom + t_shell + dx_clip - dx_clip_socket,
+            0,
+            0,
+          ]
+        ) {
+          rotate(a=270, v=[1, 0, 0]) {
+            cylinder(r=r_clip_socket, h=y_clip + dy_clip_socket);
           }
         }
       }
