@@ -3,15 +3,15 @@ include <BOSL2/hinges.scad>
 
 include <caliper-model.scad>
 
-$fn = 200;
+// $fn = 200;
 
 t_shell = 0.35;
 r_shell = t_shell * 1;
 
-t_mould_wall_bottom = 3.0;
+t_mould_wall_bottom = 3.5;
 r_mould_wall_bottom = t_mould_wall_bottom * 1;
 
-t_mould_wall_top = 3.0;
+t_mould_wall_top = 3.5;
 r_mould_wall_top = t_mould_wall_top * 1;
 
 t_mould_base = 0.8;
@@ -35,7 +35,7 @@ dz_pegs = -20; // [0:1:-100]
 show_model = true;
 show_top = true;
 show_bottom = true;
-show_clip = true;
+show_clip = false;
 show_pins = false;
 show_hinge = true;
 
@@ -74,7 +74,7 @@ module hinge(inner, arm_height, length, d_offset = 0) {
     teardrop=true,
     gap=gap_hinge,
     seg_ratio=seg_ratio_hinge,
-	clip = knuckle_diam / 2 + arm_height,
+    clip=knuckle_diam / 2 + arm_height,
   );
 }
 
@@ -288,12 +288,12 @@ module mould_bottom() {
               grow(thickness=t_shell, or=t_shell) {
                 // major2d();
                 screw2d();
-                body2d(dy_top=2 * t_shell, buttons=true);
+                body2d(dy_top=3 * t_shell, buttons=true);
                 wheel2d();
                 // slide2d();
               }
               grow(thickness=t_shell, or=0) {
-                minor2d(dx_left=-2 * t_shell, dxy_right=t_shell);
+                minor2d(dx_left=-3 * t_shell, dxy_right=t_shell);
               }
             }
           }
@@ -350,11 +350,11 @@ module mould_bottom() {
         z = 10;
         a = 25;
 
-        // bottom of major
+        // around the intersection of major and body
         #translate(
           v=[
-            33 - x - t_shell - t_mould_wall_bottom,
-            209 - y + t_shell,
+            33.15 - x - t_mould_wall_bottom,
+            209.5 - y,
             t_mould_base + 6.5,
           ]
         ) {
@@ -372,7 +372,7 @@ module mould_bottom() {
         #translate(
           v=[
             63 - x + t_shell + t_mould_wall_bottom,
-            220.5 - y + t_shell,
+            221.5 - y,
             t_mould_base + 6.5,
           ]
         ) {
@@ -480,7 +480,7 @@ render() {
           clip_puller(dz=9 + t_mould_base + t_shell + dz_top);
         }
       }
-      if (show_bottom) {
+      if (show_bottom && !show_pins) {
         color(c="thistle") {
           clip_puller(dz=0);
         }

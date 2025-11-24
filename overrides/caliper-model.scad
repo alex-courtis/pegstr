@@ -5,15 +5,15 @@ include <BOSL2/std.scad>
 module major2d(dxy_left = 0) {
   polygon(
     [
-      [0 + dxy_left, 222],
+      [0 + dxy_left, 221.5],
       [7 + dxy_left, 229 - dxy_left],
       [36 + dxy_left, 236],
       [46, 236],
-      [46, 221],
-      [33, 221],
+      [46, 221.5],
+      [33, 221.5],
       [33, 209],
       [7 + dxy_left, 215 + dxy_left],
-      [0 + dxy_left, 222],
+      [0 + dxy_left, 221.5],
     ]
   );
 }
@@ -33,9 +33,9 @@ module minor2d(dx_left = 0, dxy_right = 0, dy_bottom = 0) {
       [73 + dxy_right, 232 + dxy_right],
       [77 + dxy_right, 228.5],
       [73 + dxy_right, 225 - dxy_right],
-      [63, 221],
-      [63, 221 - dy_bottom],
-      [46 + dx_left, 221 - dy_bottom],
+      [63, 221.5],
+      [63, 221.5 - dy_bottom],
+      [46 + dx_left, 221.5 - dy_bottom],
       [46 + dx_left, 236],
     ]
   );
@@ -71,8 +71,8 @@ module body2d(dy_top = 0, dy_bottom = 0, buttons = false) {
   y2_button = buttons ? 209.7 : 0;
   polygon(
     [
-      [33, 221 + dy_top],
-      [63, 221 + dy_top],
+      [33, 221.5 + dy_top],
+      [63, 221.5 + dy_top],
       [63, 159 + dy_bottom],
       [33, 159 + dy_bottom],
       [33, 159 + dy_bottom],
@@ -80,7 +80,7 @@ module body2d(dy_top = 0, dy_bottom = 0, buttons = false) {
       [33, 183],
       [33 + dx_button, y1_button],
       [33 + dx_button, y2_button],
-      [33, 221],
+      [33, 221.5],
     ]
   );
 }
