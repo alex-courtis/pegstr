@@ -129,7 +129,7 @@ module slide3d() {
         slide2d();
 }
 
-module caliper_model3d() {
+module model3d() {
   major3d();
   minor3d();
   screw3d();
@@ -138,7 +138,7 @@ module caliper_model3d() {
   slide3d();
 }
 
-module caliper_model2d() {
+module model2d() {
   major2d();
   minor2d();
   screw2d();
