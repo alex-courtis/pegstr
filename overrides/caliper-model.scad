@@ -75,7 +75,7 @@ module body2d(dy_top = 0, dy_bottom = 0, buttons = false) {
       [63, 221 + dy_top],
       [63, 159 + dy_bottom],
       [33, 159 + dy_bottom],
-      [33, 159],
+      [33, 159 + dy_bottom],
       [26, 168],
       [33, 183],
       [33 + dx_button, y1_button],
