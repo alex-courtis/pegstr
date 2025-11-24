@@ -6,6 +6,7 @@ include <caliper-model.scad>
 // $fn = 200;
 
 t_shell = 0.35;
+// t_shell = 0.5; // for pegs
 r_shell = t_shell * 1;
 
 t_mould_wall_bottom = 3.5;
@@ -15,6 +16,7 @@ t_mould_wall_top = 3.5;
 r_mould_wall_top = t_mould_wall_top * 1;
 
 t_mould_base = 0.8;
+// t_mould_base = 1.6; // for pegs
 
 t_clip = 1.2;
 y_clip = 135;
@@ -347,63 +349,74 @@ module mould_bottom() {
       if (show_pins) {
         x = t_mould_wall_bottom;
         y = 10;
-        z1 = 7;
-        z2 = 5;
-        a = 35;
+        z = 8;
+        a = 25;
 
         // around the intersection of major and body
-        #translate(
+        translate(
           v=[
             33.15 - x - t_mould_wall_bottom,
-            210 - y,
+            209.72 - y,
             t_mould_base + 6.5,
           ]
         ) {
-          cuboid(
-            size=[x, y, z1],
-            rounding=1,
-            edges=[LEFT + FRONT, LEFT + BACK, RIGHT + FRONT, RIGHT + BACK],
-            anchor=LEFT + BOTTOM + FRONT,
-          );
-          translate(v=[0, 0, z1]) {
-            skew(ayz=a) {
-              cuboid(
-                size=[x, y, z2],
-                rounding=1,
-                except=[BOTTOM],
-                // edges=[LEFT+FRONT, LEFT+BACK, RIGHT + FRONT, RIGHT + BACK],
-                anchor=LEFT + BOTTOM + FRONT,
-              );
-            }
+          skew(ayz=a) {
+            cuboid(
+              size=[x, y, z],
+              rounding=1.75,
+              except=[BOTTOM],
+              anchor=LEFT + BOTTOM + FRONT,
+            );
           }
         }
 
         // bottom of minor
-        #translate(
+        translate(
           v=[
             63 - x + t_shell + t_mould_wall_bottom,
-            222 - y,
+            221.72 - y,
             t_mould_base + 6.5,
           ]
         ) {
-          cuboid(
-            size=[x, y, z1],
-            rounding=1,
-            edges=[LEFT + FRONT, LEFT + BACK, RIGHT + FRONT, RIGHT + BACK],
-            anchor=LEFT + BOTTOM + FRONT,
-          );
-          translate(v=[0, 0, z1]) {
-            skew(ayz=a) {
-              cuboid(
-                size=[x, y, z2],
-                rounding=1,
-                except=[BOTTOM],
-                // edges=[LEFT+FRONT, LEFT+BACK, RIGHT + FRONT, RIGHT + BACK],
-                anchor=LEFT + BOTTOM + FRONT,
-              );
-            }
+          skew(ayz=a) {
+            cuboid(
+              size=[x, y, z],
+              rounding=1.75,
+              except=[BOTTOM],
+              anchor=LEFT + BOTTOM + FRONT,
+            );
           }
         }
+      }
+    }
+
+    if (show_pins) {
+      translate(
+        v=[
+          -10,
+          221.50,
+          t_mould_base,
+        ]
+      ) {
+        cube(size=[45, 30, 6.5], center=false);
+      }
+      translate(
+        v=[
+          30.00 - t_shell,
+          201.50,
+          t_mould_base,
+        ]
+      ) {
+        cube(size=[30, 40, 6.5], center=false);
+      }
+      translate(
+        v=[
+          44.60,
+          228.55,
+          t_mould_base,
+        ]
+      ) {
+        cube(size=[60, 30, 6.5], center=false);
       }
     }
 
@@ -522,7 +535,7 @@ render() {
 
     // lining up holes for gluing
     if (show_pins) {
-      #translate(v=[0, dy_cutoff, dz_pegs * 1.5]) {
+      translate(v=[0, dy_cutoff, dz_pegs * 1.5]) {
         translate(v=[45, 168, 0]) {
           cylinder(r=1.5, h=-dz_pegs * 2);
         }
