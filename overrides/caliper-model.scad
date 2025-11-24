@@ -25,17 +25,18 @@ module major3d() {
         major2d();
 }
 
-module minor2d() {
+module minor2d(dx_left = 0, dy_bottom = 0) {
   polygon(
     [
-      [46, 236],
+      [46 + dx_left, 236],
       [62, 236],
       [73, 232],
       [77, 228.5],
       [73, 225],
       [63, 221],
-      [46, 221],
-      [46, 236],
+      [63, 221 - dy_bottom],
+      [46 + dx_left, 221 - dy_bottom],
+      [46 + dx_left, 236],
     ]
   );
 }
@@ -64,14 +65,14 @@ module screw3d() {
       screw2d();
 }
 
-module body2d(dy_bottom = 0, buttons = false) {
+module body2d(dy_top = 0, dy_bottom = 0, buttons = false) {
   dx_button = buttons ? -3 : 0;
   y1_button = buttons ? 186 : 0;
   y2_button = buttons ? 209.7 : 0;
   polygon(
     [
-      [33, 221],
-      [63, 221],
+      [33, 221 + dy_top],
+      [63, 221 + dy_top],
       [63, 159 + dy_bottom],
       [33, 159 + dy_bottom],
       [33, 159],
