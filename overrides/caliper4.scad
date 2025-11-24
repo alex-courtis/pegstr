@@ -347,24 +347,34 @@ module mould_bottom() {
       if (show_pins) {
         x = t_mould_wall_bottom;
         y = 10;
-        z = 10;
-        a = 25;
+        z1 = 7;
+        z2 = 5;
+        a = 35;
 
         // around the intersection of major and body
         #translate(
           v=[
             33.15 - x - t_mould_wall_bottom,
-            209.5 - y,
+            210 - y,
             t_mould_base + 6.5,
           ]
         ) {
-          skew(ayz=a) {
-            cuboid(
-              size=[x, y, z],
-              rounding=1,
-              except=[BOTTOM],
-              anchor=LEFT + BOTTOM + FRONT,
-            );
+          cuboid(
+            size=[x, y, z1],
+            rounding=1,
+            edges=[LEFT + FRONT, LEFT + BACK, RIGHT + FRONT, RIGHT + BACK],
+            anchor=LEFT + BOTTOM + FRONT,
+          );
+          translate(v=[0, 0, z1]) {
+            skew(ayz=a) {
+              cuboid(
+                size=[x, y, z2],
+                rounding=1,
+                except=[BOTTOM],
+                // edges=[LEFT+FRONT, LEFT+BACK, RIGHT + FRONT, RIGHT + BACK],
+                anchor=LEFT + BOTTOM + FRONT,
+              );
+            }
           }
         }
 
@@ -372,17 +382,26 @@ module mould_bottom() {
         #translate(
           v=[
             63 - x + t_shell + t_mould_wall_bottom,
-            221.5 - y,
+            222 - y,
             t_mould_base + 6.5,
           ]
         ) {
-          skew(ayz=a) {
-            cuboid(
-              size=[x, y, z],
-              rounding=1,
-              except=[BOTTOM],
-              anchor=LEFT + BOTTOM + FRONT,
-            );
+          cuboid(
+            size=[x, y, z1],
+            rounding=1,
+            edges=[LEFT + FRONT, LEFT + BACK, RIGHT + FRONT, RIGHT + BACK],
+            anchor=LEFT + BOTTOM + FRONT,
+          );
+          translate(v=[0, 0, z1]) {
+            skew(ayz=a) {
+              cuboid(
+                size=[x, y, z2],
+                rounding=1,
+                except=[BOTTOM],
+                // edges=[LEFT+FRONT, LEFT+BACK, RIGHT + FRONT, RIGHT + BACK],
+                anchor=LEFT + BOTTOM + FRONT,
+              );
+            }
           }
         }
       }
