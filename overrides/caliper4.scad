@@ -343,6 +343,49 @@ module mould_bottom() {
           }
         }
       }
+
+      if (show_pins) {
+        x = t_mould_wall_bottom;
+        y = 10;
+        z = 10;
+        a = 25;
+
+        // bottom of major
+        #translate(
+          v=[
+            33 - x - t_shell - t_mould_wall_bottom,
+            209 - y + t_shell,
+            t_mould_base + 6.5,
+          ]
+        ) {
+          skew(ayz=a) {
+            cuboid(
+              size=[x, y, z],
+              rounding=1,
+              except=[BOTTOM],
+              anchor=LEFT + BOTTOM + FRONT,
+            );
+          }
+        }
+
+        // bottom of minor
+        #translate(
+          v=[
+            63 - x + t_shell + t_mould_wall_bottom,
+            220.5 - y + t_shell,
+            t_mould_base + 6.5,
+          ]
+        ) {
+          skew(ayz=a) {
+            cuboid(
+              size=[x, y, z],
+              rounding=1,
+              except=[BOTTOM],
+              anchor=LEFT + BOTTOM + FRONT,
+            );
+          }
+        }
+      }
     }
 
     if (show_clip) {
