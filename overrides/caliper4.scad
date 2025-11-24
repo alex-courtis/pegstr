@@ -3,7 +3,7 @@ include <BOSL2/hinges.scad>
 
 include <caliper-model.scad>
 
-// $fn = 200;
+$fn = 200;
 
 t_shell = 0.35;
 r_shell = t_shell * 1;
@@ -36,8 +36,8 @@ show_model = true;
 show_top = true;
 show_bottom = true;
 show_clip = true;
-show_pins = true;
-show_hinge = false;
+show_pins = false;
+show_hinge = true;
 
 d_pin = 3.80; // [1:0.01:10]
 t_knuckle = 2.0; // [0.4:0.1:8]
@@ -229,8 +229,8 @@ module mould_top() {
             }
           }
         }
-        translate(v=[0, 0, z - t_mould_base - 2.5 - t_shell]) {
-          cube([t_clip + dx_clip, y_clip, t_mould_base + 2.5 + t_shell]);
+        translate(v=[0, 0, z - t_mould_base - 2.5 - t_shell * 2]) {
+          cube([t_clip + dx_clip, y_clip, t_mould_base + 2.5 + t_shell * 2]);
         }
       }
 
@@ -256,8 +256,8 @@ module mould_top() {
             }
           }
         }
-        translate(v=[-dx_clip, 0, z - t_mould_base - 2.5 - t_shell]) {
-          cube([x + dx_clip, y_clip, t_mould_base + 2.5 + t_shell]);
+        translate(v=[-dx_clip, 0, z - t_mould_base - 2.5 - t_shell * 2]) {
+          cube([x + dx_clip, y_clip, t_mould_base + 2.5 + t_shell * 2]);
         }
       }
     }
