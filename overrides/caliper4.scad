@@ -62,7 +62,7 @@ module hinge(inner, arm_height, length, d_offset = 0) {
     length=length,
     segs=5,
     offset=knuckle_diam / 2 + d_offset + y_offset_hinge,
-    arm_height=arm_height,
+    arm_height=arm_height + knuckle_diam / 2,
     arm_angle=90,
     clear_top=true,
     spin=180,
@@ -74,6 +74,7 @@ module hinge(inner, arm_height, length, d_offset = 0) {
     teardrop=true,
     gap=gap_hinge,
     seg_ratio=seg_ratio_hinge,
+	clip = knuckle_diam / 2 + arm_height,
   );
 }
 
