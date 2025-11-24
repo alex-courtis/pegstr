@@ -170,26 +170,26 @@ module mould_top() {
       }
     }
 
-    // major [36, 236] to minor [62, 236]
-    // offset y by t_shell inner and t_mould_wall_top outer
-    // offset z to top of shell 6.5 - t_shell top * 2
-    color(c="crimson") {
-      translate(
-        v=[
-          36,
-          236 + t_shell + t_mould_wall_top,
-          6.5 - t_shell * 2,
-        ]
-      ) {
-        mirror(v=[0, 0, 1]) {
-          hinge(
-            length=62 - 36,
-            inner=true,
-            arm_height=9 - 6.5 + t_shell * 2 + t_mould_base - r_hinge
-          );
-        }
-      }
-    }
+    // // major [36, 236] to minor [62, 236]
+    // // offset y by t_shell inner and t_mould_wall_top outer
+    // // offset z to top of shell 6.5 - t_shell top * 2
+    // color(c="crimson") {
+    //   translate(
+    //     v=[
+    //       36,
+    //       236 + t_shell + t_mould_wall_top,
+    //       6.5 - t_shell * 2,
+    //     ]
+    //   ) {
+    //     mirror(v=[0, 0, 1]) {
+    //       hinge(
+    //         length=62 - 36,
+    //         inner=true,
+    //         arm_height=9 - 6.5 + t_shell * 2 + t_mould_base - r_hinge
+    //       );
+    //     }
+    //   }
+    // }
   }
 
   color(c="green") {
@@ -238,6 +238,19 @@ module mould_top() {
   }
 }
 
+module mould_outer_bottom(thickness, or) {
+  grow(thickness=thickness, or=or) {
+    grow(thickness=t_shell, or=r_shell) {
+      major2d(dxy_left=-t_shell);
+      minor2d(dxy_right=t_shell);
+      screw2d();
+      body2d(buttons=true);
+      wheel2d();
+	  slide2d();
+    }
+  }
+}
+
 module mould_bottom() {
 
   difference() {
@@ -246,7 +259,7 @@ module mould_bottom() {
       color(c="blue") {
         translate(v=[0, 0, 0]) {
           linear_extrude(h=t_mould_base) {
-            mould_outer(t_mould_wall_bottom, r_mould_wall_bottom);
+            mould_outer_bottom(t_mould_wall_bottom, r_mould_wall_bottom);
           }
         }
       }
@@ -256,13 +269,13 @@ module mould_bottom() {
         translate(v=[0, 0, t_mould_base + 0]) {
           linear_extrude(h=2.5) {
             difference() {
-              mould_outer(t_mould_wall_bottom, r_mould_wall_bottom);
+              mould_outer_bottom(t_mould_wall_bottom, r_mould_wall_bottom);
 
-              grow(thickness=t_shell, or=r_shell) {
+              grow(thickness=t_shell, or=0) {
                 // major2d();
-                minor2d();
+                minor2d(dx_left=-2 * t_shell, dxy_right=t_shell);
                 screw2d();
-                body2d();
+                body2d(dy_top=2 * t_shell, buttons=true);
                 wheel2d();
                 // slide2d();
               }
@@ -276,13 +289,13 @@ module mould_bottom() {
         translate(v=[0, 0, t_mould_base + 2.5]) {
           linear_extrude(h=6.5 - 2.5) {
             difference() {
-              mould_outer(t_mould_wall_bottom, r_mould_wall_bottom);
+              mould_outer_bottom(t_mould_wall_bottom, r_mould_wall_bottom);
 
-              grow(thickness=t_shell, or=r_shell) {
-                major2d();
-                minor2d();
+              grow(thickness=t_shell, or=0) {
+                major2d(dxy_left=-t_shell);
+                minor2d(dxy_right=t_shell);
                 screw2d();
-                body2d();
+                body2d(buttons=true);
                 wheel2d();
                 slide2d();
               }
@@ -394,13 +407,12 @@ render() {
     }
   }
 
-  // gripping bits
+  // pullers
   if (show_top) {
     color(c="steelblue") {
       clip_puller(dz=9 + t_mould_base + t_shell + dz_top);
     }
   }
-
   if (show_bottom) {
     color(c="thistle") {
       clip_puller(dz=0);

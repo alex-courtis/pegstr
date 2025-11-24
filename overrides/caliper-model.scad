@@ -2,18 +2,18 @@ include <BOSL2/std.scad>
 
 // $fn = 200;
 
-module major2d() {
+module major2d(dxy_left = 0) {
   polygon(
     [
-      [0, 222],
-      [7, 229],
-      [36, 236],
+      [0 + dxy_left, 222],
+      [7 + dxy_left, 229 - dxy_left],
+      [36 + dxy_left, 236],
       [46, 236],
       [46, 221],
       [33, 221],
       [33, 209],
-      [7, 215],
-      [0, 222],
+      [7 + dxy_left, 215 + dxy_left],
+      [0 + dxy_left, 222],
     ]
   );
 }
@@ -25,14 +25,14 @@ module major3d() {
         major2d();
 }
 
-module minor2d(dx_left = 0, dy_bottom = 0) {
+module minor2d(dx_left = 0, dxy_right = 0, dy_bottom = 0) {
   polygon(
     [
       [46 + dx_left, 236],
-      [62, 236],
-      [73, 232],
-      [77, 228.5],
-      [73, 225],
+      [62 + dxy_right, 236],
+      [73 + dxy_right, 232 + dxy_right],
+      [77 + dxy_right, 228.5],
+      [73 + dxy_right, 225 - dxy_right],
       [63, 221],
       [63, 221 - dy_bottom],
       [46 + dx_left, 221 - dy_bottom],
