@@ -3,7 +3,7 @@ include <BOSL2/hinges.scad>
 
 include <caliper-model.scad>
 
-// $fn = 200;
+$fn = 200;
 
 t_shell = 0.5;
 r_shell = t_shell * 1;
@@ -27,14 +27,15 @@ dx_clip_pin = -0.7;
 
 dy_cutoff = -120; // [-200:0.1:200]
 
-dz_top = 50; // [0:1:200]
+// dz_top = 50; // [0:1:200]
+dz_top = 0; // [0:1:200]
 dz_model = 0; // [0:1:200]
 
 show_model = false;
 show_top = true;
 show_bottom = true;
 
-d_pin = 3.75; // [1:0.01:10]
+d_pin = 3.80; // [1:0.01:10]
 t_knuckle = 2.0; // [0.4:0.1:8]
 gap_hinge = 0.2; // [0:0.01:3]
 r_hinge = d_pin / 2 + t_knuckle;
@@ -349,6 +350,28 @@ module mould_bottom() {
   }
 }
 
+module clip_puller(dz) {
+
+  // across slide 40 - 56
+  x = 2 * (t_shell + t_mould_wall_top + dx_clip + t_clip + t_clip);
+
+  translate(
+    v=[
+      40 - x / 2,
+      -t_clip,
+      dz,
+    ]
+  ) {
+    cube(
+      [
+        56 - 40 + x,
+        y_clip + dy_cutoff + t_clip,
+        t_mould_base + t_shell,
+      ]
+    );
+  }
+}
+
 render() {
   back_half(s=800) {
     translate(v=[0, dy_cutoff, 0]) {
@@ -368,6 +391,19 @@ render() {
           mould_top();
         }
       }
+    }
+  }
+
+  // gripping bits
+  if (show_top) {
+    color(c="steelblue") {
+      clip_puller(dz=9 + t_mould_base + t_shell + dz_top);
+    }
+  }
+
+  if (show_bottom) {
+    color(c="thistle") {
+      clip_puller(dz=0);
     }
   }
 }
