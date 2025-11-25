@@ -5,18 +5,20 @@ include <caliper-model.scad>
 
 // $fn = 200;
 
-t_shell = 0.35;
-// t_shell = 0.5; // for pegs
+// t_shell = 0.35;
+t_shell = 0.45; // for pegs
 r_shell = t_shell * 1;
 
-t_mould_wall_bottom = 3.5;
+// t_mould_wall_bottom = 3.0;
+t_mould_wall_bottom = 3.5; // for pegs
 r_mould_wall_bottom = t_mould_wall_bottom * 1;
 
-t_mould_wall_top = 3.5;
+// t_mould_wall_top = 3.0;
+t_mould_wall_top = 3.5; // for pegs
 r_mould_wall_top = t_mould_wall_top * 1;
 
-t_mould_base = 0.8;
-// t_mould_base = 1.6; // for pegs
+// t_mould_base = 0.8;
+t_mould_base = 2.0; // for pegs
 
 t_clip = 1.2;
 y_clip = 135;
@@ -34,12 +36,12 @@ dz_top = 40; // [0:1:200]
 dz_model = 20; // [0:1:200]
 dz_pegs = -20; // [0:1:-100]
 
-show_model = true;
-show_top = true;
+show_model = false;
+show_top = false;
 show_bottom = true;
 show_clip = false;
-show_pins = false;
-show_hinge = true;
+show_pins = true;
+show_hinge = false;
 
 d_pin = 3.80; // [1:0.01:10]
 t_knuckle = 2.0; // [0.4:0.1:8]
@@ -289,9 +291,9 @@ module mould_bottom() {
 
               grow(thickness=t_shell, or=t_shell) {
                 // major2d();
-                screw2d();
-                body2d(dy_top=3 * t_shell, buttons=true);
-                wheel2d();
+                screw2d(dxy_right=(show_pins ? 2 * t_shell : 0));
+                body2d(dy_top=3 * t_shell, buttons=true, dy_bottom=(show_pins ? -2 * t_shell : 0));
+                wheel2d(dr=(show_pins ? 2 * t_shell : 0));
                 // slide2d();
               }
               grow(thickness=t_shell, or=0) {
@@ -310,9 +312,9 @@ module mould_bottom() {
               mould_outer(t_mould_wall_bottom, r_mould_wall_bottom);
 
               grow(thickness=t_shell, or=t_shell) {
-                screw2d();
-                body2d(buttons=true);
-                wheel2d();
+                screw2d(dxy_right=(show_pins ? 2 * t_shell : 0));
+                body2d(buttons=true, dy_bottom=(show_pins ? -2 * t_shell : 0));
+                wheel2d(dr=(show_pins ? 2 * t_shell : 0));
                 slide2d();
               }
               grow(thickness=t_shell, or=0) {
@@ -355,15 +357,15 @@ module mould_bottom() {
         // around the intersection of major and body
         translate(
           v=[
-            33.15 - x - t_mould_wall_bottom,
-            209.72 - y,
+            30.0 - x - t_shell,
+            210.25 - y - t_shell,
             t_mould_base + 6.5,
           ]
         ) {
           skew(ayz=a) {
             cuboid(
               size=[x, y, z],
-              rounding=1.75,
+              rounding=t_mould_wall_bottom / 2,
               except=[BOTTOM],
               anchor=LEFT + BOTTOM + FRONT,
             );
@@ -374,14 +376,14 @@ module mould_bottom() {
         translate(
           v=[
             63 - x + t_shell + t_mould_wall_bottom,
-            221.72 - y,
+            222.25 - y - t_shell,
             t_mould_base + 6.5,
           ]
         ) {
           skew(ayz=a) {
             cuboid(
               size=[x, y, z],
-              rounding=1.75,
+              rounding=t_mould_wall_bottom / 2,
               except=[BOTTOM],
               anchor=LEFT + BOTTOM + FRONT,
             );
@@ -391,15 +393,17 @@ module mould_bottom() {
     }
 
     if (show_pins) {
+      // cut top of major
       translate(
         v=[
           -10,
           221.50,
-          t_mould_base,
+          t_mould_base + 2.5,
         ]
       ) {
-        cube(size=[45, 30, 6.5], center=false);
+        cube(size=[45, 30, 4], center=false);
       }
+      // trim major cutout
       translate(
         v=[
           30.00 - t_shell,
@@ -409,6 +413,7 @@ module mould_bottom() {
       ) {
         cube(size=[30, 40, 6.5], center=false);
       }
+      // cut top of minor
       translate(
         v=[
           44.60,
@@ -520,27 +525,31 @@ render() {
 
       if (show_pins) {
         color(c="limegreen") {
-          translate(v=[0, dy_cutoff, 0]) {
-            translate(v=[31.5, 154.425, -wall_thickness + dz_pegs]) {
-              rotate(a=-90, v=[1, 0, 0]) {
-                mirror(v=[0, 1, 0]) {
-                  pegstr();
-                }
+          translate(v=[31.5, 236 + dy_cutoff - tz + t_shell + t_mould_wall_bottom, -wall_thickness + dz_pegs]) {
+            rotate(a=-90, v=[1, 0, 0]) {
+              mirror(v=[0, 1, 0]) {
+                pegstr();
               }
             }
           }
         }
       }
     }
-
     // lining up holes for gluing
     if (show_pins) {
-      translate(v=[0, dy_cutoff, dz_pegs * 1.5]) {
-        translate(v=[45, 168, 0]) {
-          cylinder(r=1.5, h=-dz_pegs * 2);
+      z = wall_thickness - dz_pegs + t_mould_base;
+      translate(v=[0, dy_cutoff, -z + t_mould_base]) {
+        translate(v=[49, 164, 0]) {
+          cylinder(r=1.5, h=z);
         }
-        translate(v=[54, 225, 0]) {
-          cylinder(r=1.5, h=-dz_pegs * 2);
+        translate(v=[40, (233 + 164) / 2, 0]) {
+          cylinder(r=1.5, h=z);
+        }
+        translate(v=[57, (233 + 164) / 2, 0]) {
+          cylinder(r=1.5, h=z);
+        }
+        translate(v=[49, 233, 0]) {
+          cylinder(r=1.5, h=z);
         }
       }
     }

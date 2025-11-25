@@ -47,14 +47,14 @@ module minor3d() {
       minor2d();
 }
 
-module screw2d() {
+module screw2d(dxy_right = 0) {
   polygon(
     [
-      [63, 193],
-      [70, 193],
-      [70, 185.5],
-      [63, 185.5],
-      [63, 193],
+      [63, 193 + dxy_right],
+      [70 + dxy_right, 193 + dxy_right],
+      [70 + dxy_right, 185.5 - dxy_right],
+      [63, 185.5 - dxy_right],
+      [63, 193 + dxy_right],
     ]
   );
 }
@@ -91,9 +91,9 @@ module body3d() {
       body2d();
 }
 
-module wheel2d() {
+module wheel2d(dr = 0) {
   translate(v=[34, 152.5])
-    circle(r=5.875);
+    circle(r=5.875+ dr);
   polygon(
     [
       [32.5, 159],

@@ -1868,12 +1868,12 @@
             "holder_offset": "0",
             "holder_sides_fn": "200",
             "holder_x_count": "1",
-            "holder_x_size": "28.780000000000001",
+            "holder_x_size": "10.950000000000001",
             "holder_x_spacing": "0",
             "holder_y_count": "0",
             "holder_y_size": "1",
             "holder_z_size": "82.543000000000006",
-            "hole_size": "6.1500000000000004",
+            "hole_size": "6.25",
             "hole_spacing": "25",
             "hook_size": "5.5",
             "pin_extra_len": "4",
@@ -1901,7 +1901,7 @@
             "strength_factor": "0.66000000000000003",
             "taper_ratio_x": "1",
             "taper_ratio_y": "1",
-            "wall_thickness": "1.6000000000000001"
+            "wall_thickness": "12"
         }
     }
 }
