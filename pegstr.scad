@@ -614,3 +614,4 @@ pegstr();
 // include <overrides/drill-bits-conical.scad>
 // include <overrides/caliper3.scad>
 // include <overrides/screwdrivers.scad>
+// include <overrides/caliper4.scad>
