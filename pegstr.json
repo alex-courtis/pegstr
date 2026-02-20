@@ -2077,7 +2077,7 @@
             "closed_bottom": "1.2",
             "closed_bottom_factor": "1",
             "closed_bottom_lip": "0",
-            "corner_radius": "5.8200000000000003",
+            "corner_radius": "7.0099999999999998",
             "flatten_bottom": "true",
             "flatten_bottom_dz": "0.3985000000000003",
             "flatten_front": "false",
@@ -2092,10 +2092,10 @@
             "holder_offset": "0",
             "holder_sides_fn": "200",
             "holder_x_count": "3",
-            "holder_x_size": "18",
+            "holder_x_size": "19.760000000000002",
             "holder_x_spacing": "0",
             "holder_y_count": "1",
-            "holder_y_size": "22",
+            "holder_y_size": "23.5",
             "holder_z_size": "58.326999999999998",
             "hole_size": "5.9500000000000002",
             "hole_spacing": "25",
@@ -2123,8 +2123,8 @@
             "screwdrivers_show_holder": "true",
             "screwdrivers_show_model": "true",
             "strength_factor": "0.12047000000000001",
-            "taper_ratio_x": "0.75",
-            "taper_ratio_y": "0.75",
+            "taper_ratio_x": "0.95999999999999996",
+            "taper_ratio_y": "0.94000000000000006",
             "wall_thickness": "0.80000000000000004"
         }
     }
